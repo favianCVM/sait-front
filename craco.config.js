@@ -1,11 +1,19 @@
-const path = require("path");
+const aliases = require(`./src/config/aliases`);
+
+const SRC = './src'
 
 module.exports = {
   webpack: {
     resolve: { 
-      alias: {
-        "@app": path.resolve(__dirname, "src/"),
-      }
+      alias: aliases(SRC)
     }    
-  }
+  },
+  style: {
+    postcss: {
+      plugins: [
+        require('tailwindcss'),
+        require('autoprefixer'),
+      ],
+    },
+  },
 };
