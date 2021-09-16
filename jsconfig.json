@@ -5,6 +5,7 @@
     "paths": {
       "@pages/*": ["pages/*"],
       "@components/*": ["components/*"],
+      "@containers/*": ["containers/*"],
       "@utils/*": ["utils/*"],
       "@reducers/*": ["redux/reducers/*"],
       "@actions/*": ["redux/actions/*"],
