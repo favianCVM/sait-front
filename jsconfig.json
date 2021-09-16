@@ -8,7 +8,7 @@
       "@utils/*": ["utils/*"],
       "@reducers/*": ["redux/reducers/*"],
       "@actions/*": ["redux/actions/*"],
-      "@styles/*": ["styles/*"],
+      "@styles/*": ["styles/*"]
     }
   },
   "exclude": ["node_modules", "**/node_modules/*"]
