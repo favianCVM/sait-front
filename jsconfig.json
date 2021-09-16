@@ -1,13 +1,15 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": "src",
     "jsx": "react",
     "paths": {
-      "@pages": ["pages"],
-      "@components": ["components/"],
-      "@reducers": ["state/store/reducers"],
-      "@utils": ["utils"],
-      "@actions": ["state/store/actions"],
+      "@pages/*": ["pages/*"],
+      "@components/*": ["components/*"],
+      "@utils/*": ["utils/*"],
+      "@reducers/*": ["redux/reducers/*"],
+      "@actions/*": ["redux/actions/*"],
+      "@styles/*": ["styles/*"]
     }
-  }
+  },
+  "exclude": ["node_modules", "**/node_modules/*"]
 }
