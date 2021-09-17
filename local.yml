@@ -1,9 +1,9 @@
 version: "3.8"
 
 services:
-  app:
-    container_name: app-dev
-    image: app-dev
+  sait-front:
+    container_name: sait-front
+    image: sait-front_local:${DOCKER_TAG:-latest}
     build:
       context: .
       dockerfile: ./docker/Dockerfile

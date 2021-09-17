@@ -1,15 +1,12 @@
 import React from 'react';
-import { Input } from '@chakra-ui/react';
-import { ChakraProvider } from "@chakra-ui/react"
+import { Button } from '@chakra-ui/react'
 
 function App() {
   return (
-    <ChakraProvider>
-      <div className="App">
+      <div className="">
         hola mundo
-        <Input placeholder="Basic usage" />
+        <Button className="auth-submit-form" > aver </Button>
       </div>
-    </ChakraProvider>
   );
 }
 
