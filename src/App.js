@@ -1,11 +1,9 @@
 import React from 'react';
-import Login from '@containers/authentication/Login';
+import LoginPage from '@pages/LoginPage'
 
 function App() {
   return (
-      <div>
-        <Login />
-      </div>
+    <LoginPage></LoginPage>
   );
 }
 
