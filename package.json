@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^12.1.10",
     "aos": "^2.3.4",
     "craco": "0.0.3",
+    "formik": "^2.2.9",
     "framer-motion": "^4",
     "immutable": "^4.0.0-rc.15",
     "lodash": "^4.17.21",
