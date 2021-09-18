@@ -2,8 +2,16 @@
   "settings": {
     "import/resolver": {
       "alias": {
-        "map": [["@", "./src"]]
-        
+        "map": [
+          ["@", "./src"],
+          ["@pages/*", "./src/pages/*"],
+          ["@components/*", "./src/components/*"],
+          ["@containers/*", "./src/containers/*"],
+          ["@utils/*", "./src/utils/*"],
+          ["@actions/*", "./src/redux/actions/*"],
+          ["@reducers/*", "./src/redux/reducers/*"],
+          ["@styles/*", "./src/styles/*"]
+        ]
       }
     }
   }

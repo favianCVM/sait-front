@@ -1,12 +1,17 @@
-const aliases = require(`./src/config/aliases`);
+// craco.config.js
+const path = require(`path`);
+const alias = require(`./src/config/aliases`);
 
-const SRC = './src'
+const SRC = `./src`;
+const aliases = alias(SRC);
+
+const resolvedAliases = Object.fromEntries(
+  Object.entries(aliases).map(([key, value]) => [key, path.resolve(__dirname, value)]),
+);
 
 module.exports = {
   webpack: {
-    resolve: { 
-      alias: aliases(SRC)
-    }    
+    alias: resolvedAliases,
   },
   style: {
     postcss: {
