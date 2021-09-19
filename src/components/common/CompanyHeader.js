@@ -8,9 +8,9 @@ import {
 
 const CompanyHeader = () => {
   return(
-    <Box shadow="md">
+    <Box>
       <Stack spacing={3} >
-        <Box p={5} borderWidth="1px">
+        <Box p={5}>
           <Heading fontSize="5xl" className="text-blue-700">HIDROVEN</Heading>
           <Heading className="text-2xl">Sistema de gestion de incidencias tecnicas</Heading>
         </Box>

@@ -3,10 +3,10 @@ import CompanyHeader from "@components/common/CompanyHeader"
 
 const LoginPage = () => {
   return(
-    <div>
+    <>
       <CompanyHeader />
       <LoginContainer/>
-    </div>
+    </>
   )
 }
 

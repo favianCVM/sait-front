@@ -9,7 +9,7 @@ services:
       dockerfile: ./docker/Dockerfile
       target: development
     volumes:
-      - '.:/app'
-      - /usr/src/app/node_modules
+      - ./src:/app/src
+      - ./src:/app/src/app/node_modules
     ports:
       - 3002:3000

@@ -1,9 +1,9 @@
 import React from 'react';
-import LoginPage from '@pages/LoginPage'
+import Router from 'config/Router';
 
 function App() {
   return (
-    <LoginPage></LoginPage>
+    <Router></Router>
   );
 }
 
