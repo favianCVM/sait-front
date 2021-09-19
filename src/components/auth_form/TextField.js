@@ -8,7 +8,7 @@ import {
   InputRightElement,
   Button,
 } from "@chakra-ui/react"
-import {Field} from 'formik';
+import { Field } from 'formik';
 import { FaEye } from 'react-icons/fa'
 export default function TextField({
   placeholder,
@@ -44,7 +44,6 @@ export default function TextField({
                 <Button
                   colorScheme="blue"
                   variant="outline"
-                  h="1.75rem"
                   size="sm"
                   onClick={() => setShowPassword(!showPassword)}
                 >
@@ -54,7 +53,7 @@ export default function TextField({
             )}
           </InputGroup>
           <FormHelperText>
-            { field.value ? null : (form.errors[name] || helperText) }
+            { field.value && !form.errors[name] ? null : (form.errors[name] || helperText) }
           </FormHelperText>
         </FormControl>
       )}
