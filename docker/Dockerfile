@@ -5,10 +5,12 @@ WORKDIR /app
 # Cache and Install dependencies
 COPY package.json .
 COPY yarn.lock .
-RUN npm install
+RUN rm -rf node_modules
+RUN npm cache clean --force
+RUN yarn install
 # Copy app files
 COPY . .
 # Expose port
 EXPOSE 3002
 # Start the app
-CMD [ "npm", "start" ]
+CMD [ "yarn", "start" ]

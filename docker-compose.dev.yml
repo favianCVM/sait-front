@@ -1,14 +1,15 @@
 version: "3.8"
 
 services:
-  sait-front:
-    container_name: sait-front
-    image: sait-front:${DOCKER_TAG:-latest}
+  app:
+    container_name: app-dev
+    image: app-dev
     build:
       context: .
       dockerfile: ./docker/Dockerfile
       target: development
     volumes:
       - ./src:/app/src
+      - /usr/src/app/node_modules
     ports:
       - 3002:3000
