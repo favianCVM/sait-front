@@ -29,31 +29,33 @@ export default function TextField({
       {({field, form}) => (
         <FormControl id={id} isInvalid={form.errors[name] && form.touched[name]}>
           <FormLabel>{label}</FormLabel>
-            <InputGroup size={size}>
-              <Input
-                id={id}
-                name={name}
-                placeholder={placeholder}
-                size={size}
-                className={addClass}
-                type={type === 'password' ? (showPassword ? 'text' : 'password') : type }
-                {...field}
-              />
-              { (type === 'password') && (
-                <InputRightElement width="4.5rem">
-                  <Button
-                    colorScheme="blue"
-                    variant="outline"
-                    h="1.75rem"
-                    size="sm"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    <FaEye />
-                  </Button>
-                </InputRightElement>
-              )}
-            </InputGroup>
-          <FormHelperText>{form.errors[name] || helperText}</FormHelperText>
+          <InputGroup size={size}>
+            <Input
+              id={id}
+              name={name}
+              placeholder={placeholder}
+              size={size}
+              className={addClass}
+              type={type === 'password' ? (showPassword ? 'text' : 'password') :type }
+              {...field}
+            />
+            { (type === 'password') && (
+              <InputRightElement width="4.5rem">
+                <Button
+                  colorScheme="blue"
+                  variant="outline"
+                  h="1.75rem"
+                  size="sm"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  <FaEye />
+                </Button>
+              </InputRightElement>
+            )}
+          </InputGroup>
+          <FormHelperText>
+            { field.value ? null : (form.errors[name] || helperText) }
+          </FormHelperText>
         </FormControl>
       )}
     </Field>
