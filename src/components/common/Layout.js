@@ -24,6 +24,7 @@ import {
   IoSunnySharp,
   IoPerson,
   IoAddCircleOutline,
+  IoAlertCircle,
   IoBuild,
   IoLogOut,
   IoMenu,
@@ -43,6 +44,11 @@ const adminRoutes = [
     title: 'Registrar incidencia',
   },
   {
+    to: '/incidences',
+    icon: IoAlertCircle,
+    title: 'Incidencias',
+  },
+  {
     to: 'technician-assignment',
     icon: IoBuild,
     title: 'Asignación de técnico',
@@ -55,7 +61,18 @@ const adminRoutes = [
 ]
 
 //USER ROUTES
-const userRoutes = [];
+const userRoutes = [
+  {
+    to: '/register-incident',
+    icon: IoAddCircleOutline,
+    title: 'Registrar incidencia',
+  },
+  {
+    to: '/incidences',
+    icon: IoAlertCircle,
+    title: 'Incidencias',
+  }
+]
 
 const Sidebar = (props) => {
   const { colorMode, toggleColorMode } = useColorMode()
@@ -64,10 +81,10 @@ const Sidebar = (props) => {
   const btnRef = React.useRef()
 
   //drawer responsive
-  const drawerSize = useBreakpointValue({ base: "full", sm: "sm" })
+  const drawerSize = useBreakpointValue({ base: "full", sm: "xs" })
 
   //props
-  const {children, token, history, actions, full_name} = props
+  const {children, isAdmin, isUser, history, location, actions, full_name} = props
 
   //listen to route changes
   history.listen((location, action) => {
@@ -81,19 +98,20 @@ const Sidebar = (props) => {
   }
 
   return(
-    <div className="min-h-screen md:flex">
+    <div className="min-h-screen sm:flex">
 
-      {token && (
-        <div className="sticky top-0 md:static">
+      {(isAdmin || isUser) && (location.pathname !== '/iniciar-sesion') && (
+        <div className="sticky top-0 mb-3 sm:mb-0 sm:min-h-screen sm:static">
           <Button
-            className="sticky w-full top-2 left-2 md:min-h-screen md:static"
-						borderRadius={drawerSize === "full" ? '0 0 2px 2px' : 0}
+            className="sticky w-full top-2 left-2 sm:top-0 sm:left-0 sm:static"
+						borderRadius={drawerSize === "full" ? 15 : 0}
             background={drawerSize === "full" ? 'white' : 'none'}
             boxShadow={drawerSize === "full" ? 'md' : 'none'}
             size="lg"
+            height={drawerSize === "full" ? "50" : '100%'}
             onClick={onOpen}
           >
-            <IoMenu className="text-2xl"/>
+            <IoMenu className="text-2xl text-black sm:text-white"/>
           </Button>
           <Drawer
             size={drawerSize}
@@ -115,7 +133,14 @@ const Sidebar = (props) => {
               </DrawerHeader>
 
               <DrawerBody>
-                {adminRoutes.map((route) => (
+                { isAdmin && adminRoutes.map((route) => (
+                  <LayoutItem
+                    {...route}
+                    clickLink={redirect}
+                  />
+                ))}
+
+                { isUser && userRoutes.map((route) => (
                   <LayoutItem
                     {...route}
                     clickLink={redirect}
@@ -132,7 +157,7 @@ const Sidebar = (props) => {
                       icon={<IoLogOut />}
                       onClick={async () => {
                         await actions.logOut()
-                        history.push("/")
+                        history.push("/login")
                       }}
                     />
                   </Tooltip>
@@ -165,6 +190,8 @@ const mapStateToProps = (state) => ({
   isLogged: state.user.get('logged'),
   full_name: state.user.get('full_name'),
   type: state.user.get('type'),
+  isAdmin: state.user.get('id_user') && (parseInt(state.user.get('type')) === 60),
+  isUser: state.user.get('id_user') && (parseInt(state.user.get('type')) === 50),
 })
 
 const mapDispatchToProps = (dispatch) => ({
