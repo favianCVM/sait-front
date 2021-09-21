@@ -1,6 +1,14 @@
+import PageHeader from "@components/common/PageHeader"
+
 const Users = () =>{
   return(
-    <div>gola</div>
+    <div>
+      <PageHeader
+        title="titulo"
+        message="mensaje"
+        subTitle="subtitulo"
+      />
+    </div>
   )
 }
 

@@ -177,7 +177,7 @@ const Sidebar = (props) => {
         </div>
       )}
 
-      <div className="flex flex-col w-full">
+      <div className="flex flex-col w-full py-12">
         {children}
       </div>
 

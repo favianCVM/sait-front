@@ -11,8 +11,8 @@ const CompanyHeader = () => {
     <Box>
       <Stack spacing={3} >
         <Box p={5}>
-          <Heading fontSize="5xl" className="text-blue-700">HIDROVEN</Heading>
-          <Heading className="text-2xl">Sistema de gestion de incidencias tecnicas</Heading>
+          <Heading fontSize="5xl" color="blue.500">HIDROVEN</Heading>
+          <Heading fontSize="2xl">Sistema de gestion de incidencias tecnicas</Heading>
         </Box>
       </Stack>
     </Box>
