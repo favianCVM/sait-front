@@ -1,14 +1,41 @@
-import {Heading, Text} from '@chakra-ui/react'
+import {
+  Heading,
+  Text,
+  Box,
+  Tooltip,
+  IconButton,
+} from '@chakra-ui/react'
 
-const PageHeader = ({title, subTitle, message}) => {
+const PageHeader = ({title, subTitle, message, action, actionIcon, actionName}) => {
   return(
-    <div className="mb-4">
-      <Heading
-        as="h2"
-        size="4xl"
+    <Box marginBottom="4">
+      <Box
+        display={{
+          base: 'flex'
+        }}
+        alignItems="center"
+        justifyContent={{
+          base: 'space-between'
+        }}
+        w="100%"
       >
-        {title}
-      </Heading>
+        <Heading
+          as="h2"
+          size="4xl"
+        >
+          {title}
+        </Heading>
+
+        {(action && actionIcon && actionName) && (
+          <Tooltip hasArrow label={actionName}>
+            <IconButton
+              onClick={action}
+              fontSize={32}
+              icon={actionIcon}
+            />
+          </Tooltip>
+        )}
+      </Box>
 
       <Heading
         as="h3"
@@ -22,7 +49,7 @@ const PageHeader = ({title, subTitle, message}) => {
       >
         {message}
       </Text>
-    </div>
+    </Box>
   )
 }
 

@@ -6,6 +6,7 @@ import {
   FormLabel,
   FormControl,
   InputRightElement,
+  InputLeftElement,
   Button,
 } from "@chakra-ui/react"
 import { Field } from 'formik';
@@ -17,9 +18,11 @@ export default function TextField({
   type = 'text',
   name,
   helperText,
-  validate,
+  validate = ()=>{},
   label,
   id,
+  leftChildren = null,
+  rightChildren = null,
 }){
 
   const [showPassword, setShowPassword] = useState(false)
@@ -30,6 +33,13 @@ export default function TextField({
         <FormControl id={id} isInvalid={form.errors[name] && form.touched[name]}>
           <FormLabel>{label}</FormLabel>
           <InputGroup size={size}>
+
+            {leftChildren && (
+              <InputLeftElement>
+                {leftChildren}
+              </InputLeftElement>
+            )}
+
             <Input
               id={id}
               name={name}
@@ -39,6 +49,7 @@ export default function TextField({
               type={type === 'password' ? (showPassword ? 'text' : 'password') :type }
               {...field}
             />
+
             { (type === 'password') && (
               <InputRightElement width="4.5rem">
                 <Button
@@ -49,6 +60,12 @@ export default function TextField({
                 >
                   <FaEye />
                 </Button>
+              </InputRightElement>
+            )}
+
+            { rightChildren && (
+              <InputRightElement>
+                {rightChildren}
               </InputRightElement>
             )}
           </InputGroup>

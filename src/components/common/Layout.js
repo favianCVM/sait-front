@@ -18,6 +18,7 @@ import {
   useDisclosure,
   useColorMode,
   useBreakpointValue,
+  Box
 } from '@chakra-ui/react'
 import {
   IoSunnyOutline,
@@ -98,7 +99,15 @@ const Sidebar = (props) => {
   }
 
   return(
-    <div className="min-h-screen sm:flex">
+    <Box 
+      height={{
+        base: "screen"
+      }}
+      display={{
+        base: 'block',
+        sm: 'flex'
+      }} 
+    >
 
       {(isAdmin || isUser) && (location.pathname !== '/iniciar-sesion') && (
         <div className="sticky top-0 mb-3 sm:mb-0 sm:min-h-screen sm:static">
@@ -125,10 +134,12 @@ const Sidebar = (props) => {
               <DrawerCloseButton />
 
               <DrawerHeader>
-                <div className="flex flex-col items-center">
-                  <Avatar size="lg" />
+                <Box display="flex" alignItems="center" flexDirection="column">
+                  <Avatar
+                    src="https://as01.epimg.net/diarioas/imagenes/2021/05/12/actualidad/1620834945_030169_1620835008_noticia_normal.jpg" size="lg"
+                  />
                   <Heading>{full_name}</Heading>
-                </div>
+                </Box>
                 <Divider className="mt-6"/>
               </DrawerHeader>
 
@@ -149,7 +160,12 @@ const Sidebar = (props) => {
               </DrawerBody>
 
               <DrawerFooter>
-                <div className="flex items-center justify-between w-full">
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="space-between"
+                  width="100%"
+                >
                   <Tooltip label="Cerrar sesión">
                     <IconButton
                       colorScheme="blue"
@@ -161,7 +177,10 @@ const Sidebar = (props) => {
                       }}
                     />
                   </Tooltip>
-                  <div className="flex items-center">
+                  <Box 
+                    display="flex"
+                    alignItems="center"
+                  >
                     { isDark ? <IoSunnySharp/> : <IoSunnyOutline/> }
                     <Switch
                       ml={3}
@@ -169,19 +188,19 @@ const Sidebar = (props) => {
                       isChecked={isDark}
                       onChange={toggleColorMode}
                     />
-                  </div>
-                </div>
+                  </Box>
+                </Box>
               </DrawerFooter>
             </DrawerContent>
           </Drawer>
         </div>
       )}
 
-      <div className="flex flex-col w-full py-12">
+      <div className="flex flex-col w-full px-0 py-12 sm:px-6 md:px-12">
         {children}
       </div>
 
-    </div>
+    </Box>
   )
 }
 

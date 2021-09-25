@@ -1,6 +1,8 @@
+import DisplayIncidences from "@containers/incidences/DisplayIncidences"
+
 const Incidences = () =>{
   return(
-    <div>gola</div>
+    <DisplayIncidences></DisplayIncidences>
   )
 }
 

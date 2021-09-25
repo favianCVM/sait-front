@@ -11,7 +11,7 @@ import {
   ListItem,
   UnorderedList
 } from '@chakra-ui/react'
-import TextField from "@components/auth_form/TextField"
+import TextField from "@components/common/TextField"
 import {FaBullseye} from 'react-icons/fa'
 import { Formik, Form } from 'formik';
 import { loginValidations } from '@utils/validations';
@@ -27,7 +27,19 @@ const LoginForm = ({handleSubmit}) => {
     >
       {(props) => (
         <Form>
-          <Stack spacing={3} className="mx-4 sm:mx-auto lg:w-4/12 md:w-5/12 sm:w-6/12">
+          <Stack
+            spacing={3}
+            mx={{
+              base: 4,
+              sm: 'auto'
+            }}
+            width={{
+              base: '100%',
+              sm: '70%',
+              md: '55%',
+              lg: '35%'
+            }}
+          >
             <TextField
               placeholder='nombre'
               size='md'
