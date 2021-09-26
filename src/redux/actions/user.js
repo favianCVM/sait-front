@@ -13,14 +13,24 @@ export function logOut() {
   }
 }
 
-export function SignIn(data) {
+export function signIn(data) {
   return async dispatch => {
-    return requests.sign_in(data)
-      .then((r)=>{
-
+    await dispatch({
+      type: SIGN_IN,
+      payload: {
+        token: 2002020,
+        type: 60,
+        id_user: 15,
+        full_name: 'algo',
+        username: 'algo',
+      }
+    })
+/*     return requests.sign_in(data)
+      .then(async (r)=>{
+        
       })
       .catch((e)=>{
 
-      })
+      }) */
   }
 }

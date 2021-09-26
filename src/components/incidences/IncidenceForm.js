@@ -2,6 +2,17 @@ import {Button, Box, Stack} from '@chakra-ui/react'
 import { Formik, Form } from "formik";
 import TextField from "@components/common/TextField";
 import {} from '@utils/validations'
+import { AutocompleteSelect } from '@components/common';
+
+const countries = [
+  { value: "ghana", label: "Ghana" },
+  { value: "nigeria", label: "Nigeria" },
+  { value: "kenya", label: "Kenya" },
+  { value: "southAfrica", label: "South Africa" },
+  { value: "unitedStates", label: "United States" },
+  { value: "canada", label: "Canada" },
+  { value: "germany", label: "Germany" }
+];
 
 const IncidenceForm = ({handleSubmit}) => {
   return(
@@ -17,25 +28,17 @@ const IncidenceForm = ({handleSubmit}) => {
       {(props) => (
         <Form>
           <Box display="flex" flexDirection="column" w="100%">
-            <Stack spacing={4}>
-              <TextField
-                placeholder='usuario'
-                size='md'
-                id='user'
-                name='user'
-                type='text'
-                helperText='introduzca nombre'
-                validate={()=>{}}
+            <Stack spacing={3}>
+              <AutocompleteSelect 
+                name="user"
+                placeholder="seleccione un usuario"
+                listItems={countries}
               />
 
-              <TextField
-                placeholder='prioridad'
-                size='md'
-                id='priority'
-                name='priority'
-                type='text'
-                helperText='introduzca nombre'
-                validate={()=>{}}
+              <AutocompleteSelect 
+                name="priority"
+                placeholder="seleccione una prioridad"
+                listItems={countries}
               />
 
               <TextField

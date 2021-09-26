@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {connect} from 'react-redux';
 import {
   Tooltip,
@@ -20,6 +20,7 @@ import {
   useBreakpointValue,
   Box,
   useMediaQuery,
+  useBoolean,
 } from '@chakra-ui/react'
 import {
   IoSunnyOutline,
@@ -81,19 +82,27 @@ const Sidebar = (props) => {
   const isDark = colorMode === 'dark'
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
-
+  const [display, setDisplay] = useState(true)
   //drawer responsive
   const [isMobile] = useMediaQuery("(max-width: 680px)")
   const drawerSize = useBreakpointValue({ base: "full", sm: "xs" })
 
   //props
-  const {children, isAdmin, isUser, history, location, actions, full_name} = props
+  const {children, isAdmin, isUser, history, location, actions, full_name} = props;
+
+  useEffect(()=>{
+    if(!isAdmin && !isUser){
+      setDisplay(false)
+    } else if (isAdmin || isUser){
+      setDisplay(true)
+    }
+    onClose()
+  },[location.pathname])
 
   //listen to route changes
-  history.listen((location, action) => {
-    onClose()
-    console.log(action, location.pathname, location.state)
-  });
+/*   history.listen((location, action) => {
+    console.log(location.pathname)
+  }); */
 
   //link redirect method
   const redirect = (to) => {
@@ -106,7 +115,7 @@ const Sidebar = (props) => {
       display={isMobile ? 'block' : 'flex'}
     >
 
-      {(isAdmin || isUser) && (location.pathname !== '/iniciar-sesion') && (
+      {(display) && (
         <div className="sticky top-0 mb-3 sm:mb-0 sm:min-h-screen sm:static">
           <Button
             className="sticky w-full top-2 left-2 sm:top-0 sm:left-0 sm:static"

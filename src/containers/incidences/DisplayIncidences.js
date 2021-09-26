@@ -15,6 +15,7 @@ const DisplayIncidences = () => {
   const [spinnerLoader, setSpinnerLoader] = useBoolean(false)
 
   const handleSubmit = (values) => {
+    setSpinnerLoader.on()
     console.log(values)
   }
 
@@ -27,7 +28,11 @@ const DisplayIncidences = () => {
         actionName="anadir incidencia"
       />
 
-      <ManageIncidence handleSubmit={handleSubmit} isOpen={isOpen} onClose={onClose} />
+      <ManageIncidence
+        handleSubmit={handleSubmit}
+        isOpen={isOpen}
+        onClose={spinnerLoader ? ()=>{} : onClose}
+      />
 
       <IncidenceTable />
       <SpinnerLoader isOpen={spinnerLoader} />

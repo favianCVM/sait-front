@@ -23,7 +23,7 @@ const LoginForm = ({handleSubmit}) => {
         name: '',
         password: ''
       }}
-      onSubmit={(values)=>console.log(values)}
+      onSubmit={handleSubmit}
     >
       {(props) => (
         <Form>
