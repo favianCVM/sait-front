@@ -18,7 +18,8 @@ import {
   useDisclosure,
   useColorMode,
   useBreakpointValue,
-  Box
+  Box,
+  useMediaQuery,
 } from '@chakra-ui/react'
 import {
   IoSunnyOutline,
@@ -82,6 +83,7 @@ const Sidebar = (props) => {
   const btnRef = React.useRef()
 
   //drawer responsive
+  const [isMobile] = useMediaQuery("(max-width: 680px)")
   const drawerSize = useBreakpointValue({ base: "full", sm: "xs" })
 
   //props
@@ -100,24 +102,19 @@ const Sidebar = (props) => {
 
   return(
     <Box 
-      height={{
-        base: "screen"
-      }}
-      display={{
-        base: 'block',
-        sm: 'flex'
-      }} 
+      height={'screen'}
+      display={isMobile ? 'block' : 'flex'}
     >
 
       {(isAdmin || isUser) && (location.pathname !== '/iniciar-sesion') && (
         <div className="sticky top-0 mb-3 sm:mb-0 sm:min-h-screen sm:static">
           <Button
             className="sticky w-full top-2 left-2 sm:top-0 sm:left-0 sm:static"
-						borderRadius={drawerSize === "full" ? 15 : 0}
-            background={drawerSize === "full" ? 'white' : 'none'}
-            boxShadow={drawerSize === "full" ? 'md' : 'none'}
+						borderRadius={isMobile ? 15 : 0}
+            background={isMobile ? 'white' : 'none'}
+            boxShadow={isMobile ? 'md' : 'none'}
             size="lg"
-            height={drawerSize === "full" ? "50" : '100%'}
+            height={isMobile ? "50" : '100%'}
             onClick={onOpen}
           >
             <IoMenu className="text-2xl text-black sm:text-white"/>
@@ -196,7 +193,7 @@ const Sidebar = (props) => {
         </div>
       )}
 
-      <div className="flex flex-col w-full px-0 py-12 sm:px-6 md:px-12">
+      <div className="flex flex-col w-full px-0 py-12 sm:pl-6 sm:pr-10 md:pr-16 md:pl-12">
         {children}
       </div>
 
