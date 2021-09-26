@@ -21,7 +21,7 @@ const ManageIncidence = ({isOpen, onClose, handleSubmit}) => {
         isOpen={isOpen}
         onClose={onClose}
         isCentered
-        size={`${isMobile ? 'full' : 'lg'}`}
+        size={`${isMobile ? 'full' : '2xl'}`}
       >
         <ModalOverlay />
 

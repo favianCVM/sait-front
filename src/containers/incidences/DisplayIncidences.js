@@ -1,21 +1,17 @@
 import {
   Box,
   useDisclosure,
-  useBoolean,
 } from "@chakra-ui/react"
 import PageHeader from '@components/common/PageHeader'
 import IncidenceTable from "@components/incidences/IncidenceTable"
 import ManageIncidence from "@components/incidences/ManageIncidence"
-import { SpinnerLoader } from "@components/common"
 
 import {IoAddCircleOutline} from 'react-icons/io5'
 
 const DisplayIncidences = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [spinnerLoader, setSpinnerLoader] = useBoolean(false)
 
   const handleSubmit = (values) => {
-    setSpinnerLoader.on()
     console.log(values)
   }
 
@@ -31,11 +27,10 @@ const DisplayIncidences = () => {
       <ManageIncidence
         handleSubmit={handleSubmit}
         isOpen={isOpen}
-        onClose={spinnerLoader ? ()=>{} : onClose}
+        onClose={onClose}
       />
 
       <IncidenceTable />
-      <SpinnerLoader isOpen={spinnerLoader} />
     </Box>
   )
 }

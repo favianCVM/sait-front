@@ -18,7 +18,6 @@ export default function TextField({
   type = 'text',
   name,
   helperText,
-  validate = ()=>{},
   label,
   id,
   leftChildren = null,
@@ -28,7 +27,7 @@ export default function TextField({
   const [showPassword, setShowPassword] = useState(false)
 
   return(
-    <Field name={name} validate={validate}>
+    <Field name={name}>
       {({field, form}) => (
         <FormControl id={id} isInvalid={form.errors[name] && form.touched[name]}>
           <FormLabel>{label}</FormLabel>

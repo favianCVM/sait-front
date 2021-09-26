@@ -1,8 +1,8 @@
 import {Button, Box, Stack} from '@chakra-ui/react'
 import { Formik, Form } from "formik";
-import TextField from "@components/common/TextField";
 import {} from '@utils/validations'
-import { AutocompleteSelect } from '@components/common';
+import { AutocompleteSelect, DateField, TextareaField } from '@components/common';
+import Loader from '@components/common/Loader';
 
 const countries = [
   { value: "ghana", label: "Ghana" },
@@ -20,7 +20,7 @@ const IncidenceForm = ({handleSubmit}) => {
       initialValues={{
         user:'',
         priority: '',
-        date: '',
+        date: new Date(),
         description: '',
       }}
       onSubmit={handleSubmit}
@@ -28,37 +28,32 @@ const IncidenceForm = ({handleSubmit}) => {
       {(props) => (
         <Form>
           <Box display="flex" flexDirection="column" w="100%">
-            <Stack spacing={3}>
-              <AutocompleteSelect 
+            <Stack>
+              <AutocompleteSelect
                 name="user"
                 placeholder="seleccione un usuario"
                 listItems={countries}
+                containerClasses="-mb-10"
               />
 
-              <AutocompleteSelect 
+              <AutocompleteSelect
                 name="priority"
                 placeholder="seleccione una prioridad"
                 listItems={countries}
+                containerClasses="-mb-10"
               />
 
-              <TextField
-                placeholder='fecha'
-                size='md'
-                id='date'
-                name='date'
-                type='text'
-                helperText='introduzca nombre'
-                validate={()=>{}}
+              <DateField
+                label="fecha"
+                name="date"
+                maxDate={new Date()}
               />
 
-              <TextField
-                placeholder='descripcion'
+              <TextareaField
+                name="description"
+                id="description"
+                placeholder="description"
                 size='md'
-                id='description'
-                name='description'
-                type='text'
-                helperText='introduzca nombre'
-                validate={()=>{}}
               />
             </Stack>
 
@@ -67,6 +62,7 @@ const IncidenceForm = ({handleSubmit}) => {
               type="submit"
               isLoading={props.isSubmitting}
               alignSelf="center"
+              spinner={<Loader circleH="h-4" circleW="w-4"/>}
             >
               Registrar
             </Button>

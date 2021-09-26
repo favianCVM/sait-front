@@ -47,7 +47,6 @@ const LoginForm = ({handleSubmit}) => {
               name='name'
               type='text'
               helperText='introduzca nombre'
-              validate={loginValidations.validateLoginName}
             />
 
             <TextField
@@ -57,7 +56,6 @@ const LoginForm = ({handleSubmit}) => {
               name='password'
               type='password'
               helperText='introduzca contrasenna'
-              validate={loginValidations.validateLoginPassword}
             />
 
             <Popover>

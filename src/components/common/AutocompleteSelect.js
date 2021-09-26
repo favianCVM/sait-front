@@ -8,6 +8,7 @@ const AutocompleteSelect = ({
   label = '',
   placeholder = '',
   listItems = [],
+  containerClasses=''
 }) => {
 
   const values = (field) => {
@@ -16,7 +17,7 @@ const AutocompleteSelect = ({
   }
 
   return (
-    <Box marginBottom={-5}>
+    <Box className={containerClasses}>
       <Field name={name}>
           {({field, form}) => (
             <CUIAutoComplete
