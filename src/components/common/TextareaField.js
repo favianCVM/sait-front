@@ -16,6 +16,8 @@ const TextareaField = ({
   placeholder='',
   helperText='',
   resize='none',
+  showError = true,
+  disabled = false,
 }) => {
   return(
     <Field name={name}>
@@ -31,17 +33,22 @@ const TextareaField = ({
               placeholder={placeholder}
               className={addClass}
               resize={resize}
+              disabled={disabled}
               {...field}
             />
 
           </InputGroup>
-          <FormHelperText>
-            { field.value
-              && !form.errors[name]
-                ? null
-                : (form.errors[name] || helperText)
-            }
-          </FormHelperText>
+          {
+            showError && (
+              <FormHelperText>
+                { field.value
+                  && !form.errors[name]
+                    ? null
+                    : (form.errors[name] || helperText)
+                }
+              </FormHelperText>
+            )
+          }
         </FormControl>
       )}
     </Field>

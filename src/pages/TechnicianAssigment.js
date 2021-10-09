@@ -1,6 +1,10 @@
+import TechnicianAssignmentDisplay from "@containers/technicianAssignment/TechnicianAssignmentDisplay"
+
 const TechnicianAssigment = () =>{
   return(
-    <div>gola</div>
+    <>
+      <TechnicianAssignmentDisplay />
+    </>
   )
 }
 

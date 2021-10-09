@@ -1,8 +1,20 @@
-import {Button, Box, Stack} from '@chakra-ui/react'
+import {
+  Stack,
+  Button,
+  Box,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverArrow,
+  PopoverCloseButton,
+  ListItem,
+  UnorderedList
+} from '@chakra-ui/react'
 import { Formik, Form } from "formik";
-import {} from '@utils/validations'
+import {incidenceValidations} from '@utils/validations'
 import { AutocompleteSelect, DateField, TextareaField } from '@components/common';
-import Loader from '@components/common/Loader';
 
 const countries = [
   { value: "ghana", label: "Ghana" },
@@ -24,6 +36,7 @@ const IncidenceForm = ({handleSubmit}) => {
         description: '',
       }}
       onSubmit={handleSubmit}
+      validate={incidenceValidations}
     >
       {(props) => (
         <Form>
@@ -34,6 +47,7 @@ const IncidenceForm = ({handleSubmit}) => {
                 placeholder="seleccione un usuario"
                 listItems={countries}
                 containerClasses="-mb-10"
+                disabled={props.isSubmitting}
               />
 
               <AutocompleteSelect
@@ -41,12 +55,14 @@ const IncidenceForm = ({handleSubmit}) => {
                 placeholder="seleccione una prioridad"
                 listItems={countries}
                 containerClasses="-mb-10"
+                disabled={props.isSubmitting}
               />
 
               <DateField
                 label="fecha"
                 name="date"
                 maxDate={new Date()}
+                disabled={props.isSubmitting}
               />
 
               <TextareaField
@@ -54,18 +70,37 @@ const IncidenceForm = ({handleSubmit}) => {
                 id="description"
                 placeholder="description"
                 size='md'
+                showError={false}
+                disabled={props.isSubmitting}
               />
             </Stack>
 
-            <Button
-              colorScheme="blue"
-              type="submit"
-              isLoading={props.isSubmitting}
-              alignSelf="center"
-              spinner={<Loader circleH="h-4" circleW="w-4"/>}
-            >
-              Registrar
-            </Button>
+            <Popover>
+              <PopoverTrigger>
+                <Button
+                  mx="auto"
+                  mt={4}
+                  w={32}
+                  colorScheme="blue"
+                  type="submit"
+                  isLoading={props.isSubmitting}
+                >
+                  Iniciar
+                </Button>
+              </PopoverTrigger>
+              {Object.keys(props.errors).length > 0 && (
+                <PopoverContent>
+                  <PopoverArrow />
+                  <PopoverCloseButton />
+                  <PopoverHeader>Tienes errores</PopoverHeader>
+                  <PopoverBody className="flex flex-col items-start">
+                    <UnorderedList>
+                      {Object.keys(props.errors).map((err) => (<ListItem>{props.errors[err]}</ListItem>))}
+                    </UnorderedList>
+                  </PopoverBody>
+                </PopoverContent>
+              )}
+            </Popover>
 
           </Box>
 

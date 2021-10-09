@@ -15,6 +15,7 @@ const DateField = ({
   name='',
   id,
   maxDate,
+  disabled=false,
 }) => {
 
   return(
@@ -31,6 +32,7 @@ const DateField = ({
               onChange={(date)=>{
                 form.setFieldValue(name, date)
               }}
+              disabled={disabled}
               customInput={
                 <Button
                   rightIcon={<IoCalendar/>}

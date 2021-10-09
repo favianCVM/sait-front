@@ -2,18 +2,37 @@ import {Box} from '@chakra-ui/react'
 import { CUIAutoComplete } from 'chakra-ui-autocomplete'
 import lodash from 'lodash'
 import { Field } from 'formik';
+import {
+  useColorMode,
+  Flex,
+  Avatar,
+  Text
+} from '@chakra-ui/react'
 
 const AutocompleteSelect = ({
   name = '',
   label = '',
   placeholder = '',
   listItems = [],
-  containerClasses=''
+  containerClasses='',
+  itemRender = null,
+  disabled=false,
 }) => {
+  const { colorMode, toggleColorMode } = useColorMode()
+  const isDark = colorMode === 'dark'
 
   const values = (field) => {
     if(field.value) return [{label: field.value, value: field.value }]
     else return []
+  }
+
+  const customRender = (selected) => {
+    return (
+      <Flex flexDir="row" alignItems="center">
+        <Avatar mr={2} size="sm" name={selected.label} />
+        <Text>{selected.label}</Text>
+      </Flex>
+    )
   }
 
   return (
@@ -21,24 +40,22 @@ const AutocompleteSelect = ({
       <Field name={name}>
           {({field, form}) => (
             <CUIAutoComplete
+              highlightItemBg="blue.100"
               listItemStyleProps={{
-                background: 'white',
+                cursor: 'pointer',
+                textColor: 'blue.800',
               }}
               listStyleProps={{
+                textColor: 'blue.800',
                 position: 'absolute',
                 zIndex: '100',
                 width: '90%',
+                maxH: "44",
+                overflowY: 'scroll'
               }}
-  /*             tagStyleProps={{
-                _hidden: 'hidden',
-                hidden: 'hidden'
-              }} */
-  /*             selectedIconProps={{
-                _hidden: 'hidden',
-                hidden: 'hidden'
-              }} */
               hideToggleButton={true}
               disableCreateItem={true}
+              itemRenderer={ itemRender || customRender}
               name={name}
               label={label}
               placeholder={placeholder}

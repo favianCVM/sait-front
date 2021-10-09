@@ -24,6 +24,7 @@ const LoginForm = ({handleSubmit}) => {
         password: ''
       }}
       onSubmit={handleSubmit}
+      validate={loginValidations}
     >
       {(props) => (
         <Form>

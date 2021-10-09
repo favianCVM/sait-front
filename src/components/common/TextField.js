@@ -22,6 +22,7 @@ export default function TextField({
   id,
   leftChildren = null,
   rightChildren = null,
+  disabled=false,
 }){
 
   const [showPassword, setShowPassword] = useState(false)
@@ -46,6 +47,7 @@ export default function TextField({
               size={size}
               className={addClass}
               type={type === 'password' ? (showPassword ? 'text' : 'password') :type }
+              disabled={disabled}
               {...field}
             />
 

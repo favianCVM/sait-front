@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -14,9 +15,7 @@ import IncidenceForm from "@components/incidences/IncidenceForm";
 
 const ManageIncidence = ({isOpen, onClose, handleSubmit}) => {
   const [isMobile] = useMediaQuery("(max-width: 680px)")
-
   return(
-    <Box zIndex={0}>
       <Modal
         isOpen={isOpen}
         onClose={onClose}
@@ -40,7 +39,6 @@ const ManageIncidence = ({isOpen, onClose, handleSubmit}) => {
         </ModalContent>
 
       </Modal>
-    </Box>
   )
 }
 
