@@ -126,7 +126,7 @@ const Sidebar = (props) => {
             height={isMobile ? "50" : '100%'}
             onClick={onOpen}
           >
-            <IoMenu className="text-2xl text-black sm:text-white"/>
+            <IoMenu />
           </Button>
           <Drawer
             size={drawerSize}

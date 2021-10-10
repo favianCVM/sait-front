@@ -132,7 +132,7 @@ const IncidenceTable = ({
               border="1px"  
               borderColor="gray.500"  
               overflowY="scroll"
-              shadow="base"
+              shadow="lg"
               maxH={310} 
               minH={310}
             >

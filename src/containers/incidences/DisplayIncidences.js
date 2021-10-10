@@ -5,7 +5,7 @@ import {
 import PageHeader from '@components/common/PageHeader'
 import ManageIncidence from "@components/incidences/ManageIncidence"
 import {IoAddCircleOutline} from 'react-icons/io5'
-import IncidenceTable from "@components/incidences/IncidencesTable"
+import IncidenceTable from "@components/incidences/IncidenceTable"
 
 const data = [
   {

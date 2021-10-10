@@ -60,30 +60,26 @@ const TablePagination = ({
   const baseStyles= {
     shadow: 'base',
     w: 7,
-    fontSize: 'sm'
+    fontSize: 'sm',
+    bg: isDark ? 'white' : 'gray.700',
+    color: isDark ? 'gray.700' : 'white',
+    _hover: {
+      bg: isDark ? 'gray.700' : 'white',
+      color: isDark ? 'white' : 'gray.700',
+    },
   };
 
   const normalStyles= {
-    _hover: {
-      bg: 'blue.200'
-    },
-    bg: isDark ? 'blue.50' : 'blue.400',
-    color: isDark ? 'black' : 'white',
     ...baseStyles,
   };
 
   const activeStyles = {
     ...baseStyles,
-    _hover: {
-      bg: 'white'
-    },
-    bg: 'white',
-    color: isDark ? 'black' : 'white',
+    bg: isDark ? 'gray.700' : 'white',
+    color: isDark ? 'white' : 'gray.700',
   };
 
   const separatorStyles = {
-    w: 7,
-    bg: "green.200"
   };
 
   // handlers
@@ -99,16 +95,16 @@ const TablePagination = ({
   };
 
   return (
-    <ChakraProvider>
+    <>
       <Paginator
         isDisabled={isDisabled}
-        activeStyles={activeStyles}
         innerLimit={innerLimit}
-        currentPage={currentPage}
         outerLimit={outerLimit}
         normalStyles={normalStyles}
+        activeStyles={activeStyles}
         separatorStyles={separatorStyles}
         pagesQuantity={pagesQuantity}
+        currentPage={currentPage}
         onPageChange={handlePageChange}
       >
         <Container w="fit-content" align="center"  justify="space-between" p={4}>
@@ -135,7 +131,7 @@ const TablePagination = ({
           </Next>
         </Container>
       </Paginator>
-    </ChakraProvider>
+    </>
   );
 };
 

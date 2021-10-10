@@ -42,11 +42,19 @@ const IncidenceForm = ({handleSubmit}) => {
         <Form>
           <Box display="flex" flexDirection="column" w="100%">
             <Stack>
+              <TextareaField
+                name="description"
+                id="description"
+                placeholder="description"
+                size='md'
+                showError={false}
+                disabled={props.isSubmitting}
+              />
+              
               <AutocompleteSelect
                 name="user"
                 placeholder="seleccione un usuario"
                 listItems={countries}
-                containerClasses="-mb-10"
                 disabled={props.isSubmitting}
               />
 
@@ -54,7 +62,6 @@ const IncidenceForm = ({handleSubmit}) => {
                 name="priority"
                 placeholder="seleccione una prioridad"
                 listItems={countries}
-                containerClasses="-mb-10"
                 disabled={props.isSubmitting}
               />
 
@@ -65,14 +72,6 @@ const IncidenceForm = ({handleSubmit}) => {
                 disabled={props.isSubmitting}
               />
 
-              <TextareaField
-                name="description"
-                id="description"
-                placeholder="description"
-                size='md'
-                showError={false}
-                disabled={props.isSubmitting}
-              />
             </Stack>
 
             <Popover>

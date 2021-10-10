@@ -14,7 +14,6 @@ const AutocompleteSelect = ({
   label = '',
   placeholder = '',
   listItems = [],
-  containerClasses='',
   itemRender = null,
   disabled=false,
 }) => {
@@ -36,11 +35,14 @@ const AutocompleteSelect = ({
   }
 
   return (
-    <Box className={containerClasses}>
+    <Box>
       <Field name={name}>
           {({field, form}) => (
             <CUIAutoComplete
               highlightItemBg="blue.100"
+              inputStyleProps={{
+                cursor: 'pointer',
+              }}
               listItemStyleProps={{
                 cursor: 'pointer',
                 textColor: 'blue.800',

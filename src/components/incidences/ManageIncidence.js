@@ -8,7 +8,6 @@ import {
   Button,
   ModalBody,
   useMediaQuery,
-  Box,
 } from "@chakra-ui/react"
 
 import IncidenceForm from "@components/incidences/IncidenceForm";
@@ -17,6 +16,9 @@ const ManageIncidence = ({isOpen, onClose, handleSubmit}) => {
   const [isMobile] = useMediaQuery("(max-width: 680px)")
   return(
       <Modal
+        blockScrollOnMount
+        preserveScrollBarGap
+        closeOnOverlayClick={false}
         isOpen={isOpen}
         onClose={onClose}
         isCentered
