@@ -54,8 +54,9 @@ export default function TextField({
             { (type === 'password') && (
               <InputRightElement width="4.5rem">
                 <Button
+                  borderRadius="full"
                   colorScheme="blue"
-                  variant="outline"
+                  variant="solid"
                   size="sm"
                   onClick={() => setShowPassword(!showPassword)}
                 >

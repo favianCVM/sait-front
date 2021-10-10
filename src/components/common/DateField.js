@@ -38,8 +38,9 @@ const DateField = ({
                   rightIcon={<IoCalendar/>}
                   colorScheme="blue"
                   w={{
-                    base: '75%',
-                    sm: '41%'
+                    base: '58%',
+                    sm: '48%',
+                    md: '38%'
                   }}
                 >
                   {field.value?.getTime() !== new Date().getTime()

@@ -82,7 +82,7 @@ const Sidebar = (props) => {
   const isDark = colorMode === 'dark'
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
-  const [display, setDisplay] = useState(true)
+  const [display, setDisplay] = useState(false)
   //drawer responsive
   const [isMobile] = useMediaQuery("(max-width: 680px)")
   const drawerSize = useBreakpointValue({ base: "full", sm: "xs" })
@@ -91,9 +91,15 @@ const Sidebar = (props) => {
   const {children, isAdmin, isUser, history, location, actions, full_name} = props;
 
   useEffect(()=>{
-    if(!isAdmin && !isUser){
+    //i have to refactor this algorithm, but as it's now it works
+    const notLogged = !isAdmin && !isUser
+
+    if(notLogged){
       setDisplay(false)
-    } else if (isAdmin || isUser){
+      history.push('/iniciar-sesion')
+    } else if (!notLogged && location.pathname === '/iniciar-sesion'){
+      history.push('incidencias')
+    } else if(!notLogged){
       setDisplay(true)
     }
     onClose()
