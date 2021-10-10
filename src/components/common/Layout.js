@@ -118,9 +118,22 @@ const Sidebar = (props) => {
       {(display) && (
         <div className="sticky top-0 mb-3 sm:mb-0 sm:min-h-screen sm:static">
           <Button
-            className="sticky w-full top-2 left-2 sm:top-0 sm:left-0 sm:static"
+            left={{
+              base: 2,
+              sm: 0
+            }}
+            mt={{
+              base: 4,
+              sm: 0
+            }}
+            w={{
+              base: 'fit-content'
+            }}
+            position={{
+              base: 'sticky',
+              sm: 'static'
+            }}
 						borderRadius={isMobile ? 15 : 0}
-            background={isMobile ? 'white' : 'none'}
             boxShadow={isMobile ? 'md' : 'none'}
             size="lg"
             height={isMobile ? "50" : '100%'}
@@ -142,11 +155,12 @@ const Sidebar = (props) => {
               <DrawerHeader>
                 <Box display="flex" alignItems="center" flexDirection="column">
                   <Avatar
-                    src="https://as01.epimg.net/diarioas/imagenes/2021/05/12/actualidad/1620834945_030169_1620835008_noticia_normal.jpg" size="lg"
+                    src="https://as01.epimg.net/diarioas/imagenes/2021/05/12/actualidad/1620834945_030169_1620835008_noticia_normal.jpg" 
+                    size="lg"
                   />
                   <Heading>{full_name}</Heading>
                 </Box>
-                <Divider className="mt-6"/>
+                <Divider mt="6" />
               </DrawerHeader>
 
               <DrawerBody>

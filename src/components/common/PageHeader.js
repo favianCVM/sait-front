@@ -4,30 +4,50 @@ import {
   Box,
   Tooltip,
   IconButton,
+  Flex,
 } from '@chakra-ui/react'
 
 const PageHeader = ({title, subTitle, message, action, actionIcon, actionName}) => {
   return(
     <Box marginBottom="4">
-      <Box
-        display={{
-          base: 'flex'
+      <Flex
+        direction={{
+          base: 'column'
         }}
-        alignItems="center"
+        alignItems={{
+          base: 'end'
+        }}
         justifyContent={{
           base: 'space-between'
         }}
         w="100%"
+        pr={{
+          base: 4,
+          sm: 0
+        }}
       >
         <Heading
           as="h2"
-          size="4xl"
+          textAlign={{
+            base: 'center'
+          }}
+          fontSize={{
+            base: 48,
+            sm: 58
+          }}
         >
           {title}
         </Heading>
 
         {(action && actionIcon && actionName) && (
-          <Tooltip hasArrow label={actionName}>
+          <Tooltip  
+            hasArrow 
+            label={actionName}
+            mt={{
+              base: 4,
+              sm: 0
+            }}
+          >
             <IconButton
               onClick={action}
               fontSize={32}
@@ -35,7 +55,7 @@ const PageHeader = ({title, subTitle, message, action, actionIcon, actionName}) 
             />
           </Tooltip>
         )}
-      </Box>
+      </Flex>
 
       <Heading
         as="h3"

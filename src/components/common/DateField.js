@@ -37,7 +37,10 @@ const DateField = ({
                 <Button
                   rightIcon={<IoCalendar/>}
                   colorScheme="blue"
-                  w="50%"
+                  w={{
+                    base: '75%',
+                    sm: '41%'
+                  }}
                 >
                   {field.value?.getTime() !== new Date().getTime()
                     ? formatDate(field.value)

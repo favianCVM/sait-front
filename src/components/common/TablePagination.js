@@ -75,7 +75,7 @@ const TablePagination = ({
 
   const activeStyles = {
     ...baseStyles,
-    bg: isDark ? 'gray.700' : 'white',
+    bg: isDark ? 'gray.700' : 'gray.200',
     color: isDark ? 'white' : 'gray.700',
   };
 
@@ -108,7 +108,10 @@ const TablePagination = ({
         onPageChange={handlePageChange}
       >
         <Container w="fit-content" align="center"  justify="space-between" p={4}>
-          <Previous shadow="base" mr={4}>
+          <Previous display={{
+            base: 'none',
+            sm: 'block'
+          }} shadow="base" mr={4}>
             <IoArrowBack/>
           </Previous>
 
@@ -116,17 +119,20 @@ const TablePagination = ({
             <MenuButton shadow="base" as={Button} rightIcon={<IoArrowDown />}>
               {pageSize}
             </MenuButton>
-              <MenuList onClick={handlePageSizeChange}>
-                <MenuItem value={5}>5</MenuItem>
-                <MenuItem value={10}>10</MenuItem>
-                <MenuItem value={25}>25</MenuItem>
-                <MenuItem value={50}>50</MenuItem>
-              </MenuList>
+            <MenuList onClick={handlePageSizeChange}>
+              <MenuItem value={5}>5</MenuItem>
+              <MenuItem value={10}>10</MenuItem>
+              <MenuItem value={25}>25</MenuItem>
+              <MenuItem value={50}>50</MenuItem>
+            </MenuList>
           </Menu>
 
           <PageGroup isInline align="center" ml={4} />
 
-          <Next shadow="base" ml={4}>
+          <Next display={{
+            base: 'none',
+            sm: 'block'
+          }} shadow="base" ml={4}>
             <IoArrowForward/>
           </Next>
         </Container>

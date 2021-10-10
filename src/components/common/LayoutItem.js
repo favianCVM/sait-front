@@ -15,9 +15,12 @@ export default function LayoutItem({ icon, title, to, clickLink }) {
 				alignItems="center"
 			>
 					<Link
-						className={`hover:bg-blue-500 hover:text-white`}
+						shadow="md"
 						//reseting hover effects
-						_hover={{}}
+						_hover={{
+							bg: 'blue.500',
+							textColor: 'white'
+						}}
 						p={3}
 						borderRadius={8}
 						w="100%"
@@ -31,8 +34,7 @@ export default function LayoutItem({ icon, title, to, clickLink }) {
 
 								<Text
 									ml={5}
-									display="flex"
-									>
+								>
 									{title}
 								</Text>
 
