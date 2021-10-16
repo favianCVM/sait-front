@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import {connect} from 'react-redux';
 import {
   Tooltip,
@@ -20,7 +20,6 @@ import {
   useBreakpointValue,
   Box,
   useMediaQuery,
-  useBoolean,
 } from '@chakra-ui/react'
 import {
   IoSunnyOutline,
@@ -37,27 +36,27 @@ import LayoutItem from './LayoutItem'
 import {bindActionCreators} from 'redux';
 import * as actions from '@actions/index'
 //ROUTING
-import { withRouter } from 'react-router-dom';
+import history from '@utils/history'
 
 //ADMIN ROUTES
 const adminRoutes = [
   {
-    to: '/register-incident',
+    to: '/admin/register-incident',
     icon: IoAddCircleOutline,
     title: 'Registrar incidencia',
   },
   {
-    to: '/incidences',
+    to: '/admin/incidences',
     icon: IoAlertCircle,
     title: 'Incidencias',
   },
   {
-    to: 'technician-assignment',
+    to: '/admin/technician-assignment',
     icon: IoBuild,
     title: 'Asignación de técnico',
   },
   {
-    to: 'users',
+    to: '/admin/users',
     icon: IoPerson,
     title: 'Usuarios',
   }
@@ -77,43 +76,25 @@ const userRoutes = [
   }
 ]
 
+const redirect = (to) => {
+  history.push(to)
+}
+
 const Sidebar = (props) => {
   const { colorMode, toggleColorMode } = useColorMode()
   const isDark = colorMode === 'dark'
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
-  const [display, setDisplay] = useState(false)
   //drawer responsive
   const [isMobile] = useMediaQuery("(max-width: 680px)")
   const drawerSize = useBreakpointValue({ base: "full", sm: "xs" })
 
   //props
-  const {children, isAdmin, isUser, history, location, actions, full_name} = props;
+  const {children, isAdmin, isUser, actions, isLogged, full_name} = props;
 
-  useEffect(()=>{
-    //i have to refactor this algorithm, but as it's now it works
-    const notLogged = !isAdmin && !isUser
-
-    if(notLogged){
-      setDisplay(false)
-      history.push('/iniciar-sesion')
-    } else if (!notLogged && location.pathname === '/iniciar-sesion'){
-      history.push('incidencias')
-    } else if(!notLogged){
-      setDisplay(true)
-    }
+  history.listen((location, action)=>{
     onClose()
-  },[location.pathname])
-
-  //listen to route changes
-/*   history.listen((location, action) => {
-    console.log(location.pathname)
-  }); */
-
-  //link redirect method
-  const redirect = (to) => {
-    history.push(to)
-  }
+  })
 
   return(
     <Box 
@@ -121,7 +102,7 @@ const Sidebar = (props) => {
       display={isMobile ? 'block' : 'flex'}
     >
 
-      {(display) && (
+      {(isLogged) && (
         <div className="sticky top-0 mb-3 sm:mb-0 sm:min-h-screen sm:static">
           <Button
             left={{
@@ -243,4 +224,4 @@ const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Sidebar));
+export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

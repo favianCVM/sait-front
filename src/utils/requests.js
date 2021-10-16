@@ -1,6 +1,6 @@
 import Api from './api'
 
-const sign_in = (data) => Api().post('url',data);
+const sign_in = (data) => Api().get('/user',data);
 
 export default {
   //USER AUTH

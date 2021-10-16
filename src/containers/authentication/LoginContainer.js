@@ -10,6 +10,10 @@ const LoginContainer = (props) =>{
 
   const handleSubmit = async () =>{
     await actions.signIn()
+
+    /**
+     * Esto lo tengo que cambiar para que dependiendo del tipo de usuario te rediriga dinamicamente.
+     */
     history.push('/incidencias')
   }
   return(

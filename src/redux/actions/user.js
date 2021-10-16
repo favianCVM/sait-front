@@ -9,7 +9,6 @@ export function logOut() {
     await dispatch({
       type: LOG_OUT,
     });
-    return true;
   }
 }
 
@@ -23,6 +22,7 @@ export function signIn(data) {
         id_user: 15,
         full_name: 'algo',
         username: 'algo',
+        logged: true,
       }
     })
 /*     return requests.sign_in(data)
