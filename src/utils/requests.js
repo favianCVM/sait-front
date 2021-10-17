@@ -1,8 +1,8 @@
 import Api from './api'
 
-const sign_in = (data) => Api().get('/user',data);
+const login = (data) => Api().post('/profile/login', data);
 
 export default {
   //USER AUTH
-  sign_in
+  login
 }

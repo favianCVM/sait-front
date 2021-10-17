@@ -1,5 +1,5 @@
 import Form from "@components/auth_form/LoginForm"
-import {Heading} from '@chakra-ui/react'
+import {Heading, useToast, Box} from '@chakra-ui/react'
 import { withRouter } from "react-router-dom"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
@@ -7,20 +7,31 @@ import * as actions from '@actions/'
 
 const LoginContainer = (props) =>{
   const {history, actions} = props;
+  const toast = useToast()
 
-  const handleSubmit = async () =>{
-    await actions.signIn()
 
-    /**
-     * Esto lo tengo que cambiar para que dependiendo del tipo de usuario te rediriga dinamicamente.
-     */
-    history.push('/incidencias')
+  const handleSubmit = async (values) =>{
+    let response = await actions.signIn(values)
+
+    toast({
+      title: response.title || '',
+      description: response.description || '',
+      status: response.status,
+      duration: 5000,
+      isClosable: true,
+    })
+
+    if(response.success && parseInt(response.role) === 60){
+      history.push('/admin/incidencias')
+    }else if(response.success && parseInt(response.role) === 50){
+      history.push('/incidencias')
+    }
   }
   return(
-    <div className="w-full py-16">
-      <Heading className="my-6 text-center">Iniciar sesion</Heading>
+    <Box w="full" py={14}>
+      <Heading my={6} textAlign="center">Iniciar sesion</Heading>
       <Form handleSubmit={handleSubmit}/>
-    </div>
+    </Box>
   )
 }
 

@@ -90,7 +90,7 @@ const Sidebar = (props) => {
   const drawerSize = useBreakpointValue({ base: "full", sm: "xs" })
 
   //props
-  const {children, isAdmin, isUser, actions, isLogged, full_name} = props;
+  const {children, isAdmin, isUser, actions, isLogged, username} = props;
 
   history.listen((location, action)=>{
     onClose()
@@ -145,7 +145,7 @@ const Sidebar = (props) => {
                     src="https://as01.epimg.net/diarioas/imagenes/2021/05/12/actualidad/1620834945_030169_1620835008_noticia_normal.jpg" 
                     size="lg"
                   />
-                  <Heading>{full_name}</Heading>
+                  <Heading>{username}</Heading>
                 </Box>
                 <Divider mt="6" />
               </DrawerHeader>
@@ -203,7 +203,7 @@ const Sidebar = (props) => {
         </div>
       )}
 
-      <div className="flex flex-col w-full px-0 py-12 sm:pl-6 sm:pr-10 md:pr-16 md:pl-12">
+      <div className="flex flex-col w-full px-0 pb-12 pt-3 sm:pl-6 sm:pr-10 md:pr-16 md:pl-12">
         {children}
       </div>
 
@@ -214,10 +214,10 @@ const Sidebar = (props) => {
 const mapStateToProps = (state) => ({
   token:  state.user.get('token'),
   isLogged: state.user.get('logged'),
-  full_name: state.user.get('full_name'),
-  type: state.user.get('type'),
-  isAdmin: state.user.get('id_user') && (parseInt(state.user.get('type')) === 60),
-  isUser: state.user.get('id_user') && (parseInt(state.user.get('type')) === 50),
+  username: state.user.get('username'),
+  role: state.user.get('role'),
+  isAdmin: state.user.get('token') && (parseInt(state.user.get('role')) === 60),
+  isUser: state.user.get('token') && (parseInt(state.user.get('role')) === 50),
 })
 
 const mapDispatchToProps = (dispatch) => ({

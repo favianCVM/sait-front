@@ -3,10 +3,10 @@ import { LOG_OUT, SIGN_IN} from '../actionTypes'
 
 const initialState = map({
   token: localStorage.getItem('token'),
-  full_name: localStorage.getItem('full_name'),
+  name: localStorage.getItem('name'),
   username: localStorage.getItem('username'),
-  id_user: localStorage.getItem('id_user'),
-  type: localStorage.getItem('type'),
+  id: localStorage.getItem('id'),
+  role: parseInt(localStorage.getItem('role')),
   logged: localStorage.getItem('logged')
 })
 
@@ -15,32 +15,32 @@ const user = (state = initialState, action) => {
     case LOG_OUT:
       localStorage.removeItem('token');
       localStorage.removeItem('logged');
-      localStorage.removeItem('id_user');
-      localStorage.removeItem('full_name');
+      localStorage.removeItem('id');
+      localStorage.removeItem('name');
       localStorage.removeItem('username');
-      localStorage.removeItem('type');
+      localStorage.removeItem('role');
       return state
         .set("logged", false)
         .set('token', null)
-        .set('id_user', null)
-        .set('type', null)
-        .set('full_name', null)
+        .set('id', null)
+        .set('role', null)
+        .set('name', null)
         .set('username', null)
 
     case SIGN_IN:
       localStorage.setItem('token', action.payload.token);
-      localStorage.setItem('id_user', action.payload.is_user);
-      localStorage.setItem('full_name', action.payload.full_name);
-      localStorage.setItem('username', action.payload.username);
-      localStorage.setItem('type', action.payload.type);
-      localStorage.setItem('logged', action.payload.logged);
+      localStorage.setItem('id', action.payload.id);
+      localStorage.setItem('name', action.payload.name);
+      localStorage.setItem('username', `${action.payload.name} ${action.payload.last_name}`);
+      localStorage.setItem('role', parseInt(action.payload.role));
+      localStorage.setItem('logged', true);
 
       return state
         .set("logged", true)
-        .set('id_user', action.payload.id_user)
-        .set('type', action.payload.type)
-        .set('full_name', action.payload.full_name)
-        .set('username', action.payload.username)
+        .set('id', action.payload.id)
+        .set('role', parseInt(action.payload.role))
+        .set('name', action.payload.name)
+        .set('username', `${action.payload.name} ${action.payload.last_name}`)
         .set('token', action.payload.token)
 
     default:

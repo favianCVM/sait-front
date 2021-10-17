@@ -49,7 +49,6 @@ const DateField = ({
                   }
                 </Button>}
             />
-            {console.log(field)}
         </FormControl>
       )}
     </Field>

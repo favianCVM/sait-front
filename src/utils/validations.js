@@ -1,12 +1,16 @@
+const emailValidation = /\S+@\S+\.\S+/;
+
+const stringValidation1 = /^([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ]{3,})$/;
+
 const loginValidations = (values, props) => {
   const errors = {};
-  let { name, password } = values;
+  let { email, password } = values;
 
-  if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ]{3,})$/.test(name)) {
-    errors.name = 'Required';
-  } else delete errors.name
+  if (!emailValidation.test(email)) {
+    errors.email = 'Required';
+  } else delete errors.email
 
-  if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ]{3,})$/.test(password)) {
+  if (!stringValidation1.test(password)) {
     errors.password = 'Required';
   } else delete errors.password
 

@@ -14,23 +14,29 @@ export function logOut() {
 
 export function signIn(data) {
   return async dispatch => {
-    await dispatch({
-      type: SIGN_IN,
-      payload: {
-        token: 2002020,
-        type: 60,
-        id_user: 15,
-        full_name: 'algo',
-        username: 'algo',
-        logged: true,
-      }
-    })
-/*     return requests.sign_in(data)
-      .then(async (r)=>{
-        
+    return requests.login(data)
+    .then(async (r)=>{
+        await dispatch({
+          type: SIGN_IN,
+          payload: {
+            ...r.data
+          }
+        })
+        return {
+          title: 'Login exitoso.',
+          success: true,
+          description: '........',
+          status: 'success',
+          role: r.data.role,
+        }
       })
       .catch((e)=>{
-
-      }) */
+        return {
+          title: e.response?.data?.message || 'Login fallido.',
+          success: false,
+          status: 'error',
+          description: '...........'
+        }
+      })
   }
 }

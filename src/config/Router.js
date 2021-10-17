@@ -56,12 +56,8 @@ const AppRouter = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  token:  state.user.get('token'),
-  isLogged: state.user.get('logged'),
-  full_name: state.user.get('full_name'),
-  type: state.user.get('type'),
-  isAdmin: state.user.get('id_user') && (parseInt(state.user.get('type')) === 60),
-  isUser: state.user.get('id_user') && (parseInt(state.user.get('type')) === 50),
+  isAdmin: state.user.get('token') && (parseInt(state.user.get('role')) === 60),
+  isUser: state.user.get('token') && (parseInt(state.user.get('role')) === 50),
 })
 
 export default connect(mapStateToProps, null)(AppRouter)

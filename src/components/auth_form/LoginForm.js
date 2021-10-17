@@ -20,7 +20,7 @@ const LoginForm = ({handleSubmit}) => {
   return(
     <Formik
       initialValues={{
-        name: '',
+        email: '',
         password: ''
       }}
       onSubmit={handleSubmit}
@@ -42,12 +42,12 @@ const LoginForm = ({handleSubmit}) => {
             }}
           >
             <TextField
-              placeholder='nombre'
+              placeholder='correo electronico'
               size='md'
-              id='name'
-              name='name'
-              type='text'
-              helperText='introduzca nombre'
+              id='email'
+              name='email'
+              type='email'
+              helperText='introduzca correo electronico'
             />
 
             <TextField
