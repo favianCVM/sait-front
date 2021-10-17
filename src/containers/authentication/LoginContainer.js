@@ -9,7 +9,6 @@ const LoginContainer = (props) =>{
   const {history, actions} = props;
   const toast = useToast()
 
-
   const handleSubmit = async (values) =>{
     let response = await actions.signIn(values)
 
@@ -22,9 +21,9 @@ const LoginContainer = (props) =>{
     })
 
     if(response.success && parseInt(response.role) === 60){
-      history.push('/admin/incidencias')
+      history.push('/admin/incidences')
     }else if(response.success && parseInt(response.role) === 50){
-      history.push('/incidencias')
+      history.push('/incidences')
     }
   }
   return(

@@ -1,4 +1,4 @@
-import DisplayIncidences from "@containers/incidences/DisplayIncidences"
+import DisplayIncidences from "@containers/admin/incidences/DisplayIncidences"
 
 const Incidences = () =>{
   return(

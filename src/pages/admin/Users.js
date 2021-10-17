@@ -1,14 +1,10 @@
-import PageHeader from "@components/common/PageHeader"
+import DisplayUsers from "@containers/admin/users/DisplayUsers"
 
 const Users = () =>{
   return(
-    <div>
-      <PageHeader
-        title="titulo"
-        message="mensaje"
-        subTitle="subtitulo"
-      />
-    </div>
+    <>
+      <DisplayUsers/>      
+    </>
   )
 }
 
