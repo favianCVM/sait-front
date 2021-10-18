@@ -27,11 +27,11 @@ const incidenceValidations = (values, props) => {
     description, 
   } = values;
 
-  if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ]{3,})$/.test(user) || !user) {
+  if (!stringValidation1.test(user) || !user) {
     errors.user = 'usuario';
   } else delete errors.user
 
-  if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ]{3,})$/.test(priority) || !priority) {
+  if (!stringValidation1.test(priority) || !priority) {
     errors.priority = 'prioridad';
   } else delete errors.priority
 
@@ -47,9 +47,48 @@ const incidenceValidations = (values, props) => {
   return errors;
 };
 
+const userCreationValidations = (values, props) => {
+  const errors = {};
+  let { email, password, birth_date, name, last_name, dni, role, sex } = values;
+
+  if (!emailValidation.test(email)) {
+    errors.email = 'email';
+  } else delete errors.email
+
+  if (!stringValidation1.test(password)) {
+    errors.password = 'contrasenna';
+  } else delete errors.password
+
+  if(!role || role === 0){
+    errors.role = 'role';
+  } else delete errors.role
+
+  if(!birth_date || isNaN(birth_date)){
+    errors.birth_date = 'fecha';
+  } else delete errors.birth_date
+
+  if(!sex){
+    errors.sex = 'sexo';
+  } else if(sex === 'M' || sex === 'F') delete errors.sex
+
+  if(!dni){
+    errors.dni = 'dni';
+  } else delete errors.dni
+
+  if(!stringValidation1.test(name)){
+    errors.name = 'nombre'
+  }else delete errors.name
+
+  if(!stringValidation1.test(last_name)){
+    errors.last_name = 'apellido'
+  }else delete errors.last_name
+
+  return errors;
+}
 
 //EXPORTS
 export {
   loginValidations,
-  incidenceValidations
+  incidenceValidations,
+  userCreationValidations,
 }

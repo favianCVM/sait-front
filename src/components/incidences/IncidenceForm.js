@@ -10,11 +10,15 @@ import {
   PopoverArrow,
   PopoverCloseButton,
   ListItem,
-  UnorderedList
-} from '@chakra-ui/react'
+  UnorderedList,
+} from "@chakra-ui/react";
 import { Formik, Form } from "formik";
-import {incidenceValidations} from '@utils/validations'
-import { AutocompleteSelect, DateField, TextareaField } from '@components/common';
+import { incidenceValidations } from "@utils/validations";
+import {
+  AutocompleteSelect,
+  DateField,
+  TextareaField,
+} from "@components/common";
 
 const countries = [
   { value: "ghana", label: "Ghana" },
@@ -23,17 +27,17 @@ const countries = [
   { value: "southAfrica", label: "South Africa" },
   { value: "unitedStates", label: "United States" },
   { value: "canada", label: "Canada" },
-  { value: "germany", label: "Germany" }
+  { value: "germany", label: "Germany" },
 ];
 
-const IncidenceForm = ({handleSubmit}) => {
-  return(
+const IncidenceForm = ({ handleSubmit }) => {
+  return (
     <Formik
       initialValues={{
-        user:'',
-        priority: '',
+        user: "",
+        priority: "",
         date: new Date(),
-        description: '',
+        description: "",
       }}
       onSubmit={handleSubmit}
       validate={incidenceValidations}
@@ -46,11 +50,19 @@ const IncidenceForm = ({handleSubmit}) => {
                 name="description"
                 id="description"
                 placeholder="description"
-                size='md'
+                size="md"
                 showError={false}
                 disabled={props.isSubmitting}
               />
-              
+
+              <DateField
+                id="date"
+                name="date"
+                maxDate={new Date()}
+                disabled={props.isSubmitting}
+                addClass="pt-5"
+              />
+
               <AutocompleteSelect
                 name="user"
                 placeholder="seleccione un usuario"
@@ -64,14 +76,6 @@ const IncidenceForm = ({handleSubmit}) => {
                 listItems={countries}
                 disabled={props.isSubmitting}
               />
-
-              <DateField
-                label="fecha"
-                name="date"
-                maxDate={new Date()}
-                disabled={props.isSubmitting}
-              />
-
             </Stack>
 
             <Popover>
@@ -94,19 +98,19 @@ const IncidenceForm = ({handleSubmit}) => {
                   <PopoverHeader>Tienes errores</PopoverHeader>
                   <PopoverBody className="flex flex-col items-start">
                     <UnorderedList>
-                      {Object.keys(props.errors).map((err) => (<ListItem>{props.errors[err]}</ListItem>))}
+                      {Object.keys(props.errors).map((err) => (
+                        <ListItem>{props.errors[err]}</ListItem>
+                      ))}
                     </UnorderedList>
                   </PopoverBody>
                 </PopoverContent>
               )}
             </Popover>
-
           </Box>
-
         </Form>
       )}
     </Formik>
-  )
-}
+  );
+};
 
 export default IncidenceForm;

@@ -1,58 +1,81 @@
-import DatePicker from "react-datepicker";
-import formatDate from "@utils/formatDate";
-import "react-datepicker/dist/react-datepicker.css";
-import { IoCalendar } from "react-icons/io5";
-
 import {
-  FormLabel,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
   FormControl,
-  Button,
-  useBoolean
-} from "@chakra-ui/react"
-import { Field } from 'formik';
+  FormErrorMessage,
+  Input,
+} from "@chakra-ui/react";
+import React from "react";
+
+import { DayPicker, useInput } from "react-day-picker";
+import "react-day-picker/style.css";
+import { css } from "@emotion/react";
+import { Field } from "formik";
+import { format } from "date-fns";
+import InputMask from "react-input-mask";
 
 const DateField = ({
-  name='',
+  name = "",
   id,
-  maxDate,
-  disabled=false,
+  maxDate = new Date(),
+  disabled = false,
+  label = "",
+  size = "md",
+  isClearable = true,
+  showPopperArrow = true,
+  helperText = "",
+  addClass = "",
 }) => {
+  const options = {
+    // Select today as default
+    defaultSelected: new Date(),
+    // Limit the valid dates
+    toYear: maxDate,
+    format: "P",
+    // Make the selection mandatory.
+    required: true,
+    onChange: (date) => {
+      console.log(date);
+    }
+  };
 
-  return(
+  const input = useInput(options);
+
+  return (
     <Field name={name}>
-      {({field, form}) => (
-        <FormControl
-          id={id}
-          isInvalid={form.errors[name] && form.touched[name]}
-          mx="auto"
-        >
-            <DatePicker
-              selected={field.value}
-              maxDate={maxDate}
-              onChange={(date)=>{
-                form.setFieldValue(name, date)
-              }}
-              disabled={disabled}
-              customInput={
-                <Button
-                  rightIcon={<IoCalendar/>}
-                  colorScheme="blue"
-                  w={{
-                    base: '58%',
-                    sm: '48%',
-                    md: '38%'
-                  }}
-                >
-                  {field.value?.getTime() !== new Date().getTime()
-                    ? formatDate(field.value)
-                    : "Seleccionar fecha"
-                  }
-                </Button>}
-            />
-        </FormControl>
-      )}
+      {({ field, form, meta }) => {
+        return (
+          <FormControl
+            id={id}
+            isInvalid={!!meta.error}
+            css={css`
+              --rdp-cell-size: 2rem;
+              --rdp-accent-color: var(--chakra-colors-blue-500);
+              --rdp-background-color: var(--chakra-colors-blue-200);
+            `}
+          >
+            <Popover>
+              <PopoverTrigger>
+                <Input
+                  disabled={disabled}
+                  as={InputMask} 
+                  mask="**/**/****" 
+                  {...input.fieldProps}
+                  placeholder={format(field.value, options.format)}
+                />
+              </PopoverTrigger>
+              <PopoverContent>
+                <DayPicker {...input.dayPickerProps} showWeekNumber />
+              </PopoverContent>
+            </Popover>
+
+            <FormErrorMessage>{meta.error}</FormErrorMessage>
+          </FormControl>
+        );
+      }}
     </Field>
-  )
-}
+  );
+};
 
 export default DateField;

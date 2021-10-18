@@ -86,7 +86,7 @@ const Sidebar = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
   //drawer responsive
-  const [isMobile] = useMediaQuery("(max-width: 680px)")
+  const [isMobile] = useMediaQuery("(max-width: 625px)")
   const drawerSize = useBreakpointValue({ base: "full", sm: "xs" })
 
   //props
@@ -103,27 +103,27 @@ const Sidebar = (props) => {
     >
 
       {(isLogged) && (
-        <div className="sticky top-0 mb-3 sm:mb-0 sm:min-h-screen sm:static">
+        <Box 
+          // position={isMobile ? 'fixed' : 'static'}
+          // pt={isMobile ? '4' : '0'}
+          // pl={isMobile ? '4' : '0'}
+          // h={isMobile ? '20' : 'screen'}
+          position={'fixed'}
+          pt={'4'}
+          pl={'4'}
+          h={'20'}
+          zIndex={1000}
+        >
           <Button
-            left={{
-              base: 2,
-              sm: 0
-            }}
-            mt={{
-              base: 4,
-              sm: 0
-            }}
-            w={{
-              base: 'fit-content'
-            }}
-            position={{
-              base: 'sticky',
-              sm: 'static'
-            }}
-						borderRadius={isMobile ? 15 : 0}
-            boxShadow={isMobile ? 'md' : 'none'}
+            w="fit-content"
+						borderRadius={15}
+            boxShadow={'md'}
+            height={'50'}
+            bg="blue.300"
+						// borderRadius={isMobile ? 15 : 0}
+            // boxShadow={isMobile ? 'md' : 'none'}
+            // height={isMobile ? "50" : '100%'}
             size="lg"
-            height={isMobile ? "50" : '100%'}
             onClick={onOpen}
           >
             <IoMenu />
@@ -200,7 +200,7 @@ const Sidebar = (props) => {
               </DrawerFooter>
             </DrawerContent>
           </Drawer>
-        </div>
+        </Box>
       )}
 
       <div className="flex flex-col w-full px-0 pb-12 pt-3 sm:pl-6 sm:pr-10 md:pr-16 md:pl-12">
