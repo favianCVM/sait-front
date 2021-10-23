@@ -25,17 +25,17 @@ export function signIn(data) {
         return {
           title: 'Login exitoso.',
           success: true,
-          description: '........',
+          description: 'Bienvenido',
           status: 'success',
           role: r.data.role,
         }
       })
       .catch((e)=>{
         return {
-          title: e.response?.data?.message || 'Login fallido.',
+          title: e.response?.data?.message || 'Hubo un problema en el login.',
           success: false,
           status: 'error',
-          description: '...........'
+          description: 'Intente de nuevo'
         }
       })
   }

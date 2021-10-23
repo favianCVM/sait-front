@@ -56,7 +56,7 @@ const UserForm = ({ handleSubmit }) => {
         <Form>
           <Flex flexDirection="column" w="100%">
             <Box 
-              className="grid place-content-center place-items-center grid-cols-3 gap-x-6 gap-y-5"
+              className="grid md:place-content-center md:place-items-center md:grid-cols-3 md:gap-x-6 md:gap-y-5"
             >
               <TextField
                 name="name"
@@ -129,6 +129,8 @@ const UserForm = ({ handleSubmit }) => {
 
               <DateField
                 name="birth_date"
+                id="birth_date"
+                placeholder="Fecha de nacimiento"
                 maxDate={new Date()}
                 disabled={props.isSubmitting}
               />
