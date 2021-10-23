@@ -27,7 +27,7 @@ const LoginContainer = (props) =>{
     }
   }
   return(
-    <Box w="full" py={14}>
+    <Box data-aos="zoom-out-up" w="full" py={14}>
       <Heading my={6} textAlign="center">Iniciar sesion</Heading>
       <Form handleSubmit={handleSubmit}/>
     </Box>

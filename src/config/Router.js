@@ -5,6 +5,7 @@ import {
   Users,
   Incidences,
 } from '@pages/admin/index'
+import HomePage from '@pages/';
 import Error404 from '@containers/404';
 import LoginPage from '@pages/LoginPage';
 import Layout from '@components/common/Layout';
@@ -19,7 +20,7 @@ const AppRouter = (props) => {
     <Router history={history}>
       <Layout>
         <Switch>
-          {/* <Route exact path="/" component={LoginPage}/> */}
+          <Route exact path="/" component={HomePage}/>
           <Route exact path="/iniciar-sesion" component={LoginPage}/>
 
           <Route exact path="/login">

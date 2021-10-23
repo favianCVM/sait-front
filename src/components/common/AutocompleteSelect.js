@@ -1,4 +1,4 @@
-import {Box} from '@chakra-ui/react'
+import {Box, InputGroup, Input} from '@chakra-ui/react'
 import { CUIAutoComplete } from 'chakra-ui-autocomplete'
 import lodash from 'lodash'
 import { Field } from 'formik';
@@ -16,6 +16,10 @@ const AutocompleteSelect = ({
   listItems = [],
   itemRender = null,
   disabled=false,
+  size = "md",
+  id,
+  type,
+  ...props
 }) => {
   const { colorMode, toggleColorMode } = useColorMode()
   const isDark = colorMode === 'dark'
@@ -57,6 +61,19 @@ const AutocompleteSelect = ({
               }}
               hideToggleButton={true}
               disableCreateItem={true}
+              renderCustomInput={(inputProps) => (
+                <InputGroup size={size}>
+                  <Input 
+                    id={id}
+                    name={name}
+                    placeholder={placeholder}
+                    size={size}
+                    type={type}
+                    disabled={disabled}
+                    {...inputProps}
+                  />
+                </InputGroup>
+              )}
               itemRenderer={ itemRender || customRender}
               name={name}
               label={label}
