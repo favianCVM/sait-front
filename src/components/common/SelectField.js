@@ -1,9 +1,5 @@
 import { Select } from "chakra-react-select";
-import {
-  FormHelperText,
-  FormLabel,
-  FormControl,
-} from "@chakra-ui/react";
+import { FormHelperText, FormLabel, FormControl } from "@chakra-ui/react";
 import { Field } from "formik";
 
 const SelectTest = ({
@@ -26,7 +22,12 @@ const SelectTest = ({
           isDisabled={disabled}
           isInvalid={form.errors[name] && form.touched[name]}
         >
-          {label && <FormLabel opacity={.4}>{label}<sup>*</sup></FormLabel>}
+          {label && (
+            <FormLabel opacity={0.4}>
+              {label}
+              <sup>*</sup>
+            </FormLabel>
+          )}
           <Select
             size={size}
             name={name}
@@ -34,12 +35,13 @@ const SelectTest = ({
             placeholder={placeholder}
             closeMenuOnSelect={closeMenuOnSelect}
             disabled={disabled}
-            onChange={(e)=>{
-              form.setFieldValue(name, e.value)
+            onChange={(e) => {
+              form.setFieldValue(name, e.value);
             }}
             className="cursor-pointer"
             {...props}
           />
+          <FormHelperText>{helperText}</FormHelperText>
         </FormControl>
       )}
     </Field>

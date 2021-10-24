@@ -72,7 +72,7 @@ export default function TextField({
             )}
           </InputGroup>
           <FormHelperText>
-            { field.value && !form.errors[name] ? null : (form.errors[name] || helperText) }
+            {helperText}
           </FormHelperText>
         </FormControl>
       )}

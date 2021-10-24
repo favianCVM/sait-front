@@ -9,54 +9,42 @@ import {
   PopoverArrow,
   PopoverCloseButton,
   ListItem,
-  UnorderedList
-} from '@chakra-ui/react'
-import TextField from "@components/common/TextField"
-import {FaBullseye} from 'react-icons/fa'
-import { Formik, Form } from 'formik';
-import { loginValidations } from '@utils/validations';
+  UnorderedList,
+} from "@chakra-ui/react";
+import TextField from "@components/common/TextField";
+import { FaBullseye } from "react-icons/fa";
+import { Formik, Form } from "formik";
+import { loginValidations } from "@utils/validations";
 
-const LoginForm = ({handleSubmit}) => {
-  return(
+const LoginForm = ({ handleSubmit }) => {
+  return (
     <Formik
       initialValues={{
-        email: '',
-        password: ''
+        email: "",
+        password: "",
       }}
       onSubmit={handleSubmit}
       validate={loginValidations}
     >
       {(props) => (
         <Form>
-          <Stack
-            spacing={3}
-            mx={{
-              base: 4,
-              sm: 'auto'
-            }}
-            width={{
-              base: '100%',
-              sm: '70%',
-              md: '55%',
-              lg: '35%'
-            }}
-          >
+          <Stack spacing={3}>
             <TextField
-              placeholder='correo electronico'
-              size='md'
-              id='email'
-              name='email'
-              type='email'
-              helperText='introduzca correo electronico'
+              placeholder="correo electronico"
+              size="md"
+              id="email"
+              name="email"
+              type="email"
+              helperText="introduzca correo electronico"
             />
 
             <TextField
-              placeholder='contrasenna'
-              size='md'
-              id='password'
-              name='password'
-              type='password'
-              helperText='introduzca contrasenna'
+              placeholder="contrasenna"
+              size="md"
+              id="password"
+              name="password"
+              type="password"
+              helperText="introduzca contrasenna"
             />
 
             <Popover>
@@ -77,18 +65,19 @@ const LoginForm = ({handleSubmit}) => {
                   <PopoverHeader>Tienes errores</PopoverHeader>
                   <PopoverBody className="flex flex-col items-start">
                     <UnorderedList>
-                      {Object.keys(props.errors).map((err) => (<ListItem>{props.errors[err]}</ListItem>))}
+                      {Object.keys(props.errors).map((err) => (
+                        <ListItem>{props.errors[err]}</ListItem>
+                      ))}
                     </UnorderedList>
                   </PopoverBody>
                 </PopoverContent>
               )}
             </Popover>
-
           </Stack>
         </Form>
       )}
     </Formik>
-  )
-}
+  );
+};
 
-export default LoginForm
+export default LoginForm;

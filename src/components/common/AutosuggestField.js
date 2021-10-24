@@ -73,6 +73,7 @@ const AutosuggestField = ({
               </AutoCompleteList>
             </AutoComplete>
           </InputGroup>
+          <FormHelperText>{helperText}</FormHelperText>
         </FormControl>
       )}
     </Field>

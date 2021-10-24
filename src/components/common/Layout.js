@@ -181,6 +181,7 @@ const Sidebar = (props) => {
                       onClick={async () => {
                         await actions.logOut()
                         history.push("/login")
+                        toggleColorMode()
                       }}
                     />
                   </Tooltip>
