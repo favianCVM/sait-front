@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 
-import user from './user'
+import auth from './auth'
 import incidence from './incidence'
 
 const rootReducer = combineReducers({
-  user,
+  auth,
   incidence,
 });
 

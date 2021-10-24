@@ -56,7 +56,7 @@ const adminRoutes = [
     title: 'Asignación de técnico',
   },
   {
-    to: '/admin/users',
+    to: '/admin/profiles',
     icon: IoPerson,
     title: 'Usuarios',
   }
@@ -212,12 +212,12 @@ const Sidebar = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  token:  state.user.get('token'),
-  isLogged: state.user.get('logged'),
-  username: state.user.get('username'),
-  role: state.user.get('role'),
-  isAdmin: state.user.get('token') && (parseInt(state.user.get('role')) === 60),
-  isUser: state.user.get('token') && (parseInt(state.user.get('role')) === 50),
+  token:  state.auth.get('token'),
+  isLogged: state.auth.get('logged'),
+  username: state.auth.get('username'),
+  role: state.auth.get('role'),
+  isAdmin: state.auth.get('token') && (parseInt(state.auth.get('role')) === 60),
+  isUser: state.auth.get('token') && (parseInt(state.auth.get('role')) === 50),
 })
 
 const mapDispatchToProps = (dispatch) => ({

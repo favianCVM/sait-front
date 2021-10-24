@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Modal,
   ModalOverlay,
@@ -8,40 +8,47 @@ import {
   Button,
   ModalBody,
   useMediaQuery,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 
 import IncidenceForm from "@components/incidences/IncidenceForm";
 
-const ManageIncidence = ({isOpen, onClose, handleSubmit}) => {
-  const [isMobile] = useMediaQuery("(max-width: 680px)")
-  return(
-      <Modal
-        blockScrollOnMount
-        preserveScrollBarGap
-        closeOnOverlayClick={false}
-        isOpen={isOpen}
-        onClose={onClose}
-        isCentered
-        size={`${isMobile ? 'full' : '2xl'}`}
-      >
-        <ModalOverlay />
+const ManageIncidence = ({ isOpen, onClose, handleSubmit, dialogBlocked }) => {
+  const [isMobile] = useMediaQuery("(max-width: 680px)");
+  return (
+    <Modal
+      closeOnOverlayClick={false}
+      isOpen={isOpen}
+      onClose={onClose}
+      trapFocus={false}
+      isCentered
+      size={`${isMobile ? 'full' : '2xl'}`}
+    >
+      <ModalOverlay />
 
-        <ModalContent paddingTop={isMobile? 50 : 0}>
-          <ModalHeader>Registro de incidencia</ModalHeader>
+      <ModalContent paddingTop={isMobile ? 50 : 0}>
+        <ModalHeader>
+          {dialogBlocked
+            ? "Estamos procesando su peticion, espere unos segundos..."
+            : "Registro de incidencia"}
+        </ModalHeader>
 
-          <ModalBody>
-            <IncidenceForm handleSubmit={handleSubmit}/>
-          </ModalBody>
+        <ModalBody>
+          <IncidenceForm handleSubmit={handleSubmit} />
+        </ModalBody>
 
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Cerrar
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-
-      </Modal>
-  )
-}
+        <ModalFooter>
+          <Button
+            disabled={dialogBlocked}
+            colorScheme="blue"
+            mr={3}
+            onClick={onClose}
+          >
+            Cerrar
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
+  );
+};
 
 export default ManageIncidence;

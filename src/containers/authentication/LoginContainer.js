@@ -12,7 +12,7 @@ const LoginContainer = (props) =>{
   const handleSubmit = async (values) =>{
     let response = await actions.signIn(values)
 
-    toast({
+    await toast({
       title: response.title || '',
       description: response.description || '',
       status: response.status,
@@ -34,13 +34,9 @@ const LoginContainer = (props) =>{
   )
 }
 
-const mapStateToProps = (state) => ({
-
-})
-
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
 })
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(LoginContainer))
+export default connect(null, mapDispatchToProps)(withRouter(LoginContainer))

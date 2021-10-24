@@ -35,7 +35,7 @@ const DateField = ({
   maxDate = new Date(),
   disabled = false,
   label = "",
-  isClearable = true,
+  isClearable = false,
   size = "md",
   showPopperArrow = true,
   helperText = "",
@@ -69,7 +69,7 @@ const DateField = ({
             id={id}
             isInvalid={form.errors[name] && form.touched[name]}
           >
-            {label && <FormLabel>{label}</FormLabel>}
+            {label && <FormLabel opacity={.4}>{label}<sup>*</sup></FormLabel>}
             <InputGroup size={size}>
               <ReactDatePicker
                 renderCustomHeader={({

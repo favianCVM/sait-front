@@ -10,7 +10,7 @@ import {
   useMediaQuery,
 } from "@chakra-ui/react"
 
-import UserForm from '@components/users/UserForm'
+import ProfileForm from '@components/profiles/ProfileForm'
 
 const ManageUser = ({isOpen, onClose, handleSubmit}) => {
   const [isMobile] = useMediaQuery("(max-width: 680px)")
@@ -20,6 +20,7 @@ const ManageUser = ({isOpen, onClose, handleSubmit}) => {
         //blockScrollOnMount
         //preserveScrollBarGap
         //isCentered
+        trapFocus={false}
         closeOnOverlayClick={false}
         isOpen={isOpen}
         onClose={onClose}
@@ -30,10 +31,10 @@ const ManageUser = ({isOpen, onClose, handleSubmit}) => {
         <ModalContent 
           //</Modal>paddingTop={isMobile? 50 : 0}
         >
-          <ModalHeader fontSize="4xl">Registro de usuario</ModalHeader>
+          <ModalHeader fontSize="4xl">Registro de perfil</ModalHeader>
 
           <ModalBody>
-            <UserForm handleSubmit={handleSubmit}/>
+            <ProfileForm handleSubmit={handleSubmit}/>
           </ModalBody>
 
           <ModalFooter>

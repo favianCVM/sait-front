@@ -21,17 +21,17 @@ const loginValidations = (values, props) => {
 const incidenceValidations = (values, props) => {
   const errors = {};
   let { 
-    user, 
+    profile,
     priority,
     date,
     description, 
   } = values;
 
-  if (!stringValidation1.test(user) || !user) {
-    errors.user = 'usuario';
-  } else delete errors.user
+  if (!profile) {
+    errors.profile = 'usuario';
+  } else delete errors.profile
 
-  if (!stringValidation1.test(priority) || !priority) {
+  if (!priority) {
     errors.priority = 'prioridad';
   } else delete errors.priority
 

@@ -31,7 +31,7 @@ export default function TextField({
     <Field name={name}>
       {({field, form}) => (
         <FormControl id={id} isInvalid={form.errors[name] && form.touched[name]}>
-          <FormLabel>{label}</FormLabel>
+          {label && <FormLabel opacity={.4}>{label}<sup>*</sup></FormLabel>}
           <InputGroup size={size}>
 
             {leftChildren && (

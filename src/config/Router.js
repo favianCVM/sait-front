@@ -2,7 +2,7 @@ import {Switch, Route, Redirect, Router} from 'react-router-dom'
 import {
   RegisterIncident,
   TechnicianAssigment,
-  Users,
+  Profiles,
   Incidences,
 } from '@pages/admin/index'
 import HomePage from '@pages/';
@@ -41,7 +41,7 @@ const AppRouter = (props) => {
               <Switch>
                 <Route exact path="/admin/registrar-incidencia" component={RegisterIncident} />
                 <Route exact path="/admin/asignar-tecnico" component={TechnicianAssigment} />
-                <Route exact path="/admin/usuarios" component={Users} />
+                <Route exact path="/admin/perfiles" component={Profiles} />
                 <Route exact path="/admin/incidencias" component={Incidences} />
 
                 <Route exact path="/admin/register-incident">
@@ -50,8 +50,8 @@ const AppRouter = (props) => {
                 <Route exact path="/admin/technician-assignment">
                   <Redirect to="/admin/asignar-tecnico"/>
                 </Route>
-                <Route exact path="/admin/users">
-                  <Redirect to="/admin/usuarios"/>
+                <Route exact path="/admin/profiles">
+                  <Redirect to="/admin/perfiles"/>
                 </Route>
                 <Route exact path="/admin/incidences">
                   <Redirect  to="/admin/incidencias"/>
@@ -69,8 +69,8 @@ const AppRouter = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  isAdmin: state.user.get('token') && (parseInt(state.user.get('role')) === 60),
-  isUser: state.user.get('token') && (parseInt(state.user.get('role')) === 50),
+  isAdmin: state.auth.get('token') && (parseInt(state.auth.get('role')) === 60),
+  isUser: state.auth.get('token') && (parseInt(state.auth.get('role')) === 50),
 })
 
 export default connect(mapStateToProps, null)(AppRouter)

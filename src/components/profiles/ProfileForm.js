@@ -17,11 +17,9 @@ import {
 import { Formik, Form } from "formik";
 import { userCreationValidations } from "@utils/validations";
 import {
-  AutocompleteSelect,
   DateField,
-  SelectMenu,
-  TextareaField,
-  TextField
+  TextField,
+  SelectField,
 } from "@components/common";
 
 const countries = [
@@ -105,10 +103,10 @@ const UserForm = ({ handleSubmit }) => {
                 disabled={props.isSubmitting}
               />
 
-              <SelectMenu
-                listItems={[
-                  { name: "Masculino", value: "M" },
-                  { name: "Femenino", value: "F" },
+              <SelectField
+                options={[
+                  { label: "Masculino", value: "M" },
+                  { label: "Femenino", value: "F" },
                 ]}
                 name="sex"
                 id="sex"
@@ -116,10 +114,10 @@ const UserForm = ({ handleSubmit }) => {
                 disabled={props.isSubmitting}
               />
 
-              <SelectMenu
-                listItems={[
-                  { name: "Admin", value: 60 },
-                  { name: "Usuario", value: 50 },
+              <SelectField
+                options={[
+                  { label: "Admin", value: 60 },
+                  { label: "Usuario", value: 50 },
                 ]}
                 name="role"
                 id="role"

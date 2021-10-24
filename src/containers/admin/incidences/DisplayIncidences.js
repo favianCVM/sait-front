@@ -1,6 +1,7 @@
 import {
   Box,
   useDisclosure,
+  useBoolean
 } from "@chakra-ui/react"
 import PageHeader from '@components/common/PageHeader'
 import ManageIncidence from "@components/incidences/ManageIncidence"
@@ -108,9 +109,11 @@ const data = [
 
 const DisplayIncidences = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const [dialogBlocked, setDialogBlocked] = useBoolean(false)
 
   const handleSubmit = (values) => {
     console.log(values)
+    setDialogBlocked.on()
   }
 
   return(
@@ -126,6 +129,7 @@ const DisplayIncidences = () => {
         handleSubmit={handleSubmit}
         isOpen={isOpen}
         onClose={onClose}
+        dialogBlocked={dialogBlocked}
       />
 
       <IncidenceTable data={data} />

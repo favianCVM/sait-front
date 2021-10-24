@@ -1,7 +1,6 @@
 import {
   Heading,
   Text,
-  Image,
   Box,
   Stack,
   Flex,
@@ -9,8 +8,10 @@ import {
 } from "@chakra-ui/react";
 import history from "@utils/history";
 import { BiLogIn } from "react-icons/bi";
+//REDUX
+import { connect } from "react-redux";
 
-const CompanyHeader = ({ isHomePage = false }) => {
+const CompanyHeader = ({ isHomePage = false, isLogged }) => {
   return (
     <Flex alignItems="center" justifyContent="space-between">
       <Stack spacing={3}>
@@ -36,7 +37,7 @@ const CompanyHeader = ({ isHomePage = false }) => {
           </Heading>
         </Box>
       </Stack>
-      {isHomePage && (
+      {isHomePage && !isLogged && (
         <Tooltip label="Iniciar sesion">
           <Text
           cursor="pointer"
@@ -54,4 +55,8 @@ const CompanyHeader = ({ isHomePage = false }) => {
   );
 };
 
-export default CompanyHeader;
+const mapStateToProps = (state) => ({
+  isLogged: state.auth.get('logged'),
+})
+
+export default connect(mapStateToProps, null)(CompanyHeader);

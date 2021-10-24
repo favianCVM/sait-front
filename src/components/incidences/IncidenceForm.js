@@ -2,6 +2,7 @@ import {
   Stack,
   Button,
   Box,
+  Flex,
   Popover,
   PopoverTrigger,
   PopoverContent,
@@ -15,26 +16,37 @@ import {
 import { Formik, Form } from "formik";
 import { incidenceValidations } from "@utils/validations";
 import {
-  AutocompleteSelect,
   DateField,
   TextareaField,
+  SelectField,
+  AutosuggestField,
+  TextField,
 } from "@components/common";
 
-const countries = [
-  { value: "ghana", label: "Ghana" },
-  { value: "nigeria", label: "Nigeria" },
-  { value: "kenya", label: "Kenya" },
-  { value: "southAfrica", label: "South Africa" },
-  { value: "unitedStates", label: "United States" },
-  { value: "canada", label: "Canada" },
-  { value: "germany", label: "Germany" },
+const priorities = [
+  { value: 110, label: "baja" },
+  { value: 120, label: "media" },
+  { value: 130, label: "alta" },
+];
+
+const users = [
+  { value: 0, label: "jhon" },
+  { value: 2, label: "carl" },
+  { value: 3, label: "timy" },
+  { value: 4, label: "cristhian" },
+  { value: 5, label: "amelia" },
+  { value: 33, label: "json" },
+  { value: 112, label: "CAPRILES" },
+  { value: 22, label: "Varlos" },
+  { value: 2221, label: "Caramelos de cianuro" },
+  { value: 1233, label: "SIMON BOLIVAR" },
 ];
 
 const IncidenceForm = ({ handleSubmit }) => {
   return (
     <Formik
       initialValues={{
-        user: "",
+        profile: "",
         priority: "",
         date: new Date(),
         description: "",
@@ -44,14 +56,32 @@ const IncidenceForm = ({ handleSubmit }) => {
     >
       {(props) => (
         <Form>
-          <Box display="flex" flexDirection="column" w="100%">
+          <Flex flexDirection="column" w="100%">
             <Stack>
+              <AutosuggestField
+                label="Perfil"
+                options={users.map((el) => el.label)}
+                data={users}
+                name="profile"
+                placeholder="sel un perfil"
+                disabled={props.isSubmitting}
+              />
+
+              <SelectField
+                label="Prioridad"
+                name="priority"
+                placeholder="seleccione una prioridad"
+                disabled={props.isSubmitting}
+                options={priorities}
+              />
+
               <TextareaField
                 name="description"
                 id="description"
                 placeholder="description"
                 size="md"
                 showError={false}
+                label="Descripcion"
                 disabled={props.isSubmitting}
               />
 
@@ -61,20 +91,7 @@ const IncidenceForm = ({ handleSubmit }) => {
                 maxDate={new Date()}
                 disabled={props.isSubmitting}
                 addClass="pt-5"
-              />
-
-              <AutocompleteSelect
-                name="user"
-                placeholder="seleccione un usuario"
-                listItems={countries}
-                disabled={props.isSubmitting}
-              />
-
-              <AutocompleteSelect
-                name="priority"
-                placeholder="seleccione una prioridad"
-                listItems={countries}
-                disabled={props.isSubmitting}
+                label="Fecha de incidencia"
               />
             </Stack>
 
@@ -106,7 +123,7 @@ const IncidenceForm = ({ handleSubmit }) => {
                 </PopoverContent>
               )}
             </Popover>
-          </Box>
+          </Flex>
         </Form>
       )}
     </Formik>
