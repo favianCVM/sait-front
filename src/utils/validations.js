@@ -47,9 +47,9 @@ const incidenceValidations = (values, props) => {
   return errors;
 };
 
-const userCreationValidations = (values, props) => {
+const profileCreationValidations = (values, props) => {
   const errors = {};
-  let { email, password, birth_date, name, last_name, dni, role, sex } = values;
+  let { email, password, birth_date, first_name, last_name, dni, role, sex } = values;
 
   if (!emailValidation.test(email)) {
     errors.email = 'email';
@@ -75,9 +75,9 @@ const userCreationValidations = (values, props) => {
     errors.dni = 'dni';
   } else delete errors.dni
 
-  if(!stringValidation1.test(name)){
-    errors.name = 'nombre'
-  }else delete errors.name
+  if(!stringValidation1.test(first_name)){
+    errors.first_name = 'nombre'
+  }else delete errors.first_name
 
   if(!stringValidation1.test(last_name)){
     errors.last_name = 'apellido'
@@ -90,5 +90,5 @@ const userCreationValidations = (values, props) => {
 export {
   loginValidations,
   incidenceValidations,
-  userCreationValidations,
+  profileCreationValidations,
 }

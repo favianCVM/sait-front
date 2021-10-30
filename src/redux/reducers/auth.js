@@ -3,7 +3,7 @@ import { LOG_OUT, SIGN_IN} from '../actionTypes'
 
 const initialState = map({
   token: localStorage.getItem('token'),
-  name: localStorage.getItem('name'),
+  first_name: localStorage.getItem('first_name'),
   username: localStorage.getItem('username'),
   id: localStorage.getItem('id'),
   role: parseInt(localStorage.getItem('role')),
@@ -16,7 +16,7 @@ const user = (state = initialState, action) => {
       localStorage.removeItem('token');
       localStorage.removeItem('logged');
       localStorage.removeItem('id');
-      localStorage.removeItem('name');
+      localStorage.removeItem('first_name');
       localStorage.removeItem('username');
       localStorage.removeItem('role');
       return state
@@ -24,14 +24,14 @@ const user = (state = initialState, action) => {
         .set('token', null)
         .set('id', null)
         .set('role', null)
-        .set('name', null)
+        .set('first_name', null)
         .set('username', null)
 
     case SIGN_IN:
       localStorage.setItem('token', action.payload.token);
       localStorage.setItem('id', action.payload.id);
-      localStorage.setItem('name', action.payload.name);
-      localStorage.setItem('username', `${action.payload.name} ${action.payload.last_name}`);
+      localStorage.setItem('first_name', action.payload.first_name);
+      localStorage.setItem('username', `${action.payload.first_name} ${action.payload.last_name}`);
       localStorage.setItem('role', parseInt(action.payload.role));
       localStorage.setItem('logged', true);
 
@@ -39,8 +39,8 @@ const user = (state = initialState, action) => {
         .set("logged", true)
         .set('id', action.payload.id)
         .set('role', parseInt(action.payload.role))
-        .set('name', action.payload.name)
-        .set('username', `${action.payload.name} ${action.payload.last_name}`)
+        .set('first_name', action.payload.first_name)
+        .set('username', `${action.payload.first_name} ${action.payload.last_name}`)
         .set('token', action.payload.token)
 
     default:

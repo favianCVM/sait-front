@@ -69,7 +69,12 @@ const DateField = ({
             id={id}
             isInvalid={form.errors[name] && form.touched[name]}
           >
-            {label && <FormLabel opacity={.4}>{label}<sup>*</sup></FormLabel>}
+            {label && (
+              <FormLabel opacity={0.4}>
+                {label}
+                <sup>*</sup>
+              </FormLabel>
+            )}
             <InputGroup size={size}>
               <ReactDatePicker
                 renderCustomHeader={({
@@ -157,7 +162,6 @@ const DateField = ({
                     />
                   </div>
                 )}
-                className="mt-1.5"
                 selected={field.value}
                 isClearable={isClearable}
                 showPopperArrow={showPopperArrow}
@@ -170,19 +174,22 @@ const DateField = ({
                 }
                 customInput={
                   <Button
+                    py="5"
                     w="full"
                     variant="outline"
                     _focus={{
                       borderColor: isDark ? "blue.300" : "blue.500",
                     }}
                     borderColor={
-                      form.errors[name]
-                        ? "red.400"
+                      form.errors[name] && form.touched[name]
+                        ? "red.300"
                         : isDark
                         ? "gray.600"
                         : "gray.200"
                     }
-                    borderWidth={form.errors[name] ? 2 : 1}
+                    borderWidth={
+                      form.errors[name] && form.touched[name] ? 2 : 1
+                    }
                   >
                     {field.value
                       ? format(field.value, "dd/MM/yyyy")
@@ -200,11 +207,7 @@ const DateField = ({
                 {...props}
               />
             </InputGroup>
-            <FormHelperText>
-              {field.value && !form.errors[name]
-                ? null
-                : form.errors[name] || helperText}
-            </FormHelperText>
+            <FormHelperText>{helperText}</FormHelperText>
           </FormControl>
         );
       }}
