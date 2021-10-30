@@ -1,17 +1,33 @@
 import {
   Box,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react"
 import PageHeader from '@components/common/PageHeader'
 import {AiOutlineUserAdd} from 'react-icons/ai'
 import UserTable from "@components/profiles/ProfileTable"
 import ManageProfile from "@components/profiles/ManageProfile"
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as actions from "@actions/";
 
-const DisplayUsers = () => {
+
+const DisplayProfiles = ({ actions }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const toast = useToast();
 
-  const handleSubmit = (values) => {
-    console.log(values)
+  const handleSubmit = async (values) => {
+    let response = await actions.createProfile(values)
+
+    await toast({
+      title: response.title || "",
+      description: response.description || "",
+      status: response.status,
+      duration: 5000,
+      isClosable: true,
+    });
+
+    if(response.success) onClose()
   }
 
   return(
@@ -34,4 +50,8 @@ const DisplayUsers = () => {
   )
 }
 
-export default DisplayUsers
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(actions, dispatch),
+});
+
+export default connect(null, mapDispatchToProps)(DisplayProfiles);

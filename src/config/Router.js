@@ -14,18 +14,25 @@ import history from '@utils/history'
 
 const AppRouter = (props) => {
 
-  const {isAdmin, isUser} = props;
+  const {isAdmin, isUser, isLogged} = props;
   
   return (
     <Router history={history}>
       <Layout>
         <Switch>
           <Route exact path="/" component={HomePage}/>
-          <Route exact path="/iniciar-sesion" component={LoginPage}/>
 
-          <Route exact path="/login">
-            <Redirect to="/iniciar-sesion"/>
-          </Route>
+          {
+            !isLogged && (
+              <>
+                <Route exact path="/iniciar-sesion" component={LoginPage}/>
+                
+                <Route exact path="/login">
+                  <Redirect to="/iniciar-sesion"/>
+                </Route>
+              </>
+            )
+          }
 
           {/* {
             isUser && (
@@ -71,6 +78,7 @@ const AppRouter = (props) => {
 const mapStateToProps = (state) => ({
   isAdmin: state.auth.get('token') && (parseInt(state.auth.get('role')) === 60),
   isUser: state.auth.get('token') && (parseInt(state.auth.get('role')) === 50),
+  isLogged: state.auth.get('logged')
 })
 
 export default connect(mapStateToProps, null)(AppRouter)

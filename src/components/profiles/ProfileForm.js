@@ -15,7 +15,7 @@ import {
   Grid,
 } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
-import { userCreationValidations } from "@utils/validations";
+import { profileCreationValidations } from "@utils/validations";
 import {
   DateField,
   TextField,
@@ -36,19 +36,17 @@ const UserForm = ({ handleSubmit }) => {
   return (
     <Formik
       initialValues={{
-        name: "",
+        first_name: "",
         last_name: "",
         password: "",
         email: "",
         dni: "",
         role: 0,
         sex: "",
-        birth_date: new Date(),
+        birth_date: null,
       }}
-      onSubmit={(values) => {
-        console.log(values);
-      }}
-      validate={userCreationValidations}
+      onSubmit={handleSubmit}
+      validate={profileCreationValidations}
     >
       {(props) => (
         <Form>
@@ -57,8 +55,8 @@ const UserForm = ({ handleSubmit }) => {
               className="grid md:place-content-center md:place-items-center md:grid-cols-3 md:gap-x-6 md:gap-y-5"
             >
               <TextField
-                name="name"
-                id="name"
+                name="first_name"
+                id="first_name"
                 placeholder="Nombre"
                 size="md"
                 showError={false}

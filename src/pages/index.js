@@ -97,31 +97,6 @@ const HomePage = () => {
           SAIT
         </Heading>
       </Center>
-      <Center my="100">
-        <Heading data-aos="fade-up" fontSize="7xl">
-          SAIT
-        </Heading>
-      </Center>
-      <Center my="100">
-        <Heading data-aos="fade-up" fontSize="7xl">
-          SAIT
-        </Heading>
-      </Center>
-      <Center my="100">
-        <Heading data-aos="fade-up" fontSize="7xl">
-          SAIT
-        </Heading>
-      </Center>
-      <Center my="100">
-        <Heading data-aos="fade-up" fontSize="7xl">
-          SAIT
-        </Heading>
-      </Center>
-      <Center my="100">
-        <Heading data-aos="fade-up" fontSize="7xl">
-          SAIT
-        </Heading>
-      </Center>
     </Box>
   );
 };

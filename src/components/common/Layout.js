@@ -58,7 +58,7 @@ const adminRoutes = [
   {
     to: '/admin/profiles',
     icon: IoPerson,
-    title: 'Usuarios',
+    title: 'Perfiles',
   }
 ]
 
@@ -181,7 +181,6 @@ const Sidebar = (props) => {
                       onClick={async () => {
                         await actions.logOut()
                         history.push("/login")
-                        toggleColorMode()
                       }}
                     />
                   </Tooltip>

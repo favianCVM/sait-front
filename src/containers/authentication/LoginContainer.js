@@ -1,12 +1,12 @@
 import Form from "@components/auth_form/LoginForm";
 import { Heading, useToast, Box, Center } from "@chakra-ui/react";
-import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as actions from "@actions/";
+import history from "@utils/history";
 
 const LoginContainer = (props) => {
-  const { history, actions } = props;
+  const { actions } = props;
   const toast = useToast();
 
   const handleSubmit = async (values) => {
@@ -27,7 +27,7 @@ const LoginContainer = (props) => {
     }
   };
   return (
-    <Box data-aos="zoom-out-up" w="full" py={14}>
+    <Box data-aos="fade-down" py={14}>
       <Heading my={6} textAlign="center">
         Iniciar sesion
       </Heading>
@@ -46,4 +46,4 @@ const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(actions, dispatch),
 });
 
-export default connect(null, mapDispatchToProps)(withRouter(LoginContainer));
+export default connect(null, mapDispatchToProps)(LoginContainer);
