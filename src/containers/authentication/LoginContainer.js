@@ -27,7 +27,7 @@ const LoginContainer = (props) => {
     }
   };
   return (
-    <Box data-aos="zoom-out-up" w="full" py={14}>
+    <Box data-aos="fade-down" py={14}>
       <Heading my={6} textAlign="center">
         Iniciar sesion
       </Heading>
