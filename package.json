@@ -24,7 +24,7 @@
     "history": "4.10.1",
     "immutable": "^4.0.0-rc.15",
     "lodash": "^4.17.21",
-    "node-sass": "^4.14.1",
+    "node-sass": "^6.0.1",
     "react": "^17.0.2",
     "react-datepicker": "^4.2.1",
     "react-day-picker": "^8.0.0-beta.29",
