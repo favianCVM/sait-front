@@ -54,7 +54,7 @@ export default function TextField({
             { (type === 'password') && (
               <InputRightElement width="4.5rem">
                 <Button
-                  borderRadius="full"
+                  borderRadius="md"
                   colorScheme="blue"
                   variant="solid"
                   size="sm"

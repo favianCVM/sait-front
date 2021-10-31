@@ -1,5 +1,6 @@
 const aliases = (prefix = `src`) => ({
   '@pages': `${prefix}/pages/`,
+  '@models': `${prefix}/models/`,
   '@config': `${prefix}/config/`,
   '@components': `${prefix}/components/`,
   '@containers': `${prefix}/containers/`,

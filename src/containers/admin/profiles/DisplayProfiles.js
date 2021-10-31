@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Box,
   useDisclosure,
@@ -13,11 +14,35 @@ import * as actions from "@actions/";
 
 
 const DisplayProfiles = ({ actions }) => {
+  const [profiles, setProfiles] = React.useState([])
+  const [updateProfile, setUpdateProfile] = React.useState(null)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const toast = useToast();
 
+  React.useEffect(()=>{
+    getProfiles()
+  },[])
+
+  const getProfiles = async () => {
+    let response = await actions.getAllProfiles()
+
+    if(response.success) setProfiles(response.data)
+    else toast({
+      title: response.title || "",
+      description: response.description || "",
+      status: response.status,
+      duration: 5000,
+      isClosable: true,
+    })
+
+  }
+
   const handleSubmit = async (values) => {
-    let response = await actions.createProfile(values)
+    let response
+
+    if(values.id) response = await actions.updateProfile(values)
+    else response = await actions.createProfile(values)
+
 
     await toast({
       title: response.title || "",
@@ -27,7 +52,16 @@ const DisplayProfiles = ({ actions }) => {
       isClosable: true,
     });
 
-    if(response.success) onClose()
+    if(response.success){
+      getProfiles()
+      onClose()
+    } 
+
+  }
+
+  const handleEditProfile = (profile) => {
+    setUpdateProfile(profile)
+    onOpen()
   }
 
   return(
@@ -39,12 +73,16 @@ const DisplayProfiles = ({ actions }) => {
         actionName="Crear perfil"
       />
 
-      <UserTable />
+      <UserTable data={profiles} handleEdit={handleEditProfile}/>
 
       <ManageProfile
+        updateProfile={updateProfile}
         handleSubmit={handleSubmit}
         isOpen={isOpen}
-        onClose={onClose}
+        onClose={()=> {
+          setUpdateProfile(null)
+          onClose()
+        }}
       />
     </Box>
   )

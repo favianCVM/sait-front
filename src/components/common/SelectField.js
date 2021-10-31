@@ -39,6 +39,7 @@ const SelectTest = ({
               form.setFieldValue(name, e.value);
             }}
             className="cursor-pointer"
+            value={options.find(el => el.value === field.value)}
             {...props}
           />
           <FormHelperText>{helperText}</FormHelperText>

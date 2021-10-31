@@ -12,7 +12,7 @@ import {
 
 import ProfileForm from '@components/profiles/ProfileForm'
 
-const ManageUser = ({isOpen, onClose, handleSubmit}) => {
+const ManageUser = ({isOpen, onClose, handleSubmit, updateProfile}) => {
   const [isMobile] = useMediaQuery("(max-width: 680px)")
 
   return(
@@ -31,10 +31,16 @@ const ManageUser = ({isOpen, onClose, handleSubmit}) => {
         <ModalContent 
           //</Modal>paddingTop={isMobile? 50 : 0}
         >
-          <ModalHeader fontSize="4xl">Registro de perfil</ModalHeader>
+          <ModalHeader fontSize="4xl">
+            {
+              updateProfile 
+                ? "Actualizacion de perfil"
+                : "Registro de perfil"
+            }
+          </ModalHeader>
 
           <ModalBody>
-            <ProfileForm handleSubmit={handleSubmit}/>
+            <ProfileForm handleSubmit={handleSubmit} updateProfile={updateProfile} />
           </ModalBody>
 
           <ModalFooter>

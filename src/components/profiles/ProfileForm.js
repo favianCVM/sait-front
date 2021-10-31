@@ -1,5 +1,4 @@
 import {
-  Stack,
   Button,
   Box,
   Popover,
@@ -12,7 +11,6 @@ import {
   ListItem,
   UnorderedList,
   Flex,
-  Grid,
 } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
 import { profileCreationValidations } from "@utils/validations";
@@ -21,30 +19,19 @@ import {
   TextField,
   SelectField,
 } from "@components/common";
+import Profile from '@models/profile' 
 
-const countries = [
-  { value: "ghana", label: "Ghana" },
-  { value: "nigeria", label: "Nigeria" },
-  { value: "kenya", label: "Kenya" },
-  { value: "southAfrica", label: "South Africa" },
-  { value: "unitedStates", label: "United States" },
-  { value: "canada", label: "Canada" },
-  { value: "germany", label: "Germany" },
-];
 
-const UserForm = ({ handleSubmit }) => {
+const UserForm = ({ handleSubmit, updateProfile }) => {
+
+  const setIntialValues = () => {
+    if(updateProfile) return updateProfile
+    else return Profile
+  }
+
   return (
     <Formik
-      initialValues={{
-        first_name: "",
-        last_name: "",
-        password: "",
-        email: "",
-        dni: "",
-        role: 0,
-        sex: "",
-        birth_date: null,
-      }}
+      initialValues={setIntialValues()}
       onSubmit={handleSubmit}
       validate={profileCreationValidations}
     >
@@ -82,15 +69,19 @@ const UserForm = ({ handleSubmit }) => {
                 disabled={props.isSubmitting}
               />
 
-              <TextField
-                name="password"
-                id="password"
-                placeholder="Contrasenna"
-                type="password"
-                size="md"
-                showError={false}
-                disabled={props.isSubmitting}
-              />
+              {
+                !updateProfile && (
+                  <TextField
+                    name="password"
+                    id="password"
+                    placeholder="Contrasenna"
+                    type="password"
+                    size="md"
+                    showError={false}
+                    disabled={props.isSubmitting}
+                  />
+                )
+              }
 
               <TextField
                 name="dni"
