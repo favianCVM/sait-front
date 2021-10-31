@@ -63,7 +63,7 @@ const profileCreationValidations = (values, props) => {
     errors.role = 'role';
   } else delete errors.role
 
-  if(!birth_date || isNaN(birth_date)){
+  if(!birth_date && isNaN(new Date(birth_date))){
     errors.birth_date = 'fecha';
   } else delete errors.birth_date
 

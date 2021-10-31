@@ -12,9 +12,50 @@ export function createProfile(data) {
         }
       })
       .catch((e)=>{
-        console.log('el error', e.response);
         return {
           title: e.response?.data?.error?.message || 'Hubo un problema en la creacion del perfil.',
+          success: false,
+          status: 'error',
+          description: 'Intente de nuevo'
+        }
+      })
+  }
+}
+
+export function updateProfile(data) {
+  return async dispatch => {
+    return requests.update_profile(data)
+      .then(async (r)=>{
+        return {
+          title: 'perfil actualizado exitosamente.',
+          success: true,
+          description: '.....',
+          status: 'success',
+        }
+      })
+      .catch((e)=>{
+        return {
+          title: e.response?.data?.error?.message || 'Hubo un problema en la actualizacion del perfil.',
+          success: false,
+          status: 'error',
+          description: 'Intente de nuevo'
+        }
+      })
+  }
+}
+
+export function getAllProfiles() {
+  return async dispatch => {
+    return requests.get_all_profiles()
+      .then(async (r)=>{
+        return {
+          success: true,
+          data: r.data,
+        }
+      })
+      .catch((e)=>{
+        return {
+          title: e.response?.data?.error?.message || 'Hubo un problema al obtener los perfiles.',
           success: false,
           status: 'error',
           description: 'Intente de nuevo'

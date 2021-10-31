@@ -15,10 +15,12 @@ import {
 import { Field } from "formik";
 import ReactDatePicker from "react-datepicker";
 import { format } from "date-fns";
+import moment from 'moment'
 import "react-datepicker/dist/react-datepicker.css";
 import { getYear, getMonth } from "date-fns";
 import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
 import { IoArrowDown } from "react-icons/io5";
+
 const dateRange = (startYear) => {
   let currentYear = new Date().getFullYear(),
     years = [];
@@ -59,11 +61,11 @@ const DateField = ({
     "Diciembre",
   ];
 
-  const years = dateRange("1935");
+  const years = dateRange("1930");
 
   return (
     <Field name={name}>
-      {({ field, form, meta }) => {
+      {({ field, form }) => {
         return (
           <FormControl
             id={id}
@@ -162,7 +164,14 @@ const DateField = ({
                     />
                   </div>
                 )}
-                selected={field.value}
+                formatWeekDay={(dayName) => {
+                  return translater[dayName]
+                }}
+                selected={
+                  field.value
+                  ? moment(field.value).toDate()
+                  : null
+                }
                 isClearable={isClearable}
                 showPopperArrow={showPopperArrow}
                 maxDate={maxDate}
@@ -182,7 +191,7 @@ const DateField = ({
                     }}
                     borderColor={
                       form.errors[name] && form.touched[name]
-                        ? "red.300"
+                        ? "red.400"
                         : isDark
                         ? "gray.600"
                         : "gray.200"
@@ -192,11 +201,10 @@ const DateField = ({
                     }
                   >
                     {field.value
-                      ? format(field.value, "dd/MM/yyyy")
+                      ? format(new Date(field.value), "dd/MM/yyyy")
                       : placeholder}
                   </Button>
                 }
-                dateFormat="dd/MM/yyyy"
                 showYearDropdown
                 dateFormatCalendar="MMMM"
                 yearDropdownItemNumber={90}
@@ -215,4 +223,13 @@ const DateField = ({
   );
 };
 
+const translater = {
+  Monday: "L",
+  Tuesday: "M",
+  Wednesday: "X",
+  Thursday: "J",
+  Friday: "V",
+  Saturday: "S",
+  Sunday: "D"
+}
 export default DateField;
