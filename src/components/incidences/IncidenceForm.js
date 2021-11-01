@@ -60,7 +60,7 @@ const IncidenceForm = ({ handleSubmit }) => {
             <Stack>
               <AutosuggestField
                 label="Perfil"
-                options={users.map((el) => el.label)}
+                //options={users.map((el) => el.label)}
                 data={users}
                 name="profile"
                 placeholder="sel un perfil"

@@ -44,6 +44,28 @@ export function updateProfile(data) {
   }
 }
 
+export function deleteProfile(id) {
+  return async dispatch => {
+    return requests.delete_profile(id)
+      .then(async (r)=>{
+        return {
+          title: 'perfil eliminado exitosamente.',
+          success: true,
+          description: '.....',
+          status: 'success',
+        }
+      })
+      .catch((e)=>{
+        return {
+          title: e.response?.data?.error?.message || 'Hubo un problema en eliminar el perfil.',
+          success: false,
+          status: 'error',
+          description: 'Intente de nuevo'
+        }
+      })
+  }
+}
+
 export function getAllProfiles() {
   return async dispatch => {
     return requests.get_all_profiles()
