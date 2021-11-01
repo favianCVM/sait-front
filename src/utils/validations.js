@@ -1,5 +1,5 @@
 const emailValidation = /\S+@\S+\.\S+/;
-
+const passwordValidation = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/
 const stringValidation1 = /^([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ]{3,})$/;
 
 const loginValidations = (values, props) => {
@@ -7,11 +7,11 @@ const loginValidations = (values, props) => {
   let { email, password } = values;
 
   if (!emailValidation.test(email)) {
-    errors.email = 'Required';
+    errors.email = 'Correo electrónico inválido';
   } else delete errors.email
 
   if (!stringValidation1.test(password)) {
-    errors.password = 'Required';
+    errors.password = 'Contraseña inválida';
   } else delete errors.password
 
 
@@ -28,19 +28,19 @@ const incidenceValidations = (values, props) => {
   } = values;
 
   if (!profile) {
-    errors.profile = 'usuario';
+    errors.profile = 'Se requiere de un perfil';
   } else delete errors.profile
 
   if (!priority) {
-    errors.priority = 'prioridad';
+    errors.priority = 'Se requiere de una prioridad';
   } else delete errors.priority
 
   if (!date || isNaN(date)) {
-    errors.date = 'fecha';
+    errors.date = 'Se requiere de una fecha valida';
   } else delete errors.date
 
   if (!description) {
-    errors.description = 'descripcion';
+    errors.description = 'Se requiere de una descripción válida';
   } else delete errors.description
 
 
@@ -52,35 +52,35 @@ const profileCreationValidations = (values, props) => {
   let { email, password, birth_date, first_name, last_name, dni, role, sex } = values;
 
   if (!emailValidation.test(email)) {
-    errors.email = 'email';
+    errors.email = 'Correo electrónico inválido';
   } else delete errors.email
 
-  if (!stringValidation1.test(password)) {
-    errors.password = 'contrasenna';
+  if (!passwordValidation.test(password)) {
+    errors.password = 'Contraseña inválida';
   } else delete errors.password
 
   if(!role || role === 0){
-    errors.role = 'role';
+    errors.role = 'Requiere un rol';
   } else delete errors.role
 
   if(!birth_date && isNaN(new Date(birth_date))){
-    errors.birth_date = 'fecha';
+    errors.birth_date = 'Requiere de fecha';
   } else delete errors.birth_date
 
   if(!sex){
-    errors.sex = 'sexo';
+    errors.sex = 'Requiere sexo';
   } else if(sex === 'M' || sex === 'F') delete errors.sex
 
   if(!dni){
-    errors.dni = 'dni';
+    errors.dni = 'DNI inválido';
   } else delete errors.dni
 
   if(!stringValidation1.test(first_name)){
-    errors.first_name = 'nombre'
+    errors.first_name = 'Nombre inválido'
   }else delete errors.first_name
 
   if(!stringValidation1.test(last_name)){
-    errors.last_name = 'apellido'
+    errors.last_name = 'Apellido inválido'
   }else delete errors.last_name
 
   return errors;

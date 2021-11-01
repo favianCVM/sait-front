@@ -30,21 +30,21 @@ const LoginForm = ({ handleSubmit }) => {
         <Form>
           <Stack spacing={3}>
             <TextField
-              placeholder="correo electronico"
+              placeholder="correo electrónico"
               size="md"
               id="email"
               name="email"
               type="email"
-              helperText="introduzca correo electronico"
+              helperText="introduzca su correo electrónico"
             />
 
             <TextField
-              placeholder="contrasenna"
+              placeholder="contraseña"
               size="md"
               id="password"
               name="password"
               type="password"
-              helperText="introduzca contrasenna"
+              helperText="introduzca su contraseña"
             />
 
             <Popover>

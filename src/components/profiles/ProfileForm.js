@@ -74,7 +74,7 @@ const UserForm = ({ handleSubmit, updateProfile }) => {
                   <TextField
                     name="password"
                     id="password"
-                    placeholder="Contrasenna"
+                    placeholder="contraseña"
                     type="password"
                     size="md"
                     showError={false}
