@@ -44,7 +44,7 @@ const UserForm = ({ handleSubmit, updateProfile }) => {
               <TextField
                 name="first_name"
                 id="first_name"
-                placeholder="Nombre"
+                placeholder="nombre"
                 size="md"
                 showError={false}
                 disabled={props.isSubmitting}
@@ -53,7 +53,7 @@ const UserForm = ({ handleSubmit, updateProfile }) => {
               <TextField
                 name="last_name"
                 id="last_name"
-                placeholder="Apellido"
+                placeholder="apellido"
                 size="md"
                 showError={false}
                 disabled={props.isSubmitting}
@@ -86,7 +86,7 @@ const UserForm = ({ handleSubmit, updateProfile }) => {
               <TextField
                 name="dni"
                 id="dni"
-                placeholder="DNI"
+                placeholder="dni"
                 size="md"
                 showError={false}
                 disabled={props.isSubmitting}
@@ -99,7 +99,7 @@ const UserForm = ({ handleSubmit, updateProfile }) => {
                 ]}
                 name="sex"
                 id="sex"
-                placeholder="Sexo"
+                placeholder="sexo"
                 disabled={props.isSubmitting}
               />
 
@@ -110,14 +110,14 @@ const UserForm = ({ handleSubmit, updateProfile }) => {
                 ]}
                 name="role"
                 id="role"
-                placeholder="Rol"
+                placeholder="rol"
                 disabled={props.isSubmitting}
               />
 
               <DateField
                 name="birth_date"
                 id="birth_date"
-                placeholder="Fecha de nacimiento"
+                placeholder="fecha de nacimiento"
                 maxDate={new Date()}
                 disabled={props.isSubmitting}
               />
