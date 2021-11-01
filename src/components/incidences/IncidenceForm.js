@@ -63,7 +63,7 @@ const IncidenceForm = ({ handleSubmit }) => {
                 //options={users.map((el) => el.label)}
                 data={users}
                 name="profile"
-                placeholder="sel un perfil"
+                placeholder="seleccione un perfil"
                 disabled={props.isSubmitting}
               />
 
@@ -78,10 +78,10 @@ const IncidenceForm = ({ handleSubmit }) => {
               <TextareaField
                 name="description"
                 id="description"
-                placeholder="description"
+                placeholder="introduzca una descripción"
                 size="md"
                 showError={false}
-                label="Descripcion"
+                label="Descripción"
                 disabled={props.isSubmitting}
               />
 
