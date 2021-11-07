@@ -1,26 +1,16 @@
-import React from 'react'
-import {connect} from 'react-redux';
+import React from "react";
 import {
   Tooltip,
   IconButton,
-  Button,
   Divider,
   Avatar,
   Heading,
-  Drawer,
-  DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
   Switch,
-  useDisclosure,
   useColorMode,
-  useBreakpointValue,
   Box,
-  useMediaQuery,
-} from '@chakra-ui/react'
+  Flex,
+  useBoolean,
+} from "@chakra-ui/react";
 import {
   IoSunnyOutline,
   IoSunnySharp,
@@ -31,197 +21,270 @@ import {
   IoLogOut,
   IoMenu,
 } from "react-icons/io5";
-import LayoutItem from './LayoutItem'
+import LayoutItem from "./LayoutItem";
 //REDUX
-import {bindActionCreators} from 'redux';
-import * as actions from '@actions/index'
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import * as actions from "@actions/index";
 //ROUTING
-import history from '@utils/history'
+import history from "@utils/history";
+//CONFIRM DIALOG
+import { ConfirmDialog } from "@components/common";
 
 //ADMIN ROUTES
 const adminRoutes = [
   {
-    to: '/admin/register-incident',
+    to: "/admin/register-incident",
+    as: "/admin/registrar-incidencia",
     icon: IoAddCircleOutline,
-    title: 'Registrar incidencia',
+    title: "Registrar incidencia",
   },
   {
-    to: '/admin/incidences',
+    to: "/admin/incidences",
+    as: "/admin/incidencias",
     icon: IoAlertCircle,
-    title: 'Incidencias',
+    title: "Incidencias",
   },
   {
-    to: '/admin/technician-assignment',
+    to: "/admin/technician-assignment",
+    as: "/admin/asignar-tecnico",
     icon: IoBuild,
-    title: 'Asignación de técnico',
+    title: "Asignación de técnico",
   },
   {
-    to: '/admin/profiles',
+    to: "/admin/profiles",
+    as: "/admin/perfiles",
     icon: IoPerson,
-    title: 'Perfiles',
-  }
-]
+    title: "Perfiles",
+  },
+];
 
 //USER ROUTES
 const userRoutes = [
   {
-    to: '/register-incident',
+    to: "/register-incident",
+    as: "/registrar-incidencia",
     icon: IoAddCircleOutline,
-    title: 'Registrar incidencia',
+    title: "Registrar incidencia",
   },
   {
-    to: '/incidences',
+    to: "/incidences",
+    as: "/incidencias",
     icon: IoAlertCircle,
-    title: 'Incidencias',
-  }
-]
+    title: "Incidencias",
+  },
+];
 
 const redirect = (to) => {
-  history.push(to)
-}
+  history.push(to);
+};
 
 const Sidebar = (props) => {
-  const { colorMode, toggleColorMode } = useColorMode()
-  const isDark = colorMode === 'dark'
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const btnRef = React.useRef()
-  //drawer responsive
-  const [isMobile] = useMediaQuery("(max-width: 625px)")
-  const drawerSize = useBreakpointValue({ base: "full", sm: "xs" })
+  const { colorMode, toggleColorMode } = useColorMode();
+  const isDark = colorMode === "dark";
+
+  const [showLogOut, setShowLogOut] = useBoolean(false);
+  const [showSidebar, setShowSidebar] = useBoolean(false);
 
   //props
-  const {children, isAdmin, isUser, actions, isLogged, username} = props;
+  const { children, isAdmin, isUser, actions, isLogged, username } = props;
 
   history.listen((location, action)=>{
-    onClose()
+    if(location.pathname !== '/' && isLogged) setShowSidebar.on()
+    else setShowSidebar.off()
   })
 
-  return(
-    <Box 
-      height={'screen'}
-      display={isMobile ? 'block' : 'flex'}
-    >
+  return (
+    <div className="block sm:flex min-h-screen">
+      {/* EMPIEZA LA SIDEBAR */}
 
-      {(isLogged) && (
-        <Box 
-          // position={isMobile ? 'fixed' : 'static'}
-          // pt={isMobile ? '4' : '0'}
-          // pl={isMobile ? '4' : '0'}
-          // h={isMobile ? '20' : 'screen'}
-          position={'fixed'}
-          pt={'4'}
-          pl={'4'}
-          h={'20'}
-          zIndex={1000}
+      {showSidebar && (
+        <Flex
+        zIndex={1000}
+          bg={{
+            base: isDark ? "gray.700" : "gray.300"
+          }}
+          py={{
+            base: 2,
+            sm: 4,
+          }}
+          px={{
+            base: 2,
+            sm: 4,
+          }}
+          justifyContent={{
+            base: "space-around",
+            sm: "space-between",
+          }}
+          position={{
+            base: "fixed",
+            sm: "sticky",
+          }}
+          top={{
+            base: "initial",
+            sm: "0px"
+          }}
+          flexDirection={{
+            base: "row",
+            sm: "column",
+          }}
+          bottom={{
+            base: 0,
+          }}
+          w={{
+            base: "100%",
+            sm: "25%",
+          }}
         >
-          <Button
-            w="fit-content"
-						borderRadius={15}
-            boxShadow={'md'}
-            height={'50'}
-            bg="blue.300"
-						// borderRadius={isMobile ? 15 : 0}
-            // boxShadow={isMobile ? 'md' : 'none'}
-            // height={isMobile ? "50" : '100%'}
-            size="lg"
-            onClick={onOpen}
+          <Flex
+            direction={{
+              base: "initial",
+              sm: "column",
+            }}
+            alignItems={{
+              base: "center",
+              sm: "initial",
+            }}
+            justifyContent="space-around"
+            w={{
+              base: "70%",
+              sm: "initial",
+            }}
           >
-            <IoMenu />
-          </Button>
-          <Drawer
-            size={drawerSize}
-            isOpen={isOpen}
-            placement="left"
-            onClose={onClose}
-            finalFocusRef={btnRef}
-          >
-            <DrawerOverlay />
-            <DrawerContent>
-              <DrawerCloseButton />
+            <Box
+              display={{
+                base: "none",
+                sm: "flex",
+              }}
+              alignItems="center"
+              flexDirection="column"
+            >
+              <Avatar
+                src="https://as01.epimg.net/diarioas/imagenes/2021/05/12/actualidad/1620834945_030169_1620835008_noticia_normal.jpg"
+                size="lg"
+              />
+              <Heading>{username}</Heading>
+            </Box>
 
-              <DrawerHeader>
-                <Box display="flex" alignItems="center" flexDirection="column">
-                  <Avatar
-                    src="https://as01.epimg.net/diarioas/imagenes/2021/05/12/actualidad/1620834945_030169_1620835008_noticia_normal.jpg" 
-                    size="lg"
-                  />
-                  <Heading>{username}</Heading>
-                </Box>
-                <Divider mt="6" />
-              </DrawerHeader>
+            <Divider
+              display={{
+                base: "none",
+                sm: "block",
+              }}
+              mt={{
+                base: 0,
+                sm: 4,
+              }}
+            />
 
-              <DrawerBody>
-                { isAdmin && adminRoutes.map((route) => (
-                  <LayoutItem
-                    {...route}
-                    clickLink={redirect}
-                  />
+            <Flex
+              w={{
+                base: "100%",
+                sm: "initial",
+              }}
+              direction={{
+                base: "row",
+                sm: "column",
+              }}
+              justifyContent={{
+                base: "space-around",
+                sm: "initial",
+              }}
+              alignItems={{
+                base: "center",
+                sm: "initial",
+              }}
+            >
+              {/* routes */}
+              {isAdmin &&
+                adminRoutes.map((route) => (
+                  <LayoutItem {...route} clickLink={redirect} />
                 ))}
 
-                { isUser && userRoutes.map((route) => (
-                  <LayoutItem
-                    {...route}
-                    clickLink={redirect}
-                  />
+              {isUser &&
+                userRoutes.map((route) => (
+                  <LayoutItem {...route} clickLink={redirect} />
                 ))}
-              </DrawerBody>
+            </Flex>
+          </Flex>
 
-              <DrawerFooter>
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="space-between"
-                  width="100%"
-                >
-                  <Tooltip label="Cerrar sesión">
-                    <IconButton
-                      colorScheme="blue"
-                      aria-label="log-out-session"
-                      icon={<IoLogOut />}
-                      onClick={async () => {
-                        await actions.logOut()
-                        history.push("/login")
-                      }}
-                    />
-                  </Tooltip>
-                  <Box 
-                    display="flex"
-                    alignItems="center"
-                  >
-                    { isDark ? <IoSunnySharp/> : <IoSunnyOutline/> }
-                    <Switch
-                      ml={3}
-                      color="blue"
-                      isChecked={isDark}
-                      onChange={toggleColorMode}
-                    />
-                  </Box>
-                </Box>
-              </DrawerFooter>
-            </DrawerContent>
-          </Drawer>
-        </Box>
+          {/* footer */}
+          <Flex
+            alignItems="center"
+            justifyContent={{
+              base: "space-around",
+              sm: "space-between",
+            }}
+            width={{
+              base: "30%",
+              sm: "100%",
+            }}
+          >
+            <Tooltip label="Cerrar sesión">
+              <IconButton
+                colorScheme="blue"
+                aria-label="log-out-session"
+                icon={<IoLogOut />}
+                onClick={() => setShowLogOut.on()}
+              />
+            </Tooltip>
+            <Flex
+              direction={{
+                base: "column",
+                sm: "row",
+              }}
+              alignItems="center"
+            >
+              {isDark ? <IoSunnySharp /> : <IoSunnyOutline />}
+              <Switch
+                mt={{
+                  base: 2,
+                  sm: 0,
+                }}
+                ml={{
+                  base: 0,
+                  sm: 4,
+                }}
+                color="blue"
+                isChecked={isDark}
+                onChange={toggleColorMode}
+              />
+            </Flex>
+          </Flex>
+        </Flex>
       )}
 
-      <div className="flex flex-col w-full px-0 pb-12 pt-3 sm:pl-6 sm:pr-10 md:pr-16 md:pl-12">
+      {/* TERMINA LA SIDEBAR  */}
+
+      <div className="flex flex-col w-full px-0 pb-20 pt-3 sm:pl-6 sm:pr-10 md:pr-16 md:pl-12 sm:pb-8">
         {children}
       </div>
 
-    </Box>
-  )
-}
+      <ConfirmDialog
+        confirmMethod={async () => {
+          await actions.logOut();
+          history.push("/login");
+        }}
+        isOpen={showLogOut}
+        title="Desea cerrar sesion?"
+        onClose={() => setShowLogOut.off()}
+        confirmMessage="Si"
+      />
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => ({
-  token:  state.auth.get('token'),
-  isLogged: state.auth.get('logged'),
-  username: state.auth.get('username'),
-  role: state.auth.get('role'),
-  isAdmin: state.auth.get('token') && (parseInt(state.auth.get('role')) === 60),
-  isUser: state.auth.get('token') && (parseInt(state.auth.get('role')) === 50),
-})
+  token: state.auth.get("token"),
+  isLogged: state.auth.get("logged"),
+  username: state.auth.get("username"),
+  role: state.auth.get("role"),
+  isAdmin: state.auth.get("token") && parseInt(state.auth.get("role")) === 60,
+  isUser: state.auth.get("token") && parseInt(state.auth.get("role")) === 50,
+});
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(actions, dispatch)
-})
+  actions: bindActionCreators(actions, dispatch),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);
