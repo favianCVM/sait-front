@@ -37,7 +37,7 @@ export default function LayoutItem({ icon, title, to, clickLink, as }) {
         bg={isOn ? "blue.500" : colorMode === "dark" ? "gray.700" : null}
         textColor={isOn ? "gray.800" : null}
         p={{
-          base: 4,
+          base: 1,
           sm: 3,
         }}
         borderRadius={8}

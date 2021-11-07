@@ -21,6 +21,10 @@ import {
   IoLogOut,
   IoMenu,
 } from "react-icons/io5";
+import {
+  BiDevices,
+  BiChip
+} from 'react-icons/bi'
 import LayoutItem from "./LayoutItem";
 //REDUX
 import { bindActionCreators } from "redux";
@@ -50,6 +54,18 @@ const adminRoutes = [
     as: "/admin/asignar-tecnico",
     icon: IoBuild,
     title: "Asignación de técnico",
+  },
+  {
+    to: "/admin/device-components",
+    as: "/admin/componentes",
+    icon: BiChip,
+    title: "Componentes",
+  },
+  {
+    to: "/admin/devices",
+    as: "/admin/equipos",
+    icon: BiDevices,
+    title: "Equipos",
   },
   {
     to: "/admin/profiles",
@@ -88,6 +104,10 @@ const Sidebar = (props) => {
 
   //props
   const { children, isAdmin, isUser, actions, isLogged, username } = props;
+
+  React.useEffect(()=>{
+    if(location.pathname !== '/' && isLogged) setShowSidebar.on()
+  },[])
 
   history.listen((location, action)=>{
     if(location.pathname !== '/' && isLogged) setShowSidebar.on()

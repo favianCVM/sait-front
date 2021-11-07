@@ -1,5 +1,5 @@
 const emailValidation = /\S+@\S+\.\S+/;
-const passwordValidation = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/
+const passwordValidation = /^[0-9a-zA-Z-!@#$%^&*]{6,}$/
 const stringValidation1 = /^([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ]{3,})$/;
 
 const loginValidations = (values, props) => {
@@ -10,7 +10,7 @@ const loginValidations = (values, props) => {
     errors.email = 'Correo electrónico inválido';
   } else delete errors.email
 
-  if (!stringValidation1.test(password)) {
+  if (!passwordValidation.test(password)) {
     errors.password = 'Contraseña inválida';
   } else delete errors.password
 
