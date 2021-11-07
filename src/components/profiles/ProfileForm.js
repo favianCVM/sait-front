@@ -13,34 +13,34 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
-import { profileCreationValidations } from "@utils/validations";
 import {
-  DateField,
-  TextField,
-  SelectField,
-} from "@components/common";
-import Profile from '@models/profile' 
-
+  profileCreationValidations,
+  profileUpdateValidations,
+} from "@utils/validations";
+import { DateField, TextField, SelectField } from "@components/common";
+import Profile from "@models/profile";
 
 const UserForm = ({ handleSubmit, updateProfile }) => {
-
-  const setIntialValues = () => {
-    if(updateProfile) return updateProfile
-    else return Profile
-  }
+  const setIntialProps = (type) => {
+    if (type === "initialValues") {
+      if (updateProfile) return updateProfile;
+      else return Profile;
+    } else if (type === "validate") {
+      if (updateProfile) return profileUpdateValidations;
+      else return profileCreationValidations;
+    }
+  };
 
   return (
     <Formik
-      initialValues={setIntialValues()}
+      initialValues={setIntialProps("initialValues")}
       onSubmit={handleSubmit}
-      validate={profileCreationValidations}
+      validate={setIntialProps("validate")}
     >
       {(props) => (
         <Form>
           <Flex flexDirection="column" w="100%">
-            <Box 
-              className="grid md:place-content-center md:place-items-center md:grid-cols-3 md:gap-x-6 md:gap-y-5"
-            >
+            <Box className="grid md:place-content-center md:place-items-center md:grid-cols-3 md:gap-x-6 md:gap-y-5">
               <TextField
                 name="first_name"
                 id="first_name"
@@ -69,19 +69,17 @@ const UserForm = ({ handleSubmit, updateProfile }) => {
                 disabled={props.isSubmitting}
               />
 
-              {
-                !updateProfile && (
-                  <TextField
-                    name="password"
-                    id="password"
-                    placeholder="contraseña"
-                    type="password"
-                    size="md"
-                    showError={false}
-                    disabled={props.isSubmitting}
-                  />
-                )
-              }
+              {!updateProfile && (
+                <TextField
+                  name="password"
+                  id="password"
+                  placeholder="contraseña"
+                  type="password"
+                  size="md"
+                  showError={false}
+                  disabled={props.isSubmitting}
+                />
+              )}
 
               <TextField
                 name="dni"
@@ -103,16 +101,18 @@ const UserForm = ({ handleSubmit, updateProfile }) => {
                 disabled={props.isSubmitting}
               />
 
-              <SelectField
-                options={[
-                  { label: "Admin", value: 60 },
-                  { label: "Usuario", value: 50 },
-                ]}
-                name="role"
-                id="role"
-                placeholder="rol"
-                disabled={props.isSubmitting}
-              />
+              {!updateProfile && (
+                <SelectField
+                  options={[
+                    { label: "Admin", value: 60 },
+                    { label: "Usuario", value: 50 },
+                  ]}
+                  name="role"
+                  id="role"
+                  placeholder="rol"
+                  disabled={props.isSubmitting}
+                />
+              )}
 
               <DateField
                 name="birth_date"
