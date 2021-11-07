@@ -1,5 +1,5 @@
 const emailValidation = /\S+@\S+\.\S+/;
-const passwordValidation = /^[0-9a-zA-Z-!@#$%^&*]{6,}$/
+const passwordValidation = /^[0-9a-zA-Z-!@#$%^&*]{5,}$/
 const stringValidation1 = /^([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ]{3,})$/;
 
 const loginValidations = (values, props) => {
