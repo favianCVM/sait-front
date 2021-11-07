@@ -15,7 +15,9 @@ import {
 } from "@chakra-ui/react";
 import history from "@utils/history";
 
-const HomePage = () => {
+import {connect} from 'react-redux';
+
+const HomePage = ({isLogged, isAdmin}) => {
   return (
     <Box pt="16">
       <Center data-aos="fade-up" mb="10" flexDirection="column">
@@ -76,7 +78,13 @@ const HomePage = () => {
             bg="blue.700"
             fontWeight="bold"
             rounded="md"
-            onClick={() => history.push("/login")}
+            onClick={() => {
+              isLogged 
+                ? isAdmin
+                  ? history.push("/admin/incidences")
+                  : history.push("/incidences")
+                : history.push("/login")
+            }}
           >
             Entrar al sistema
           </Button>
@@ -101,4 +109,9 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+const mapStateToProps = (state) => ({
+  isLogged: state.auth.get('logged'),
+  isAdmin: state.auth.get('token') && (parseInt(state.auth.get('role')) === 60),
+})
+
+export default connect(mapStateToProps, null)(HomePage);

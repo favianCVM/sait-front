@@ -1,45 +1,66 @@
-import React from 'react'
+import React from "react";
 import {
-    Flex,
-    Text,
-    Icon,
-		Link
-} from '@chakra-ui/react'
+  Flex,
+  Text,
+  Icon,
+  Link,
+  useBoolean,
+  useColorMode,
+} from "@chakra-ui/react";
+import history from "@utils/history";
 
-export default function LayoutItem({ icon, title, to, clickLink }) {
-    return (
-			<Flex
-				mt={1}
-				flexDir="column"
-				w="100%"
-				alignItems="center"
-			>
-					<Link
-						shadow="md"
-						//reseting hover effects
-						_hover={{
-							bg: 'blue.500',
-							textColor: 'white'
-						}}
-						p={3}
-						borderRadius={8}
-						w="100%"
-						onClick={() => clickLink(to)}
-					>
-							<Flex>
-								<Icon
-									as={icon}
-									fontSize="xl"
-									/>
+export default function LayoutItem({ icon, title, to, clickLink, as }) {
+  const [isOn, setIsOn] = useBoolean(false);
+  const { colorMode, toggleColorMode } = useColorMode();
 
-								<Text
-									ml={5}
-								>
-									{title}
-								</Text>
+  history.listen((location, action) => {
+    history.location.pathname === as ? setIsOn.on() : setIsOn.off();
+  });
 
-							</Flex>
-					</Link>
-			</Flex>
-    )
+  return (
+    <Flex
+      mt={{
+        base: 0,
+        sm: 1,
+      }}
+      flexDir="column"
+      w="100%"
+      alignItems="center"
+    >
+      <Link
+        shadow="lg"
+        //reseting hover effects
+        _hover={{
+          bg: "blue.500",
+          textColor: "white",
+        }}
+        bg={isOn ? "blue.500" : colorMode === "dark" ? "gray.700" : null}
+        textColor={isOn ? "gray.800" : null}
+        p={{
+          base: 1,
+          sm: 3,
+        }}
+        borderRadius={8}
+        w={{
+          base: "fit-content",
+          sm: "100%",
+        }}
+        onClick={() => clickLink(to)}
+      >
+        <Flex>
+          <Icon as={icon} fontSize="xl" />
+
+          <Text
+            display={{
+              base: "none",
+              sm: "inline",
+            }}
+            ml={5}
+          >
+            {title}
+          </Text>
+        </Flex>
+      </Link>
+    </Flex>
+  );
 }

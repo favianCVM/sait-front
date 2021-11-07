@@ -1,5 +1,5 @@
 const emailValidation = /\S+@\S+\.\S+/;
-const passwordValidation = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/
+const passwordValidation = /^[0-9a-zA-Z-!@#$%^&*]{6,}$/
 const stringValidation1 = /^([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ]{3,})$/;
 
 const loginValidations = (values, props) => {
@@ -10,7 +10,7 @@ const loginValidations = (values, props) => {
     errors.email = 'Correo electrónico inválido';
   } else delete errors.email
 
-  if (!stringValidation1.test(password)) {
+  if (!passwordValidation.test(password)) {
     errors.password = 'Contraseña inválida';
   } else delete errors.password
 
@@ -86,9 +86,41 @@ const profileCreationValidations = (values, props) => {
   return errors;
 }
 
+const profileUpdateValidations = (values, props) => {
+  const errors = {};
+  let { email, birth_date, first_name, last_name, dni, role, sex } = values;
+
+  if (!emailValidation.test(email)) {
+    errors.email = 'Correo electrónico inválido';
+  } else delete errors.email
+
+  if(!birth_date && isNaN(new Date(birth_date))){
+    errors.birth_date = 'Requiere de fecha';
+  } else delete errors.birth_date
+
+  if(!sex){
+    errors.sex = 'Requiere sexo';
+  } else if(sex === 'M' || sex === 'F') delete errors.sex
+
+  if(!dni){
+    errors.dni = 'DNI inválido';
+  } else delete errors.dni
+
+  if(!stringValidation1.test(first_name)){
+    errors.first_name = 'Nombre inválido'
+  }else delete errors.first_name
+
+  if(!stringValidation1.test(last_name)){
+    errors.last_name = 'Apellido inválido'
+  }else delete errors.last_name
+
+  return errors;
+}
+
 //EXPORTS
 export {
   loginValidations,
   incidenceValidations,
   profileCreationValidations,
+  profileUpdateValidations,
 }

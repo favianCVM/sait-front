@@ -5,72 +5,65 @@ import {
   Tooltip,
   IconButton,
   Flex,
-} from '@chakra-ui/react'
+  Button,
+  Divider,
+} from "@chakra-ui/react";
 
-const PageHeader = ({title, subTitle, message, action, actionIcon, actionName}) => {
-  return(
-    <Box marginBottom="4">
+const PageHeader = ({
+  title,
+  subTitle,
+  message,
+  action,
+  actionIcon,
+  actionName,
+}) => {
+  return (
+    <Box
+      mb={4}
+      px={{
+        base: 6,
+        sm: 0,
+      }}
+    >
       <Flex
         direction={{
-          base: 'column'
+          base: "column",
         }}
         alignItems={{
-          base: 'end'
+          base: "start",
         }}
         justifyContent={{
-          base: 'space-between'
+          base: "space-between",
         }}
         w="100%"
-        pr={{
-          base: 4,
-          sm: 0
-        }}
       >
         <Heading
           as="h2"
           textAlign={{
-            base: 'center'
+            base: "center",
           }}
           fontSize={{
             base: 48,
-            sm: 58
+            sm: 58,
           }}
         >
           {title}
         </Heading>
-
-        {(action && actionIcon && actionName) && (
-          <Tooltip  
-            hasArrow 
-            label={actionName}
-            mt={{
-              base: 4,
-              sm: 0
-            }}
-          >
-            <IconButton
-              onClick={action}
-              fontSize={32}
-              icon={actionIcon}
-            />
-          </Tooltip>
+        {action && actionIcon && actionName && (
+          <Button rightIcon={actionIcon} onClick={action}>
+            {actionName}
+          </Button>
         )}
+        <Divider my={5} />
       </Flex>
 
-      <Heading
-        as="h3"
-        size="3xl"
-        paddingY="4"
-      >
+      <Heading as="h3" size="3xl" paddingY="4">
         {subTitle}
       </Heading>
 
-      <Text
-      >
-        {message}
-      </Text>
+      <Text>{message}</Text>
     </Box>
-  )
-}
+  );
+};
 
 export default PageHeader;
