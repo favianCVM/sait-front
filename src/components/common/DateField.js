@@ -15,7 +15,7 @@ import {
 import { Field } from "formik";
 import ReactDatePicker from "react-datepicker";
 import { format } from "date-fns";
-import moment from 'moment'
+import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
 import { getYear, getMonth } from "date-fns";
 import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
@@ -89,11 +89,16 @@ const DateField = ({
                   nextMonthButtonDisabled,
                 }) => (
                   <div className="flex items-center justify-between w-full px-6">
-                    <IconButton
-                      icon={<FaLongArrowAltLeft />}
-                      onClick={decreaseMonth}
+                    <button
+                      onClick={(e)=>{
+                        e.preventDefault()
+                        decreaseMonth()
+                      }}
                       disabled={prevMonthButtonDisabled}
-                    />
+                      className={`hover:bg-gray-300 p-3 shadow-xl rounded-md`}
+                    >
+                      <FaLongArrowAltLeft />
+                    </button>
 
                     <Menu>
                       <MenuButton
@@ -157,21 +162,23 @@ const DateField = ({
                       </MenuList>
                     </Menu>
 
-                    <IconButton
-                      icon={<FaLongArrowAltRight />}
-                      onClick={increaseMonth}
+
+                    <button
+                      onClick={(e)=>{
+                        e.preventDefault()
+                        increaseMonth()
+                      }}
                       disabled={nextMonthButtonDisabled}
-                    />
+                      className={`hover:bg-gray-300 p-3 shadow-xl rounded-md`}
+                    >
+                      <FaLongArrowAltRight />
+                    </button>
                   </div>
                 )}
                 formatWeekDay={(dayName) => {
-                  return translater[dayName]
+                  return translater[dayName];
                 }}
-                selected={
-                  field.value
-                  ? moment(field.value).toDate()
-                  : null
-                }
+                selected={field.value ? moment(field.value).toDate() : null}
                 isClearable={isClearable}
                 showPopperArrow={showPopperArrow}
                 maxDate={maxDate}
@@ -230,6 +237,6 @@ const translater = {
   Thursday: "J",
   Friday: "V",
   Saturday: "S",
-  Sunday: "D"
-}
+  Sunday: "D",
+};
 export default DateField;

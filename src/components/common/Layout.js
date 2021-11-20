@@ -36,60 +36,9 @@ import history from "@utils/history";
 import { ConfirmDialog } from "@components/common";
 
 //ADMIN ROUTES
-const adminRoutes = [
-  {
-    to: "/admin/register-incident",
-    as: "/admin/registrar-incidencia",
-    icon: IoAddCircleOutline,
-    title: "Registrar incidencia",
-  },
-  {
-    to: "/admin/incidences",
-    as: "/admin/incidencias",
-    icon: IoAlertCircle,
-    title: "Incidencias",
-  },
-  {
-    to: "/admin/technician-assignment",
-    as: "/admin/asignar-tecnico",
-    icon: IoBuild,
-    title: "Asignación de técnico",
-  },
-  {
-    to: "/admin/device-components",
-    as: "/admin/componentes",
-    icon: BiChip,
-    title: "Componentes",
-  },
-  {
-    to: "/admin/devices",
-    as: "/admin/equipos",
-    icon: BiDevices,
-    title: "Equipos",
-  },
-  {
-    to: "/admin/profiles",
-    as: "/admin/perfiles",
-    icon: IoPerson,
-    title: "Perfiles",
-  },
-];
+import routes from '@utils/routes'
 
 //USER ROUTES
-const userRoutes = [
-  {
-    to: "/register-incident",
-    as: "/registrar-incidencia",
-    icon: IoAddCircleOutline,
-    title: "Registrar incidencia",
-  },
-  {
-    to: "/incidences",
-    as: "/incidencias",
-    icon: IoAlertCircle,
-    title: "Incidencias",
-  },
-];
 
 const redirect = (to) => {
   history.push(to);
@@ -217,12 +166,12 @@ const Sidebar = (props) => {
             >
               {/* routes */}
               {isAdmin &&
-                adminRoutes.map((route) => (
+                routes.adminRoutes.map((route) => (
                   <LayoutItem {...route} clickLink={redirect} />
                 ))}
 
               {isUser &&
-                userRoutes.map((route) => (
+                routes.userRoutes.map((route) => (
                   <LayoutItem {...route} clickLink={redirect} />
                 ))}
             </Flex>

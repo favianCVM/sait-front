@@ -73,8 +73,8 @@ const DisplayProfiles = ({ actions }) => {
     }
   };
 
-  const handleEditProfile = (profile) => {
-    setUpdateProfile(profile);
+  const handleEditProfile = async (profile) => {
+    await setUpdateProfile(profile);
     onOpen();
   };
 
@@ -98,8 +98,8 @@ const DisplayProfiles = ({ actions }) => {
         updateProfile={updateProfile}
         handleSubmit={handleSubmit}
         isOpen={isOpen}
-        onClose={() => {
-          setUpdateProfile(null);
+        onClose={async () => {
+          await setUpdateProfile(null);
           onClose();
         }}
       />

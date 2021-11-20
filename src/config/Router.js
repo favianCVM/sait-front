@@ -1,16 +1,11 @@
 import {Switch, Route, Redirect, Router} from 'react-router-dom'
-import {
-  RegisterIncident,
-  TechnicianAssigment,
-  Profiles,
-  Incidences,
-} from '@pages/admin/index'
 import HomePage from '@pages/';
 import Error404 from '@containers/404';
 import LoginPage from '@pages/LoginPage';
 import Layout from '@components/common/Layout';
 import {connect} from 'react-redux';
 import history from '@utils/history'
+import routes from '@utils/routes'
 
 const AppRouter = (props) => {
 
@@ -46,24 +41,18 @@ const AppRouter = (props) => {
           {
             isAdmin && (
               <Switch>
-                <Route exact path="/admin/registrar-incidencia" component={RegisterIncident} />
-                <Route exact path="/admin/asignar-tecnico" component={TechnicianAssigment} />
-                <Route exact path="/admin/perfiles" component={Profiles} />
-                <Route exact path="/admin/incidencias" component={Incidences} />
-
-                <Route exact path="/admin/register-incident">
-                  <Redirect to="/admin/registrar-incidencia"/>
-                </Route>
-                <Route exact path="/admin/technician-assignment">
-                  <Redirect to="/admin/asignar-tecnico"/>
-                </Route>
-                <Route exact path="/admin/profiles">
-                  <Redirect to="/admin/perfiles"/>
-                </Route>
-                <Route exact path="/admin/incidences">
-                  <Redirect  to="/admin/incidencias"/>
-                </Route>
-
+                {
+                  routes.adminRoutes.map((route) => (
+                    <Route exact path={route.as} component={route.component} />
+                  ))
+                }
+                {
+                  routes.adminRoutes.map((route) => (
+                    <Route exact path={route.to}>
+                      <Redirect to={route.as}/>
+                    </Route>
+                  ))
+                }
                 <Route component={Error404}/>          
               </Switch>
             )
