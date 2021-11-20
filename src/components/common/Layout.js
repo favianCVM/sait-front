@@ -64,66 +64,66 @@ const Sidebar = (props) => {
   })
 
   return (
-    <div className="block sm:flex min-h-screen">
+    <div className="block md:flex min-h-screen">
       {/* EMPIEZA LA SIDEBAR */}
 
       {showSidebar && (
         <Flex
         zIndex={1000}
           bg={{
-            base: isDark ? "gray.700" : "gray.300"
+            base: isDark ? "gray.700" : "gray.200"
           }}
           py={{
             base: 2,
-            sm: 4,
+            md: 4,
           }}
           px={{
             base: 2,
-            sm: 4,
+            md: 4,
           }}
           justifyContent={{
             base: "space-around",
-            sm: "space-between",
+            md: "space-between",
           }}
           position={{
             base: "fixed",
-            sm: "sticky",
+            md: "sticky",
           }}
           top={{
             base: "initial",
-            sm: "0px"
+            md: "0px"
           }}
           flexDirection={{
             base: "row",
-            sm: "column",
+            md: "column",
           }}
           bottom={{
             base: 0,
           }}
           w={{
             base: "100%",
-            sm: "25%",
+            md: "25%",
           }}
         >
           <Flex
             direction={{
               base: "initial",
-              sm: "column",
+              md: "column",
             }}
             alignItems={{
               base: "center",
-              sm: "initial",
+              md: "initial",
             }}
             justifyContent="space-around"
             w={{
               base: "70%",
-              sm: "initial",
+              md: "initial",
             }}
           >
             <Box
               display={{
                 base: "none",
-                sm: "flex",
+                md: "flex",
               }}
               alignItems="center"
               flexDirection="column"
@@ -138,30 +138,30 @@ const Sidebar = (props) => {
             <Divider
               display={{
                 base: "none",
-                sm: "block",
+                md: "block",
               }}
               mt={{
                 base: 0,
-                sm: 4,
+                md: 4,
               }}
             />
 
             <Flex
               w={{
                 base: "100%",
-                sm: "initial",
+                md: "initial",
               }}
               direction={{
                 base: "row",
-                sm: "column",
+                md: "column",
               }}
               justifyContent={{
                 base: "space-around",
-                sm: "initial",
+                md: "initial",
               }}
               alignItems={{
                 base: "center",
-                sm: "initial",
+                md: "initial",
               }}
             >
               {/* routes */}
@@ -182,11 +182,11 @@ const Sidebar = (props) => {
             alignItems="center"
             justifyContent={{
               base: "space-around",
-              sm: "space-between",
+              md: "space-between",
             }}
             width={{
               base: "30%",
-              sm: "100%",
+              md: "100%",
             }}
           >
             <Tooltip label="Cerrar sesión">
@@ -200,7 +200,7 @@ const Sidebar = (props) => {
             <Flex
               direction={{
                 base: "column",
-                sm: "row",
+                md: "row",
               }}
               alignItems="center"
             >
@@ -208,11 +208,11 @@ const Sidebar = (props) => {
               <Switch
                 mt={{
                   base: 2,
-                  sm: 0,
+                  md: 0,
                 }}
                 ml={{
                   base: 0,
-                  sm: 4,
+                  md: 4,
                 }}
                 color="blue"
                 isChecked={isDark}

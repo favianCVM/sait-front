@@ -21,7 +21,7 @@ export default function LayoutItem({ icon, title, to, clickLink, as }) {
     <Flex
       mt={{
         base: 0,
-        sm: 1,
+        md: 1,
       }}
       flexDir="column"
       w="100%"
@@ -38,12 +38,12 @@ export default function LayoutItem({ icon, title, to, clickLink, as }) {
         textColor={isOn ? "gray.800" : null}
         p={{
           base: 1,
-          sm: 3,
+          md: 3,
         }}
         borderRadius={8}
         w={{
           base: "fit-content",
-          sm: "100%",
+          md: "100%",
         }}
         onClick={() => clickLink(to)}
       >
@@ -53,7 +53,7 @@ export default function LayoutItem({ icon, title, to, clickLink, as }) {
           <Text
             display={{
               base: "none",
-              sm: "inline",
+              md: "inline",
             }}
             ml={5}
           >

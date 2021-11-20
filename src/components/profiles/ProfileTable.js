@@ -41,7 +41,7 @@ const UserTable = ({ data, handleEdit, handleDelete, isFetching }) => {
             <Tr>
               <Th>#</Th>
               <Th>Nombre y apellido</Th>
-              <Th display={{ base: "none", sm: "table-cell" }}>Email</Th>
+              <Th display={{ base: "none", md: "table-cell" }}>Email</Th>
               <Th></Th>
             </Tr>
           </Thead>
@@ -53,7 +53,7 @@ const UserTable = ({ data, handleEdit, handleDelete, isFetching }) => {
                   <Td>
                     {row.first_name} {row.last_name}
                   </Td>
-                  <Td display={{ base: "none", sm: "table-cell" }}>
+                  <Td display={{ base: "none", md: "table-cell" }}>
                     {row.email}
                   </Td>
                   <Td>
