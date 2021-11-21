@@ -14,17 +14,8 @@ import {
 import {
   IoSunnyOutline,
   IoSunnySharp,
-  IoPerson,
-  IoAddCircleOutline,
-  IoAlertCircle,
-  IoBuild,
   IoLogOut,
-  IoMenu,
 } from "react-icons/io5";
-import {
-  BiDevices,
-  BiChip
-} from 'react-icons/bi'
 import LayoutItem from "./LayoutItem";
 //REDUX
 import { bindActionCreators } from "redux";
@@ -36,7 +27,7 @@ import history from "@utils/history";
 import { ConfirmDialog } from "@components/common";
 
 //ADMIN ROUTES
-import routes from '@utils/routes'
+import routes from "@utils/routes";
 
 //USER ROUTES
 
@@ -54,14 +45,14 @@ const Sidebar = (props) => {
   //props
   const { children, isAdmin, isUser, actions, isLogged, username } = props;
 
-  React.useEffect(()=>{
-    if(location.pathname !== '/' && isLogged) setShowSidebar.on()
-  },[])
+  React.useEffect(() => {
+    if (location.pathname !== "/" && isLogged) setShowSidebar.on();
+  }, []);
 
-  history.listen((location, action)=>{
-    if(location.pathname !== '/' && isLogged) setShowSidebar.on()
-    else setShowSidebar.off()
-  })
+  history.listen((location, action) => {
+    if (location.pathname !== "/" && isLogged) setShowSidebar.on();
+    else setShowSidebar.off();
+  });
 
   return (
     <div className="block md:flex min-h-screen">
@@ -69,9 +60,9 @@ const Sidebar = (props) => {
 
       {showSidebar && (
         <Flex
-        zIndex={1000}
+          zIndex={1000}
           bg={{
-            base: isDark ? "gray.700" : "gray.200"
+            base: isDark ? "gray.700" : "gray.200",
           }}
           py={{
             base: 2,
@@ -91,7 +82,7 @@ const Sidebar = (props) => {
           }}
           top={{
             base: "initial",
-            md: "0px"
+            md: "0px",
           }}
           flexDirection={{
             base: "row",

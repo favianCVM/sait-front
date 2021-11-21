@@ -1,7 +1,10 @@
+import DisplayDevices from "@containers/admin/devices/DisplayDevices"
+
 const Devices = () => {
+
   return(
     <>
-      devices
+      <DisplayDevices/>
     </>
   )
 }
