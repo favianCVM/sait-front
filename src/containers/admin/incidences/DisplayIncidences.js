@@ -117,7 +117,7 @@ const DisplayIncidences = () => {
   }
 
   return(
-    <Box>
+    <>
       <PageHeader
         title="Incidencias"
         action={onOpen}
@@ -133,7 +133,7 @@ const DisplayIncidences = () => {
       />
 
       <IncidenceTable data={data} />
-    </Box>
+    </>
   )
 }
 

@@ -15,23 +15,15 @@ import {
   Skeleton,
   useDisclosure,
 } from "@chakra-ui/react";
-import { TablePagination, ConfirmDialog } from "@components/common";
-import { FiEdit, FiDelete } from "react-icons/fi";
+import { TablePagination } from "@components/common";
 import { tableStyles } from "@utils/commonStyles";
 
-const UserTable = ({ data, handleEdit, handleDelete, isFetching }) => {
+const DeviceTable = ({ data, isFetching }) => {
   const [displayData, setDisplayData] = React.useState(data);
-  const [selectedProfile, setSelectedProfile] = React.useState(null);
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   React.useEffect(() => {
     setDisplayData(data);
   }, [data]);
-
-  const handleDeleteConfirmation = (id) => {
-    setSelectedProfile(id);
-    onOpen();
-  };
 
   return (
     <>
@@ -40,9 +32,8 @@ const UserTable = ({ data, handleEdit, handleDelete, isFetching }) => {
           <Thead>
             <Tr>
               <Th>#</Th>
-              <Th>Nombre y apellido</Th>
-              <Th display={{ base: "none", md: "table-cell" }}>Email</Th>
-              <Th></Th>
+              <Th>#</Th>
+              <Th>#</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -56,30 +47,10 @@ const UserTable = ({ data, handleEdit, handleDelete, isFetching }) => {
                   <Td display={{ base: "none", md: "table-cell" }}>
                     {row.email}
                   </Td>
-                  <Td>
-                    <Stack direction="row" spacing="2">
-                      <Tooltip hasArrow label="Editar">
-                        <IconButton
-                          size="sm"
-                          onClick={() => handleEdit(row)}
-                          icon={<FiEdit />}
-                        />
-                      </Tooltip>
-                      <Tooltip hasArrow label="Eliminar">
-                        <IconButton
-                          size="sm"
-                          onClick={() => handleDeleteConfirmation(row.id)}
-                          icon={<FiDelete />}
-                        />
-                      </Tooltip>
-                    </Stack>
-                  </Td>
                 </Tr>
               ))
             ) : (
               <>
-                <TableSkeleton />
-                <TableSkeleton />
                 <TableSkeleton />
                 <TableSkeleton />
                 <TableSkeleton />
@@ -91,13 +62,6 @@ const UserTable = ({ data, handleEdit, handleDelete, isFetching }) => {
       <Flex justify="end">
         <TablePagination data={data} setDisplayData={setDisplayData} />
       </Flex>
-
-      <ConfirmDialog
-        isOpen={isOpen}
-        onClose={onClose}
-        confirmMethod={() => handleDelete(selectedProfile)}
-        title="Desea eliminar este usuario?"
-      />
     </>
   );
 };
@@ -121,4 +85,4 @@ const TableSkeleton = () => {
   );
 };
 
-export default UserTable;
+export default DeviceTable;

@@ -37,7 +37,7 @@ const DisplayProfiles = ({ actions }) => {
     togleIsFetching.off()
   };
 
-  const handleSubmit = async (values) => {
+  const handleSubmitProfile = async (values) => {
     let response;
 
     if (values.id) response = await actions.updateProfile(values);
@@ -73,8 +73,8 @@ const DisplayProfiles = ({ actions }) => {
     }
   };
 
-  const handleEditProfile = (profile) => {
-    setUpdateProfile(profile);
+  const handleEditProfile = async (profile) => {
+    await setUpdateProfile(profile);
     onOpen();
   };
 
@@ -96,10 +96,10 @@ const DisplayProfiles = ({ actions }) => {
 
       <ManageProfile
         updateProfile={updateProfile}
-        handleSubmit={handleSubmit}
+        handleSubmit={handleSubmitProfile}
         isOpen={isOpen}
-        onClose={() => {
-          setUpdateProfile(null);
+        onClose={async () => {
+          await setUpdateProfile(null);
           onClose();
         }}
       />

@@ -1,19 +1,19 @@
 const tableStyles = {
   shadow: {
     base: "md",
-    sm: "lg",
+    md: "lg",
   },
   rounded: {
     base: "none",
-    sm: "md"
+    md: "md"
   },
   border: {
     base: "none",
-    sm: "1px",
+    md: "1px",
   },
   borderColor: {
     base: "transparent",
-    sm: "gray.400",
+    md: "gray.400",
   },
   overflowY: {
     base: "scroll",

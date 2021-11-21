@@ -22,6 +22,7 @@ import {
   AutosuggestField,
   TextField,
 } from "@components/common";
+import incidence from "@models/incidence";
 
 const priorities = [
   { value: 110, label: "baja" },
@@ -45,12 +46,7 @@ const users = [
 const IncidenceForm = ({ handleSubmit }) => {
   return (
     <Formik
-      initialValues={{
-        profile: "",
-        priority: "",
-        date: new Date(),
-        description: "",
-      }}
+      initialValues={incidence}
       onSubmit={handleSubmit}
       validate={incidenceValidations}
     >

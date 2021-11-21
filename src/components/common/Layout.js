@@ -14,17 +14,8 @@ import {
 import {
   IoSunnyOutline,
   IoSunnySharp,
-  IoPerson,
-  IoAddCircleOutline,
-  IoAlertCircle,
-  IoBuild,
   IoLogOut,
-  IoMenu,
 } from "react-icons/io5";
-import {
-  BiDevices,
-  BiChip
-} from 'react-icons/bi'
 import LayoutItem from "./LayoutItem";
 //REDUX
 import { bindActionCreators } from "redux";
@@ -36,60 +27,9 @@ import history from "@utils/history";
 import { ConfirmDialog } from "@components/common";
 
 //ADMIN ROUTES
-const adminRoutes = [
-  {
-    to: "/admin/register-incident",
-    as: "/admin/registrar-incidencia",
-    icon: IoAddCircleOutline,
-    title: "Registrar incidencia",
-  },
-  {
-    to: "/admin/incidences",
-    as: "/admin/incidencias",
-    icon: IoAlertCircle,
-    title: "Incidencias",
-  },
-  {
-    to: "/admin/technician-assignment",
-    as: "/admin/asignar-tecnico",
-    icon: IoBuild,
-    title: "Asignación de técnico",
-  },
-  {
-    to: "/admin/device-components",
-    as: "/admin/componentes",
-    icon: BiChip,
-    title: "Componentes",
-  },
-  {
-    to: "/admin/devices",
-    as: "/admin/equipos",
-    icon: BiDevices,
-    title: "Equipos",
-  },
-  {
-    to: "/admin/profiles",
-    as: "/admin/perfiles",
-    icon: IoPerson,
-    title: "Perfiles",
-  },
-];
+import routes from "@utils/routes";
 
 //USER ROUTES
-const userRoutes = [
-  {
-    to: "/register-incident",
-    as: "/registrar-incidencia",
-    icon: IoAddCircleOutline,
-    title: "Registrar incidencia",
-  },
-  {
-    to: "/incidences",
-    as: "/incidencias",
-    icon: IoAlertCircle,
-    title: "Incidencias",
-  },
-];
 
 const redirect = (to) => {
   history.push(to);
@@ -105,76 +45,76 @@ const Sidebar = (props) => {
   //props
   const { children, isAdmin, isUser, actions, isLogged, username } = props;
 
-  React.useEffect(()=>{
-    if(location.pathname !== '/' && isLogged) setShowSidebar.on()
-  },[])
+  React.useEffect(() => {
+    if (location.pathname !== "/" && isLogged) setShowSidebar.on();
+  }, []);
 
-  history.listen((location, action)=>{
-    if(location.pathname !== '/' && isLogged) setShowSidebar.on()
-    else setShowSidebar.off()
-  })
+  history.listen((location, action) => {
+    if (location.pathname !== "/" && isLogged) setShowSidebar.on();
+    else setShowSidebar.off();
+  });
 
   return (
-    <div className="block sm:flex min-h-screen">
+    <div className="block md:flex min-h-screen">
       {/* EMPIEZA LA SIDEBAR */}
 
       {showSidebar && (
         <Flex
-        zIndex={1000}
+          zIndex={1000}
           bg={{
-            base: isDark ? "gray.700" : "gray.300"
+            base: isDark ? "gray.700" : "gray.200",
           }}
           py={{
             base: 2,
-            sm: 4,
+            md: 4,
           }}
           px={{
             base: 2,
-            sm: 4,
+            md: 4,
           }}
           justifyContent={{
             base: "space-around",
-            sm: "space-between",
+            md: "space-between",
           }}
           position={{
             base: "fixed",
-            sm: "sticky",
+            md: "sticky",
           }}
           top={{
             base: "initial",
-            sm: "0px"
+            md: "0px",
           }}
           flexDirection={{
             base: "row",
-            sm: "column",
+            md: "column",
           }}
           bottom={{
             base: 0,
           }}
           w={{
             base: "100%",
-            sm: "25%",
+            md: "25%",
           }}
         >
           <Flex
             direction={{
               base: "initial",
-              sm: "column",
+              md: "column",
             }}
             alignItems={{
               base: "center",
-              sm: "initial",
+              md: "initial",
             }}
             justifyContent="space-around"
             w={{
               base: "70%",
-              sm: "initial",
+              md: "initial",
             }}
           >
             <Box
               display={{
                 base: "none",
-                sm: "flex",
+                md: "flex",
               }}
               alignItems="center"
               flexDirection="column"
@@ -189,40 +129,40 @@ const Sidebar = (props) => {
             <Divider
               display={{
                 base: "none",
-                sm: "block",
+                md: "block",
               }}
               mt={{
                 base: 0,
-                sm: 4,
+                md: 4,
               }}
             />
 
             <Flex
               w={{
                 base: "100%",
-                sm: "initial",
+                md: "initial",
               }}
               direction={{
                 base: "row",
-                sm: "column",
+                md: "column",
               }}
               justifyContent={{
                 base: "space-around",
-                sm: "initial",
+                md: "initial",
               }}
               alignItems={{
                 base: "center",
-                sm: "initial",
+                md: "initial",
               }}
             >
               {/* routes */}
               {isAdmin &&
-                adminRoutes.map((route) => (
+                routes.adminRoutes.map((route) => (
                   <LayoutItem {...route} clickLink={redirect} />
                 ))}
 
               {isUser &&
-                userRoutes.map((route) => (
+                routes.userRoutes.map((route) => (
                   <LayoutItem {...route} clickLink={redirect} />
                 ))}
             </Flex>
@@ -233,11 +173,11 @@ const Sidebar = (props) => {
             alignItems="center"
             justifyContent={{
               base: "space-around",
-              sm: "space-between",
+              md: "space-between",
             }}
             width={{
               base: "30%",
-              sm: "100%",
+              md: "100%",
             }}
           >
             <Tooltip label="Cerrar sesión">
@@ -251,7 +191,7 @@ const Sidebar = (props) => {
             <Flex
               direction={{
                 base: "column",
-                sm: "row",
+                md: "row",
               }}
               alignItems="center"
             >
@@ -259,11 +199,11 @@ const Sidebar = (props) => {
               <Switch
                 mt={{
                   base: 2,
-                  sm: 0,
+                  md: 0,
                 }}
                 ml={{
                   base: 0,
-                  sm: 4,
+                  md: 4,
                 }}
                 color="blue"
                 isChecked={isDark}
