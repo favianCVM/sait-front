@@ -4,6 +4,7 @@ import PageHeader from "@components/common/PageHeader";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import ProfileTable from "@components/profiles/ProfileTable";
 import ManageProfile from "@components/profiles/ManageProfile";
+import {SpinnerScreen} from '@components/common'
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as actions from "@actions/";
@@ -80,6 +81,7 @@ const DisplayProfiles = ({ actions }) => {
 
   return (
     <Box>
+      <SpinnerScreen open={isFetching} />
       <PageHeader
         title="Perfiles"
         action={onOpen}

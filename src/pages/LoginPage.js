@@ -4,7 +4,6 @@ import CompanyHeader from "@components/common/CompanyHeader"
 const LoginPage = () => {
   return(
     <>
-      <CompanyHeader />
       <LoginContainer/>
     </>
   )

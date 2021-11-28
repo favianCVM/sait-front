@@ -19,7 +19,7 @@ import { TablePagination, ConfirmDialog } from "@components/common";
 import { FiEdit, FiDelete } from "react-icons/fi";
 import { tableStyles } from "@utils/commonStyles";
 
-const IncidenceTable = ({ data, handleEdit, handleDelete, isFetching }) => {
+const ComponentTable = ({ data, handleEdit, handleDelete, isFetching }) => {
   const [displayData, setDisplayData] = React.useState(data);
   const [selectedProfile, setSelectedProfile] = React.useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -116,4 +116,4 @@ const TableSkeleton = () => {
   );
 };
 
-export default IncidenceTable;
+export default ComponentTable;

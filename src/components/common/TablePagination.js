@@ -50,6 +50,10 @@ const TablePagination = ({
   });
 
   React.useEffect(()=>{
+    setDisplayData([...data].splice(offset, pageSize))
+  },[data])
+
+  React.useEffect(()=>{
     let skip = offset;
     let limit = pageSize;
     setDisplayData([...data].splice(skip, limit))

@@ -21,10 +21,6 @@ import { tableStyles } from "@utils/commonStyles";
 const DeviceTable = ({ data, isFetching }) => {
   const [displayData, setDisplayData] = React.useState(data);
 
-  React.useEffect(() => {
-    setDisplayData(data);
-  }, [data]);
-
   return (
     <>
       <Box {...tableStyles}>
