@@ -14,24 +14,19 @@ import {
   Previous,
   usePaginator,
   Next,
-  PageGroup
+  PageGroup,
 } from "chakra-paginator";
 import { IoArrowForward, IoArrowBack, IoArrowDown } from "react-icons/io5";
 
-const TablePagination = ({
-  data = [],
-  setDisplayData = () => {},
-}) => {
-
+const TablePagination = ({ data = [], setDisplayData = () => {} }) => {
   //dark theme
-  const { colorMode, toggleColorMode } = useColorMode()
-  const isDark = colorMode === 'dark'
+  const { colorMode, toggleColorMode } = useColorMode();
+  const isDark = colorMode === "dark";
 
   // constants
   const outerLimit = 2;
   const innerLimit = 2;
   const {
-
     isDisabled,
     pagesQuantity,
     currentPage,
@@ -39,48 +34,50 @@ const TablePagination = ({
     setIsDisabled,
     setCurrentPage,
     setPageSize,
-    offset// you may not need this most of the times, but it's returned for you anyway
+    offset, // you may not need this most of the times, but it's returned for you anyway
   } = usePaginator({
     total: data.length,
     initialState: {
       pageSize: 5,
       currentPage: 1,
-      isDisabled: false
-    }
+      isDisabled: false,
+    },
   });
 
-  React.useEffect(()=>{
+  React.useEffect(() => {
+    setDisplayData([...data].splice(offset, pageSize));
+  }, [data]);
+
+  React.useEffect(() => {
     let skip = offset;
     let limit = pageSize;
-    setDisplayData([...data].splice(skip, limit))
-  },[offset, currentPage, pageSize])
-
+    setDisplayData([...data].splice(skip, limit));
+  }, [offset, currentPage, pageSize]);
 
   // styles
-  const baseStyles= {
-    shadow: 'base',
+  const baseStyles = {
+    shadow: "base",
     w: 7,
-    fontSize: 'sm',
-    bg: isDark ? 'white' : 'gray.700',
-    color: isDark ? 'gray.700' : 'white',
+    fontSize: "sm",
+    bg: isDark ? "white" : "gray.700",
+    color: isDark ? "gray.700" : "white",
     _hover: {
-      bg: isDark ? 'gray.700' : 'white',
-      color: isDark ? 'white' : 'gray.700',
+      bg: isDark ? "gray.700" : "white",
+      color: isDark ? "white" : "gray.700",
     },
   };
 
-  const normalStyles= {
+  const normalStyles = {
     ...baseStyles,
   };
 
   const activeStyles = {
     ...baseStyles,
-    bg: isDark ? 'gray.700' : 'gray.200',
-    color: isDark ? 'white' : 'gray.700',
+    bg: isDark ? "gray.700" : "gray.200",
+    color: isDark ? "white" : "gray.700",
   };
 
-  const separatorStyles = {
-  };
+  const separatorStyles = {};
 
   // handlers
   const handlePageChange = (nextPage) => {
@@ -90,7 +87,7 @@ const TablePagination = ({
 
   const handlePageSizeChange = (event) => {
     const pageSize = Number(event.target.value);
-    setCurrentPage(1)
+    setCurrentPage(1);
     setPageSize(pageSize);
   };
 
@@ -107,12 +104,19 @@ const TablePagination = ({
         currentPage={currentPage}
         onPageChange={handlePageChange}
       >
-        <Container w="fit-content" align="center"  justify="space-between" p={4}>
-          <Previous display={{
-            base: 'none',
-            sm: 'block'
-          }} shadow="base" mr={4}>
-            <IoArrowBack/>
+        <Container w="fit-content" align="center" justify="space-between" p={4}>
+          <Previous
+            shadow="base"
+            size="sm"
+            p={{
+              base: "",
+              sm: "",
+            }}
+            mr={{
+              base: 2
+            }}
+          >
+            <IoArrowBack />
           </Previous>
 
           <Menu>
@@ -127,13 +131,23 @@ const TablePagination = ({
             </MenuList>
           </Menu>
 
-          <PageGroup isInline align="center" ml={4} />
+          <PageGroup
+            isInline
+            align="center"
+            mx={{
+              base: 2
+            }}
+          />
 
-          <Next display={{
-            base: 'none',
-            sm: 'block'
-          }} shadow="base" ml={4}>
-            <IoArrowForward/>
+          <Next
+            shadow="base"
+            size="sm"
+            p={{
+              base: "",
+              sm: "",
+            }}
+          >
+            <IoArrowForward />
           </Next>
         </Container>
       </Paginator>

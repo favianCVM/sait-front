@@ -24,10 +24,6 @@ const UserTable = ({ data, handleEdit, handleDelete, isFetching }) => {
   const [selectedProfile, setSelectedProfile] = React.useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  React.useEffect(() => {
-    setDisplayData(data);
-  }, [data]);
-
   const handleDeleteConfirmation = (id) => {
     setSelectedProfile(id);
     onOpen();

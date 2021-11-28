@@ -8,6 +8,7 @@ const aliases = (prefix = `src`) => ({
   '@actions': `${prefix}/redux/actions/`,
   '@utils': `${prefix}/utils/`,
   '@styles': `${prefix}/styles/`,
+  '@assets': `${prefix}/assets/`
 });
 
 module.exports = aliases;

@@ -1,5 +1,5 @@
 export default {
-  description: "",
-  name: "",
-  components: []
+  profile_id: null,
+  components: [],
+  serial: null
 }
