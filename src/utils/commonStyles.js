@@ -22,7 +22,8 @@ const tableStyles = {
     base: 310,
   },
   maxH: {
-    base: 310,
+    base: 400,
+    sm: 320
   },
 };
 

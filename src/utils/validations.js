@@ -1,5 +1,6 @@
 const emailValidation = /\S+@\S+\.\S+/;
 const passwordValidation = /^[0-9a-zA-Z-!@#$%^&*]{5,}$/
+const allTypeValidation = /^[0-9a-zA-Z-!@#$%^&*]{5,}$/
 const stringValidation1 = /^([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ]{3,})$/;
 
 const loginValidations = (values, props) => {
@@ -117,10 +118,30 @@ const profileUpdateValidations = (values, props) => {
   return errors;
 }
 
+const deviceRegisterValidations = (values, props) => {
+  const errors = {};
+  let { profile_id, serial, components } = values;
+
+  if(!allTypeValidation.test(serial)){
+    errors.serial = "Ingrese un serial valido"
+  } else delete errors.serial
+
+  if(!components.length){
+    errors.components = "Seleccione al menos un componente"
+  } else delete errors.components
+
+  if(!profile_id || profile_id === null){
+    errors.profile_id = "Seleccione un perfil propietario del equipo"
+  } else delete errors.profile_id
+
+  return errors
+}
+
 //EXPORTS
 export {
   loginValidations,
   incidenceValidations,
   profileCreationValidations,
   profileUpdateValidations,
+  deviceRegisterValidations
 }

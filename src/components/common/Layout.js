@@ -11,12 +11,9 @@ import {
   Flex,
   useBoolean,
 } from "@chakra-ui/react";
-import {
-  IoSunnyOutline,
-  IoSunnySharp,
-  IoLogOut,
-} from "react-icons/io5";
+import { IoSunnyOutline, IoSunnySharp, IoLogOut } from "react-icons/io5";
 import LayoutItem from "./LayoutItem";
+import LayoutFooter from "./LayoutFooter";
 //REDUX
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -124,6 +121,11 @@ const Sidebar = (props) => {
                 size="lg"
               />
               <Heading>{username}</Heading>
+              <LayoutFooter
+                isDark={isDark}
+                setShowLogOut={setShowLogOut}
+                toggleColorMode={toggleColorMode}
+              />
             </Box>
 
             <Divider
@@ -131,7 +133,7 @@ const Sidebar = (props) => {
                 base: "none",
                 md: "block",
               }}
-              mt={{
+              my={{
                 base: 0,
                 md: 4,
               }}
@@ -169,48 +171,12 @@ const Sidebar = (props) => {
           </Flex>
 
           {/* footer */}
-          <Flex
-            alignItems="center"
-            justifyContent={{
-              base: "space-around",
-              md: "space-between",
-            }}
-            width={{
-              base: "30%",
-              md: "100%",
-            }}
-          >
-            <Tooltip label="Cerrar sesión">
-              <IconButton
-                colorScheme="blue"
-                aria-label="log-out-session"
-                icon={<IoLogOut />}
-                onClick={() => setShowLogOut.on()}
-              />
-            </Tooltip>
-            <Flex
-              direction={{
-                base: "column",
-                md: "row",
-              }}
-              alignItems="center"
-            >
-              {isDark ? <IoSunnySharp /> : <IoSunnyOutline />}
-              <Switch
-                mt={{
-                  base: 2,
-                  md: 0,
-                }}
-                ml={{
-                  base: 0,
-                  md: 4,
-                }}
-                color="blue"
-                isChecked={isDark}
-                onChange={toggleColorMode}
-              />
-            </Flex>
-          </Flex>
+          <LayoutFooter
+            isDark={isDark}
+            setShowLogOut={setShowLogOut}
+            toggleColorMode={toggleColorMode}
+            isMobile={true}
+          />
         </Flex>
       )}
 

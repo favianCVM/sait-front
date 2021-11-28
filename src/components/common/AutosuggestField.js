@@ -20,17 +20,17 @@ import {
 
 const AutosuggestField = ({
   rollNavigation = true,
-  name,
-  id,
+  name = "",
+  id = "",
   disabled = false,
-  placeholder,
-  label,
+  placeholder = "",
+  label = "",
   variant = "filled",
   data = [],
-  options = data.map(el => el.label),
+  options = data.length ? data.map((el) => el.label) : [],
   helperText = "",
   textTransform = "capitalize",
-  useInvalid = true,
+  autoFocus = true,
 }) => {
   return (
     <Field name={name}>
@@ -45,19 +45,28 @@ const AutosuggestField = ({
           <InputGroup>
             <AutoComplete
               rollNavigation={rollNavigation}
-              onSelectOption={({ optionValue }) => {
-                let val = data.find((el) => el.label === optionValue)?.value;
+              onSelectOption={(e) => {
+                let { optionValue } = e;
+                let val = data?.find((el) => el.label === optionValue)?.value;
                 form.setFieldValue(name, val);
               }}
+              value={data.find(el => el.value === field.value)?.label || null}
             >
               <AutoCompleteInput
                 name={name}
                 variant={variant}
                 placeholder={placeholder}
-                autoFocus={true}
+                autoFocus={autoFocus}
                 disabled={disabled}
                 // isInvalid={form.errors[name]}
                 isInvalid={form.errors[name] && form.touched[name]}
+                value={
+                  data.find((el) => el.value === field.value)?.label || null
+                }
+
+                onChange={(e) => {
+                  form.setFieldValue(name, null);
+                }}
               />
               <AutoCompleteList>
                 {options.map((option, oid) => (

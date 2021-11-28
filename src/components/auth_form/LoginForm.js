@@ -1,18 +1,7 @@
 import {
   Stack,
-  Button,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverHeader,
-  PopoverBody,
-  PopoverArrow,
-  PopoverCloseButton,
-  ListItem,
-  UnorderedList,
 } from "@chakra-ui/react";
-import TextField from "@components/common/TextField";
-import { FaBullseye } from "react-icons/fa";
+import { TextField, SubmitFormButton } from "@components/common";
 import { Formik, Form } from "formik";
 import { loginValidations } from "@utils/validations";
 
@@ -28,7 +17,7 @@ const LoginForm = ({ handleSubmit }) => {
     >
       {(props) => (
         <Form>
-          <Stack spacing={3}>
+          <Stack alignItems="center" spacing={5}>
             <TextField
               placeholder="correo electrónico"
               size="md"
@@ -36,6 +25,7 @@ const LoginForm = ({ handleSubmit }) => {
               name="email"
               type="email"
               helperText="introduzca su correo electrónico"
+              disabled={props.isSubmitting}
             />
 
             <TextField
@@ -45,34 +35,14 @@ const LoginForm = ({ handleSubmit }) => {
               name="password"
               type="password"
               helperText="introduzca su contraseña"
+              disabled={props.isSubmitting}
             />
 
-            <Popover>
-              <PopoverTrigger>
-                <Button
-                  colorScheme="blue"
-                  type="submit"
-                  isLoading={props.isSubmitting}
-                  rightIcon={<FaBullseye />}
-                >
-                  Iniciar
-                </Button>
-              </PopoverTrigger>
-              {Object.keys(props.errors).length > 0 && (
-                <PopoverContent>
-                  <PopoverArrow />
-                  <PopoverCloseButton />
-                  <PopoverHeader>Tienes errores</PopoverHeader>
-                  <PopoverBody className="flex flex-col items-start">
-                    <UnorderedList>
-                      {Object.keys(props.errors).map((err) => (
-                        <ListItem>{props.errors[err]}</ListItem>
-                      ))}
-                    </UnorderedList>
-                  </PopoverBody>
-                </PopoverContent>
-              )}
-            </Popover>
+            <SubmitFormButton 
+              errors={props.errors}
+              isSubmitting={props.isSubmitting}
+              title="Iniciar sesion"
+            />
           </Stack>
         </Form>
       )}

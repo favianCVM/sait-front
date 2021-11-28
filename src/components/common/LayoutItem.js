@@ -33,6 +33,7 @@ export default function LayoutItem({ icon, title, to, clickLink, as }) {
         _hover={{
           bg: "blue.500",
           textColor: "white",
+          shadow: "none"
         }}
         bg={isOn ? "blue.500" : colorMode === "dark" ? "gray.700" : null}
         textColor={isOn ? "gray.800" : null}

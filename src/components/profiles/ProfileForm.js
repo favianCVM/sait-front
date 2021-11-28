@@ -1,23 +1,15 @@
-import {
-  Button,
-  Box,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverHeader,
-  PopoverBody,
-  PopoverArrow,
-  PopoverCloseButton,
-  ListItem,
-  UnorderedList,
-  Flex,
-} from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
 import {
   profileCreationValidations,
   profileUpdateValidations,
 } from "@utils/validations";
-import { DateField, TextField, SelectField } from "@components/common";
+import {
+  DateField,
+  TextField,
+  SelectField,
+  SubmitFormButton,
+} from "@components/common";
 import Profile from "@models/profile";
 
 const UserForm = ({ handleSubmit, updateProfile }) => {
@@ -48,6 +40,7 @@ const UserForm = ({ handleSubmit, updateProfile }) => {
                 size="md"
                 showError={false}
                 disabled={props.isSubmitting}
+                label="Nombre"
               />
 
               <TextField
@@ -57,6 +50,7 @@ const UserForm = ({ handleSubmit, updateProfile }) => {
                 size="md"
                 showError={false}
                 disabled={props.isSubmitting}
+                label="Apellido"
               />
 
               <TextField
@@ -67,6 +61,7 @@ const UserForm = ({ handleSubmit, updateProfile }) => {
                 size="md"
                 showError={false}
                 disabled={props.isSubmitting}
+                label="Email"
               />
 
               {!updateProfile && (
@@ -78,6 +73,7 @@ const UserForm = ({ handleSubmit, updateProfile }) => {
                   size="md"
                   showError={false}
                   disabled={props.isSubmitting}
+                  label="Contraseña"
                 />
               )}
 
@@ -88,6 +84,7 @@ const UserForm = ({ handleSubmit, updateProfile }) => {
                 size="md"
                 showError={false}
                 disabled={props.isSubmitting}
+                label="DNI"
               />
 
               <SelectField
@@ -99,6 +96,7 @@ const UserForm = ({ handleSubmit, updateProfile }) => {
                 id="sex"
                 placeholder="sexo"
                 disabled={props.isSubmitting}
+                label="Sexo"
               />
 
               {!updateProfile && (
@@ -111,6 +109,7 @@ const UserForm = ({ handleSubmit, updateProfile }) => {
                   id="role"
                   placeholder="rol"
                   disabled={props.isSubmitting}
+                  label="Rol"
                 />
               )}
 
@@ -120,37 +119,15 @@ const UserForm = ({ handleSubmit, updateProfile }) => {
                 placeholder="fecha de nacimiento"
                 maxDate={new Date()}
                 disabled={props.isSubmitting}
+                label="Fecha de nacimiento"
               />
             </Box>
 
-            <Popover>
-              <PopoverTrigger>
-                <Button
-                  mx="auto"
-                  mt={4}
-                  w={32}
-                  colorScheme="blue"
-                  type="submit"
-                  isLoading={props.isSubmitting}
-                >
-                  Iniciar
-                </Button>
-              </PopoverTrigger>
-              {Object.keys(props.errors).length > 0 && (
-                <PopoverContent>
-                  <PopoverArrow />
-                  <PopoverCloseButton />
-                  <PopoverHeader>Tienes errores</PopoverHeader>
-                  <PopoverBody className="flex flex-col items-start">
-                    <UnorderedList>
-                      {Object.keys(props.errors).map((err) => (
-                        <ListItem>{props.errors[err]}</ListItem>
-                      ))}
-                    </UnorderedList>
-                  </PopoverBody>
-                </PopoverContent>
-              )}
-            </Popover>
+            <SubmitFormButton
+              isSubmitting={props.isSubmitting}
+              errors={props.errors}
+              title={updateProfile ? "Actualizar perfil" : "Crear perfil"}
+            />
           </Flex>
         </Form>
       )}

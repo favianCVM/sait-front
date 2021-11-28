@@ -50,7 +50,9 @@ const PageHeader = ({
           {title}
         </Heading>
         {action && actionIcon && actionName && (
-          <Button rightIcon={actionIcon} onClick={action}>
+          <Button shadow="sm" _hover={{
+            shadow: "lg"
+          }} rightIcon={actionIcon} onClick={action}>
             {actionName}
           </Button>
         )}
