@@ -137,11 +137,16 @@ const deviceRegisterValidations = (values, props) => {
   return errors
 }
 
+const componentRegisterValidations = (values, props) => {
+
+}
+
 //EXPORTS
 export {
   loginValidations,
   incidenceValidations,
   profileCreationValidations,
   profileUpdateValidations,
-  deviceRegisterValidations
+  deviceRegisterValidations,
+  componentRegisterValidations,
 }
