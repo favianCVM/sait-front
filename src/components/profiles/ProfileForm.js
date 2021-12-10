@@ -9,6 +9,7 @@ import {
   TextField,
   SelectField,
   SubmitFormButton,
+  FileField,
 } from "@components/common";
 import Profile from "@models/profile";
 
@@ -63,6 +64,15 @@ const UserForm = ({ handleSubmit, updateProfile }) => {
                 disabled={props.isSubmitting}
                 label="Email"
               />
+
+              <FileField
+                name=""
+                id="image__"
+                disabled={props.isSubmitting}
+                helperText=""
+                label=""
+                
+              />  
 
               {!updateProfile && (
                 <TextField
