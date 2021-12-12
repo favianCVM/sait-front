@@ -1,4 +1,4 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, Center } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
 import {
   profileCreationValidations,
@@ -12,6 +12,7 @@ import {
   FileField,
 } from "@components/common";
 import Profile from "@models/profile";
+import {FaUserAlt} from "react-icons/fa"
 
 const UserForm = ({ handleSubmit, updateProfile }) => {
   const setIntialProps = (type) => {
@@ -64,15 +65,6 @@ const UserForm = ({ handleSubmit, updateProfile }) => {
                 disabled={props.isSubmitting}
                 label="Email"
               />
-
-              <FileField
-                name=""
-                id="image__"
-                disabled={props.isSubmitting}
-                helperText=""
-                label=""
-                
-              />  
 
               {!updateProfile && (
                 <TextField
@@ -132,13 +124,27 @@ const UserForm = ({ handleSubmit, updateProfile }) => {
                 label="Fecha de nacimiento"
               />
             </Box>
+          </Flex>
 
+          <FileField
+            name=""
+            containerClasses="mt-12 mb-8"
+            imagePreviewSize="xl"
+            toolTipMessage="Foto de perfil"
+            id="image__"
+            labelIcon={<FaUserAlt/>}
+            disabled={props.isSubmitting}
+            helperText=""
+            label=""
+          />
+
+          <Center>
             <SubmitFormButton
               isSubmitting={props.isSubmitting}
               errors={props.errors}
               title={updateProfile ? "Actualizar perfil" : "Crear perfil"}
             />
-          </Flex>
+          </Center>
         </Form>
       )}
     </Formik>

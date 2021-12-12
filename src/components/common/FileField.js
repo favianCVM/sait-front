@@ -1,17 +1,11 @@
 import React from "react";
 import {
   FormControl,
-  InputGroup,
   FormLabel,
   FormHelperText,
-  Button,
-  useColorMode,
-  IconButton,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
   Box,
+  Tooltip,
+  Avatar,
 } from "@chakra-ui/react";
 import { Field } from "formik";
 import ReactDatePicker from "react-datepicker";
@@ -34,6 +28,11 @@ const FileField = ({
   showPopperArrow = true,
   helperText = "",
   placeholder = "",
+  containerClasses = "",
+  buttonClasses = "",
+  imagePreviewClasses = "h-20 w-20 rounded-md cursor-pointer hover:scale-150 transform duration-150 delay-75 ",
+  toolTipMessage = "",
+  imagePreviewSize = "lg",
   ...props
 }) => {
   const [picture, setPicture] = React.useState(null);
@@ -48,27 +47,35 @@ const FileField = ({
             display="flex"
             alignItems="center"
             justifyContent="center"
+            className={containerClasses}
           >
             <FormLabel size="lg" htmlFor={id} w="fit-content">
-              {!picture ? (
-                <Box
-                  className="duration-75 delay-75 hover:bg-blue-300 transition-all ease-linear "
-                  bg="blue.400"
-                  p={{
-                    base: "2.5",
-                  }}
-                  fontSize={{
-                    base: "28",
-                  }}
-                  w="fit-content"
-                  cursor="pointer"
-                  borderRadius="md"
-                >
-                  {labelIcon}
-                </Box>
-              ) : (
-                <img src={picture} alt={picture} className="h-20 w-20 rounded-md cursor-pointer hover:scale-150 transform " />
-              )}
+              <Tooltip label={picture ? null : toolTipMessage}>
+                {!picture ? (
+                  <Box
+                    bg="blue.400"
+                    p={{
+                      base: "2.5",
+                    }}
+                    fontSize={{
+                      base: "28",
+                    }}
+                    w="fit-content"
+                    cursor="pointer"
+                    borderRadius="md"
+                    className={buttonClasses}
+                  >
+                    {labelIcon}
+                  </Box>
+                ) : (
+                  <Avatar
+                    src={picture}
+                    alt={picture}
+                    size={imagePreviewSize}
+                    className={imagePreviewClasses}
+                  />
+                )}
+              </Tooltip>
             </FormLabel>
             <input
               className="hidden"
