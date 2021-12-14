@@ -11,16 +11,16 @@ import {
   SubmitFormButton,
   FileField,
 } from "@components/common";
-import Profile from "@models/profile";
+import User from "@models/user";
 import {FaUserAlt} from "react-icons/fa"
 
-const UserForm = ({ handleSubmit, updateProfile }) => {
+const UserForm = ({ handleSubmit, updateUser }) => {
   const setIntialProps = (type) => {
     if (type === "initialValues") {
-      if (updateProfile) return updateProfile;
-      else return Profile;
+      if (updateUser) return updateUser;
+      else return User;
     } else if (type === "validate") {
-      if (updateProfile) return profileUpdateValidations;
+      if (updateUser) return profileUpdateValidations;
       else return profileCreationValidations;
     }
   };
@@ -66,7 +66,7 @@ const UserForm = ({ handleSubmit, updateProfile }) => {
                 label="Email"
               />
 
-              {!updateProfile && (
+              {!updateUser && (
                 <TextField
                   name="password"
                   id="password"
@@ -101,7 +101,7 @@ const UserForm = ({ handleSubmit, updateProfile }) => {
                 label="Sexo"
               />
 
-              {!updateProfile && (
+              {!updateUser && (
                 <SelectField
                   options={[
                     { label: "Admin", value: 60 },
@@ -142,7 +142,7 @@ const UserForm = ({ handleSubmit, updateProfile }) => {
             <SubmitFormButton
               isSubmitting={props.isSubmitting}
               errors={props.errors}
-              title={updateProfile ? "Actualizar perfil" : "Crear perfil"}
+              title={updateUser ? "Actualizar perfil" : "Crear perfil"}
             />
           </Center>
         </Form>

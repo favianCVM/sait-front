@@ -1,17 +1,17 @@
 import Api from './api'
 
-const login = (data) => Api().post('/profile/login', data);
-const create_profile = (data) => Api().post('/profile/create-profile', data);
-const get_all_profiles = () => Api().get('/profile/get-all-profiles');
-const update_profile = (data) => Api().put(`/profile/update-profile/${data.id}`, data);
-const delete_profile = (id) => Api().post(`/profile/delete-profile/${id}`);
+const login = (data) => Api().post('/users/login', data);
+const create_user = (data) => Api().post('/users/create-user', data);
+const get_all_users = () => Api().get('/users/get-all-users');
+const update_user = (data) => Api().put(`/users/update-user/${data.id}`, data);
+const delete_user = (id) => Api().post(`/users/delete-user/${id}`);
 
 export default {
   //USER AUTH
   login,
-  // profiles
-  create_profile,
-  get_all_profiles,
-  update_profile,
-  delete_profile,
+  // users
+  create_user,
+  get_all_users,
+  update_user,
+  delete_user,
 }

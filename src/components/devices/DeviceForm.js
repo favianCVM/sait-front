@@ -26,7 +26,7 @@ const components = [
     value: 2,
   },
 ];
-const DeviceForm = ({ handleSubmit, profiles = [], updateDevice }) => {
+const DeviceForm = ({ handleSubmit, users = [], updateDevice }) => {
   return (
     <Formik
       initialValues={device}
@@ -38,11 +38,11 @@ const DeviceForm = ({ handleSubmit, profiles = [], updateDevice }) => {
           <Flex flexDirection="column" w="100%">
             <Stack>
               <AutosuggestField
-                data={profiles.map((el) => ({
+                data={users.map((el) => ({
                   label: `${el.first_name} #${el.id}`,
                   value: el.id,
                 }))}
-                name="profile_id"
+                name="user_id"
                 placeholder="seleccione un perfil"
                 disabled={props.isSubmitting}
                 label="Perfil"

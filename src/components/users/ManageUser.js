@@ -10,9 +10,9 @@ import {
   useMediaQuery,
 } from "@chakra-ui/react"
 
-import ProfileForm from '@components/profiles/ProfileForm'
+import UserForm from '@components/users/UserForm'
 
-const ManageUser = ({isOpen, onClose, handleSubmit, updateProfile}) => {
+const ManageUser = ({isOpen, onClose, handleSubmit, updateUser}) => {
   const [isMobile] = useMediaQuery("(max-width: 680px)")
 
   return(
@@ -33,14 +33,14 @@ const ManageUser = ({isOpen, onClose, handleSubmit, updateProfile}) => {
         >
           <ModalHeader fontSize="4xl">
             {
-              updateProfile 
-                ? "Actualizacion de perfil"
-                : "Registro de perfil"
+              updateUser 
+                ? "Actualizacion de usuario"
+                : "Registro de usuario"
             }
           </ModalHeader>
 
           <ModalBody>
-            <ProfileForm handleSubmit={handleSubmit} updateProfile={updateProfile} />
+            <UserForm handleSubmit={handleSubmit} updateUser={updateUser} />
           </ModalBody>
 
           <ModalFooter>

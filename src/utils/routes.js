@@ -1,7 +1,7 @@
 import {
   RegisterIncident,
   TechnicianAssigment,
-  Profiles,
+  Users,
   Incidences,
   Components,
   Devices
@@ -54,11 +54,11 @@ const adminRoutes = [
     component: Devices
   },
   {
-    to: "/admin/profiles",
-    as: "/admin/perfiles",
+    to: "/admin/users",
+    as: "/admin/usuarios",
     icon: IoPerson,
-    title: "Perfiles",
-    component: Profiles
+    title: "Usuarios",
+    component: Users
   },
 ];
 

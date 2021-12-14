@@ -13,24 +13,24 @@ const DisplayDevices = ({ actions }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [devices, setDevices] = React.useState([]);
-  const [profiles, setProfiles] = React.useState([]);
+  const [users, setUsers] = React.useState([]);
   const [updateDevice, setUpdateDevice] = React.useState(null);
   const [isFetching, togleIsFetching] = useBoolean(true);
   const toast = useToast();
 
   React.useEffect(() => {
     getDevices();
-    getProfiles();
+    getUsers();
   }, []);
 
   const getDevices = () => {};
 
-  const getProfiles = async () => {
+  const getUsers = async () => {
     togleIsFetching.on();
 
-    let response = await actions.getAllProfiles();
+    let response = await actions.getAllUsers();
 
-    if (response.success) setProfiles(response.data);
+    if (response.success) setUsers(response.data);
     else
       toast({
         title: response.title || "",
@@ -73,7 +73,7 @@ const DisplayDevices = ({ actions }) => {
         handleSubmit={handleSubmitDevice}
         isOpen={isOpen}
         onClose={onClose}
-        profiles={profiles}
+        users={users}
       />
     </Box>
   );

@@ -21,11 +21,11 @@ import { tableStyles } from "@utils/commonStyles";
 
 const UserTable = ({ data, handleEdit, handleDelete, isFetching }) => {
   const [displayData, setDisplayData] = React.useState(data);
-  const [selectedProfile, setSelectedProfile] = React.useState(null);
+  const [selectedUser, setSelectedUser] = React.useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleDeleteConfirmation = (id) => {
-    setSelectedProfile(id);
+    setSelectedUser(id);
     onOpen();
   };
 
@@ -91,7 +91,7 @@ const UserTable = ({ data, handleEdit, handleDelete, isFetching }) => {
       <ConfirmDialog
         isOpen={isOpen}
         onClose={onClose}
-        confirmMethod={() => handleDelete(selectedProfile)}
+        confirmMethod={() => handleDelete(selectedUser)}
         title="Desea eliminar este usuario?"
       />
     </>

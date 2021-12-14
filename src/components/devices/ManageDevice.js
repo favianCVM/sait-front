@@ -12,7 +12,7 @@ import {
 
 import DeviceForm from "@components/devices/DeviceForm";
 
-const ManageDevice = ({ isOpen, onClose, handleSubmit, dialogBlocked, profiles }) => {
+const ManageDevice = ({ isOpen, onClose, handleSubmit, dialogBlocked, users }) => {
   const [isMobile] = useMediaQuery("(max-width: 680px)");
   return (
     <Modal
@@ -33,7 +33,7 @@ const ManageDevice = ({ isOpen, onClose, handleSubmit, dialogBlocked, profiles }
         </ModalHeader>
 
         <ModalBody>
-          <DeviceForm profiles={profiles} handleSubmit={handleSubmit} />
+          <DeviceForm users={users} handleSubmit={handleSubmit} />
         </ModalBody>
 
         <ModalFooter>

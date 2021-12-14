@@ -4,13 +4,16 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as actions from "@actions/";
 import history from "@utils/history";
+import formatFormData from "@utils/formatFormData";
 
 const LoginContainer = (props) => {
   const { actions } = props;
   const toast = useToast();
 
   const handleSubmit = async (values) => {
-    let response = await actions.signIn(values);
+    let data = await formatFormData(values)
+
+    let response = await actions.signIn(data);
 
     await toast({
       title: response.title || "",
