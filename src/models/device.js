@@ -1,5 +1,5 @@
 export default {
-  profile_id: null,
+  user_id: null,
   components: [],
   serial: null
 }

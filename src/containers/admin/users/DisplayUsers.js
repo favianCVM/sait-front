@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as actions from "@actions/";
 
-const DisplayProfiles = ({ actions }) => {
+const DisplayUsers = ({ actions }) => {
   const [users, setUsers] = React.useState([]);
   const [updateUser, setUpdateUser] = React.useState(null);
   const [isFetching, togleIsFetching] = useBoolean(true);
@@ -97,7 +97,7 @@ const DisplayProfiles = ({ actions }) => {
       />
 
       <ManageUser
-        updateProfile={updateUser}
+        updateUser={updateUser}
         handleSubmit={handleSubmitUser}
         isOpen={isOpen}
         onClose={async () => {
@@ -113,4 +113,4 @@ const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(actions, dispatch),
 });
 
-export default connect(null, mapDispatchToProps)(DisplayProfiles);
+export default connect(null, mapDispatchToProps)(DisplayUsers);

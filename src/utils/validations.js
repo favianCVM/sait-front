@@ -22,15 +22,15 @@ const loginValidations = (values, props) => {
 const incidenceValidations = (values, props) => {
   const errors = {};
   let { 
-    profile,
+    user,
     priority,
     date,
     description, 
   } = values;
 
-  if (!profile) {
-    errors.profile = 'Se requiere de un perfil';
-  } else delete errors.profile
+  if (!user) {
+    errors.user = 'Se requiere de un perfil';
+  } else delete errors.user
 
   if (!priority) {
     errors.priority = 'Se requiere de una prioridad';
@@ -48,7 +48,7 @@ const incidenceValidations = (values, props) => {
   return errors;
 };
 
-const profileCreationValidations = (values, props) => {
+const userCreationValidations = (values, props) => {
   const errors = {};
   let { email, password, birth_date, first_name, last_name, dni, role, sex } = values;
 
@@ -87,7 +87,7 @@ const profileCreationValidations = (values, props) => {
   return errors;
 }
 
-const profileUpdateValidations = (values, props) => {
+const userUpdateValidations = (values, props) => {
   const errors = {};
   let { email, birth_date, first_name, last_name, dni, role, sex } = values;
 
@@ -120,7 +120,7 @@ const profileUpdateValidations = (values, props) => {
 
 const deviceRegisterValidations = (values, props) => {
   const errors = {};
-  let { profile_id, serial, components } = values;
+  let { user_id, serial, components } = values;
 
   if(!allTypeValidation.test(serial)){
     errors.serial = "Ingrese un serial valido"
@@ -130,9 +130,9 @@ const deviceRegisterValidations = (values, props) => {
     errors.components = "Seleccione al menos un componente"
   } else delete errors.components
 
-  if(!profile_id || profile_id === null){
-    errors.profile_id = "Seleccione un perfil propietario del equipo"
-  } else delete errors.profile_id
+  if(!user_id || user_id === null){
+    errors.user_id = "Seleccione un perfil propietario del equipo"
+  } else delete errors.user_id
 
   return errors
 }
@@ -145,8 +145,8 @@ const componentRegisterValidations = (values, props) => {
 export {
   loginValidations,
   incidenceValidations,
-  profileCreationValidations,
-  profileUpdateValidations,
+  userCreationValidations,
+  userUpdateValidations,
   deviceRegisterValidations,
   componentRegisterValidations,
 }
