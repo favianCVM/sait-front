@@ -40,7 +40,7 @@ const Sidebar = (props) => {
   const [showSidebar, setShowSidebar] = useBoolean(false);
 
   //props
-  const { children, isAdmin, isUser, actions, isLogged, username } = props;
+  const { children, isAdmin, isUser, actions, isLogged, username, profile_picture } = props;
 
   React.useEffect(() => {
     if (location.pathname !== "/" && isLogged) setShowSidebar.on();
@@ -117,7 +117,7 @@ const Sidebar = (props) => {
               flexDirection="column"
             >
               <Avatar
-                src="https://as01.epimg.net/diarioas/imagenes/2021/05/12/actualidad/1620834945_030169_1620835008_noticia_normal.jpg"
+                src={profile_picture}
                 size="lg"
               />
               <Heading>{username}</Heading>
@@ -205,6 +205,7 @@ const mapStateToProps = (state) => ({
   isLogged: state.auth.get("logged"),
   username: state.auth.get("username"),
   role: state.auth.get("role"),
+  profile_picture: state.auth.get("profile_picture"),
   isAdmin: state.auth.get("token") && parseInt(state.auth.get("role")) === 60,
   isUser: state.auth.get("token") && parseInt(state.auth.get("role")) === 50,
 });

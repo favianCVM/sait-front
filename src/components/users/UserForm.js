@@ -2,7 +2,7 @@ import { Box, Flex, Center } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
 import {
   userCreationValidations,
-  usertUpdateValidations,
+  userUpdateValidations,
 } from "@utils/validations";
 import {
   DateField,
@@ -20,7 +20,7 @@ const UserForm = ({ handleSubmit, updateUser }) => {
       if (updateUser) return updateUser;
       else return User;
     } else if (type === "validate") {
-      if (updateUser) return usertUpdateValidations;
+      if (updateUser) return userUpdateValidations;
       else return userCreationValidations;
     }
   };

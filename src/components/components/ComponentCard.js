@@ -10,12 +10,12 @@ import {
 import { FiEdit, FiDelete } from "react-icons/fi";
 
 const ComponentCard = ({
-  name,
-  description,
-  image,
-  handleDelete,
-  handleEdit,
-  id,
+  name = "",
+  description = "",
+  image = "",
+  handleDelete = ()=>{},
+  handleEdit = ()=>{},
+  id = null,
 }) => {
   const { colorMode, toggleColorMode } = useColorMode();
   const isDark = colorMode === "dark";
@@ -33,8 +33,8 @@ const ComponentCard = ({
       rounded="md"
     >
       <Center flexDirection="column">
-        <Image maxH="40" src={image} />
-        <Text my="4">{name}</Text>
+        <Image maxH="40" maxW="full" src={image} />
+        <Text my="4" fontWeight="bold" fontSize="lg">{name}</Text>
         <Text
           w="full"
           textOverflow="initial"
