@@ -127,7 +127,7 @@ const UserForm = ({ handleSubmit, updateUser }) => {
           </Flex>
 
           <FileField
-            name=""
+            name="profile_picture"
             containerClasses="mt-12 mb-8"
             imagePreviewSize="xl"
             toolTipMessage="Foto de perfil"

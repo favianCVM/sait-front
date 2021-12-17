@@ -88,9 +88,11 @@ const FileField = ({
 
                 reader.readAsDataURL(file);
 
+                console.log(file);
+
                 reader.onloadend = () => {
-                  form.setFieldValue(name, field);
-                  setPicture(`${reader.result}`);
+                  form.setFieldValue(name, file);
+                  setPicture(reader.result);
                 };
               }}
             />
