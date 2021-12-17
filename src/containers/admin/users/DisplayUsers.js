@@ -2,30 +2,31 @@ import React from "react";
 import { Box, useDisclosure, useToast, useBoolean } from "@chakra-ui/react";
 import PageHeader from "@components/common/PageHeader";
 import { AiOutlineUserAdd } from "react-icons/ai";
-import ProfileTable from "@components/profiles/ProfileTable";
-import ManageProfile from "@components/profiles/ManageProfile";
+import UsersTable from "@components/users/UsersTable";
+import ManageUser from "@components/users/ManageUser";
 import {SpinnerScreen} from '@components/common'
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as actions from "@actions/";
+import formatFormData from "@utils/formatFormData"
 
-const DisplayProfiles = ({ actions }) => {
-  const [profiles, setProfiles] = React.useState([]);
-  const [updateProfile, setUpdateProfile] = React.useState(null);
+const DisplayUsers = ({ actions }) => {
+  const [users, setUsers] = React.useState([]);
+  const [updateUser, setUpdateUser] = React.useState(null);
   const [isFetching, togleIsFetching] = useBoolean(true);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
 
   React.useEffect(() => {
-    getProfiles();
+    getUsers();
   }, []);
 
-  const getProfiles = async () => {
+  const getUsers = async () => {
     togleIsFetching.on()
 
-    let response = await actions.getAllProfiles();
+    let response = await actions.getAllUsers();
 
-    if (response.success) setProfiles(response.data);
+    if (response.success) setUsers(response.data);
     else
       toast({
         title: response.title || "",
@@ -38,11 +39,12 @@ const DisplayProfiles = ({ actions }) => {
     togleIsFetching.off()
   };
 
-  const handleSubmitProfile = async (values) => {
+  const handleSubmitUser = async (values) => {
     let response;
+    let data = formatFormData(values)
 
-    if (values.id) response = await actions.updateProfile(values);
-    else response = await actions.createProfile(values);
+    if (values.id) response = await actions.updateUser(data);
+    else response = await actions.createUser(data);
 
     await toast({
       title: response.title || "",
@@ -53,13 +55,13 @@ const DisplayProfiles = ({ actions }) => {
     });
 
     if (response.success) {
-      getProfiles();
+      getUsers();
       onClose();
     }
   };
 
-  const handleDeleteProfile = async (id) => {
-    let response = await actions.deleteProfile(id);
+  const handleDeleteUser = async (id) => {
+    let response = await actions.deleteUser(id);
 
     await toast({
       title: response.title || "",
@@ -70,12 +72,12 @@ const DisplayProfiles = ({ actions }) => {
     });
 
     if (response.success) {
-      getProfiles();
+      getUsers();
     }
   };
 
-  const handleEditProfile = async (profile) => {
-    await setUpdateProfile(profile);
+  const handleEditUser = async (user) => {
+    await setUpdateUser(user);
     onOpen();
   };
 
@@ -83,25 +85,25 @@ const DisplayProfiles = ({ actions }) => {
     <Box>
       <SpinnerScreen open={isFetching} />
       <PageHeader
-        title="Perfiles"
+        title="Usuarios"
         action={onOpen}
         actionIcon={<AiOutlineUserAdd />}
-        actionName="Crear perfil"
+        actionName="Crear usuario"
       />
 
-      <ProfileTable
-        data={profiles}
-        handleEdit={handleEditProfile}
-        handleDelete={handleDeleteProfile}
+      <UsersTable
+        data={users}
+        handleEdit={handleEditUser}
+        handleDelete={handleDeleteUser}
         isFetching={isFetching}
       />
 
-      <ManageProfile
-        updateProfile={updateProfile}
-        handleSubmit={handleSubmitProfile}
+      <ManageUser
+        updateUser={updateUser}
+        handleSubmit={handleSubmitUser}
         isOpen={isOpen}
         onClose={async () => {
-          await setUpdateProfile(null);
+          await setUpdateUser(null);
           onClose();
         }}
       />
@@ -113,4 +115,4 @@ const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(actions, dispatch),
 });
 
-export default connect(null, mapDispatchToProps)(DisplayProfiles);
+export default connect(null, mapDispatchToProps)(DisplayUsers);

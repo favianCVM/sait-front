@@ -9,10 +9,9 @@ import {
   ModalBody,
   useMediaQuery,
 } from "@chakra-ui/react";
+import ComponentForm from "@components/components/ComponentForm";
 
-import DeviceForm from "@components/devices/DeviceForm";
-
-const ManageDevice = ({ isOpen, onClose, handleSubmit, dialogBlocked, users }) => {
+const ManageComponent = ({ isOpen, onClose, handleSubmit, dialogBlocked, updateComponent }) => {
   const [isMobile] = useMediaQuery("(max-width: 680px)");
   return (
     <Modal
@@ -29,11 +28,11 @@ const ManageDevice = ({ isOpen, onClose, handleSubmit, dialogBlocked, users }) =
         <ModalHeader>
           {dialogBlocked
             ? "Estamos procesando su peticion, espere unos segundos..."
-            : "Registro de equipo"}
+            : "Registro de componente"}
         </ModalHeader>
 
         <ModalBody>
-          <DeviceForm users={users} handleSubmit={handleSubmit} />
+          <ComponentForm handleSubmit={handleSubmit} updateComponent={updateComponent} />
         </ModalBody>
 
         <ModalFooter>
@@ -51,4 +50,4 @@ const ManageDevice = ({ isOpen, onClose, handleSubmit, dialogBlocked, users }) =
   );
 };
 
-export default ManageDevice;
+export default ManageComponent;

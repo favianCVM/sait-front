@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   useColorMode,
   ChakraProvider,
@@ -18,10 +18,17 @@ import {
 } from "chakra-paginator";
 import { IoArrowForward, IoArrowBack, IoArrowDown } from "react-icons/io5";
 
-const TablePagination = ({ data = [], setDisplayData = () => {} }) => {
+const initialState = {
+  pageSize: 6,
+  currentPage: 1,
+  isDisabled: false,
+}
+
+const CustomPaginator = ({ data = [], setDisplayData = () => {} }) => {
   //dark theme
   const { colorMode, toggleColorMode } = useColorMode();
   const isDark = colorMode === "dark";
+  const [total, setTotal] = useState(0)
 
   // constants
   const outerLimit = 2;
@@ -36,15 +43,12 @@ const TablePagination = ({ data = [], setDisplayData = () => {} }) => {
     setPageSize,
     offset, // you may not need this most of the times, but it's returned for you anyway
   } = usePaginator({
-    total: data.length,
-    initialState: {
-      pageSize: 5,
-      currentPage: 1,
-      isDisabled: false,
-    },
+    total,
+    initialState,
   });
 
   React.useEffect(() => {
+    setTotal([...data].length)
     setDisplayData([...data].splice(offset, pageSize));
   }, [data]);
 
@@ -124,10 +128,10 @@ const TablePagination = ({ data = [], setDisplayData = () => {} }) => {
               {pageSize}
             </MenuButton>
             <MenuList onClick={handlePageSizeChange}>
-              <MenuItem value={5}>5</MenuItem>
-              <MenuItem value={10}>10</MenuItem>
-              <MenuItem value={25}>25</MenuItem>
-              <MenuItem value={50}>50</MenuItem>
+              <MenuItem value={6}>6</MenuItem>
+              <MenuItem value={12}>12</MenuItem>
+              <MenuItem value={18}>18</MenuItem>
+              <MenuItem value={24}>24</MenuItem>
             </MenuList>
           </Menu>
 
@@ -155,4 +159,4 @@ const TablePagination = ({ data = [], setDisplayData = () => {} }) => {
   );
 };
 
-export default TablePagination;
+export default CustomPaginator;

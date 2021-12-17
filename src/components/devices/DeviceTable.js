@@ -15,7 +15,7 @@ import {
   Skeleton,
   useDisclosure,
 } from "@chakra-ui/react";
-import { TablePagination } from "@components/common";
+import { Paginator } from "@components/common";
 import { tableStyles } from "@utils/commonStyles";
 
 const DeviceTable = ({ data, isFetching }) => {
@@ -56,7 +56,7 @@ const DeviceTable = ({ data, isFetching }) => {
         </Table>
       </Box>
       <Flex justify="end">
-        <TablePagination data={data} setDisplayData={setDisplayData} />
+        <Paginator data={data} setDisplayData={setDisplayData} />
       </Flex>
     </>
   );

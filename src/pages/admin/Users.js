@@ -1,4 +1,4 @@
-import DisplayUsers from "@containers/admin/profiles/DisplayProfiles"
+import DisplayUsers from "@containers/admin/users/DisplayUsers"
 
 const Users = () =>{
   return(

@@ -1,5 +1,5 @@
 export default {
-  profile: "",
+  user: "",
   priority: "",
   date: new Date(),
   description: "",

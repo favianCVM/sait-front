@@ -1,8 +1,8 @@
 import requests from '@utils/requests'
 
-export function createProfile(data) {
+export function createUser(data) {
   return async dispatch => {
-    return requests.create_profile(data)
+    return requests.create_user(data)
       .then(async (r)=>{
         return {
           title: 'perfil creado exitosamente.',
@@ -13,7 +13,7 @@ export function createProfile(data) {
       })
       .catch((e)=>{
         return {
-          title: e.response?.data?.error?.message || 'Hubo un problema en la creacion del perfil.',
+          title: e.response?.data?.error?.message || 'Hubo un problema en la creacion del usuario.',
           success: false,
           status: 'error',
           description: 'Intente de nuevo'
@@ -22,9 +22,9 @@ export function createProfile(data) {
   }
 }
 
-export function updateProfile(data) {
+export function updateUser(data) {
   return async dispatch => {
-    return requests.update_profile(data)
+    return requests.update_user(data)
       .then(async (r)=>{
         return {
           title: 'perfil actualizado exitosamente.',
@@ -35,7 +35,7 @@ export function updateProfile(data) {
       })
       .catch((e)=>{
         return {
-          title: e.response?.data?.error?.message || 'Hubo un problema en la actualizacion del perfil.',
+          title: e.response?.data?.error?.message || 'Hubo un problema en la actualizacion del usuario.',
           success: false,
           status: 'error',
           description: 'Intente de nuevo'
@@ -44,9 +44,9 @@ export function updateProfile(data) {
   }
 }
 
-export function deleteProfile(id) {
+export function deleteUser(id) {
   return async dispatch => {
-    return requests.delete_profile(id)
+    return requests.delete_user(id)
       .then(async (r)=>{
         return {
           title: 'perfil eliminado exitosamente.',
@@ -57,7 +57,7 @@ export function deleteProfile(id) {
       })
       .catch((e)=>{
         return {
-          title: e.response?.data?.error?.message || 'Hubo un problema en eliminar el perfil.',
+          title: e.response?.data?.error?.message || 'Hubo un problema en eliminar el usuario.',
           success: false,
           status: 'error',
           description: 'Intente de nuevo'
@@ -66,9 +66,9 @@ export function deleteProfile(id) {
   }
 }
 
-export function getAllProfiles() {
+export function getAllUsers() {
   return async dispatch => {
-    return requests.get_all_profiles()
+    return requests.get_all_users()
       .then(async (r)=>{
         return {
           success: true,
@@ -77,7 +77,7 @@ export function getAllProfiles() {
       })
       .catch((e)=>{
         return {
-          title: e.response?.data?.error?.message || 'Hubo un problema al obtener los perfiles.',
+          title: e.response?.data?.error?.message || 'Hubo un problema al obtener los usuarios.',
           success: false,
           status: 'error',
           description: 'Intente de nuevo'

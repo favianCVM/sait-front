@@ -1,25 +1,27 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, Center } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
 import {
-  profileCreationValidations,
-  profileUpdateValidations,
+  userCreationValidations,
+  userUpdateValidations,
 } from "@utils/validations";
 import {
   DateField,
   TextField,
   SelectField,
   SubmitFormButton,
+  FileField,
 } from "@components/common";
-import Profile from "@models/profile";
+import User from "@models/user";
+import {FaUserAlt} from "react-icons/fa"
 
-const UserForm = ({ handleSubmit, updateProfile }) => {
+const UserForm = ({ handleSubmit, updateUser }) => {
   const setIntialProps = (type) => {
     if (type === "initialValues") {
-      if (updateProfile) return updateProfile;
-      else return Profile;
+      if (updateUser) return updateUser;
+      else return User;
     } else if (type === "validate") {
-      if (updateProfile) return profileUpdateValidations;
-      else return profileCreationValidations;
+      if (updateUser) return userUpdateValidations;
+      else return userCreationValidations;
     }
   };
 
@@ -64,7 +66,7 @@ const UserForm = ({ handleSubmit, updateProfile }) => {
                 label="Email"
               />
 
-              {!updateProfile && (
+              {!updateUser && (
                 <TextField
                   name="password"
                   id="password"
@@ -99,7 +101,7 @@ const UserForm = ({ handleSubmit, updateProfile }) => {
                 label="Sexo"
               />
 
-              {!updateProfile && (
+              {!updateUser && (
                 <SelectField
                   options={[
                     { label: "Admin", value: 60 },
@@ -122,13 +124,27 @@ const UserForm = ({ handleSubmit, updateProfile }) => {
                 label="Fecha de nacimiento"
               />
             </Box>
+          </Flex>
 
+          <FileField
+            name="profile_picture"
+            containerClasses="mt-12 mb-8"
+            imagePreviewSize="xl"
+            toolTipMessage="Foto de perfil"
+            id="image__"
+            labelIcon={<FaUserAlt/>}
+            disabled={props.isSubmitting}
+            helperText=""
+            label=""
+          />
+
+          <Center>
             <SubmitFormButton
               isSubmitting={props.isSubmitting}
               errors={props.errors}
-              title={updateProfile ? "Actualizar perfil" : "Crear perfil"}
+              title={updateUser ? "Actualizar perfil" : "Crear perfil"}
             />
-          </Flex>
+          </Center>
         </Form>
       )}
     </Formik>

@@ -58,7 +58,7 @@ const IncidenceForm = ({ handleSubmit }) => {
                 label="Perfil"
                 //options={users.map((el) => el.label)}
                 data={users}
-                name="profile"
+                name="user"
                 placeholder="seleccione un perfil"
                 disabled={props.isSubmitting}
               />

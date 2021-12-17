@@ -7,7 +7,8 @@ const initialState = map({
   username: localStorage.getItem('username'),
   id: localStorage.getItem('id'),
   role: parseInt(localStorage.getItem('role')),
-  logged: localStorage.getItem('logged')
+  logged: localStorage.getItem('logged'),
+  profile_picture: localStorage.getItem('profile_picture')
 })
 
 const user = (state = initialState, action) => {
@@ -19,6 +20,7 @@ const user = (state = initialState, action) => {
       localStorage.removeItem('first_name');
       localStorage.removeItem('username');
       localStorage.removeItem('role');
+      localStorage.removeItem('profile_picture');
       return state
         .set("logged", false)
         .set('token', null)
@@ -26,12 +28,14 @@ const user = (state = initialState, action) => {
         .set('role', null)
         .set('first_name', null)
         .set('username', null)
+        .set('profile_picture', null)
 
     case SIGN_IN:
       localStorage.setItem('token', action.payload.token);
       localStorage.setItem('id', action.payload.id);
       localStorage.setItem('first_name', action.payload.first_name);
       localStorage.setItem('username', `${action.payload.first_name} ${action.payload.last_name}`);
+      localStorage.setItem('profile_picture', action.payload.profile_picture);
       localStorage.setItem('role', parseInt(action.payload.role));
       localStorage.setItem('logged', true);
 
@@ -41,6 +45,7 @@ const user = (state = initialState, action) => {
         .set('role', parseInt(action.payload.role))
         .set('first_name', action.payload.first_name)
         .set('username', `${action.payload.first_name} ${action.payload.last_name}`)
+        .set('profile_picture', action.payload.profile_picture)
         .set('token', action.payload.token)
 
     default:
