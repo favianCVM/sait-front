@@ -13,9 +13,15 @@ export default function LayoutItem({ icon, title, to, clickLink, as }) {
   const [isOn, setIsOn] = useBoolean(false);
   const { colorMode, toggleColorMode } = useColorMode();
 
-  history.listen((location, action) => {
+  React.useEffect(()=>{
     history.location.pathname === as ? setIsOn.on() : setIsOn.off();
-  });
+
+    return () => false;
+  },[history.location])
+
+  // history.listen((location, action) => {
+  //   history.location.pathname === as ? setIsOn.on() : setIsOn.off();
+  // });
 
   return (
     <Flex

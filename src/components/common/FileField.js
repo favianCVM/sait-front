@@ -20,6 +20,7 @@ import { BiUpload } from "react-icons/bi";
 const FileField = ({
   name = "",
   id,
+  previewPicture = "",
   disabled = false,
   label = "",
   labelIcon = <BiUpload />,
@@ -36,6 +37,10 @@ const FileField = ({
   ...props
 }) => {
   const [picture, setPicture] = React.useState(null);
+
+  React.useEffect(()=>{
+    if(previewPicture) setPicture(previewPicture)
+  },[])
 
   return (
     <Field>
@@ -82,13 +87,12 @@ const FileField = ({
               id={id}
               type="file"
               accept="image/*"
+              disabled={disabled}
               onChange={(e) => {
                 const file = e.target.files[0];
                 const reader = new FileReader();
 
                 reader.readAsDataURL(file);
-
-                console.log(file);
 
                 reader.onloadend = () => {
                   form.setFieldValue(name, file);

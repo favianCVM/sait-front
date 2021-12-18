@@ -1,8 +1,10 @@
 import requests from '@utils/requests'
+import {UPDATE_PROFILE} from '../actionTypes'
+import formatFormData from "@utils/formatFormData"
 
 export function createUser(data) {
   return async dispatch => {
-    return requests.create_user(data)
+    return requests.create_user(formatFormData(data))
       .then(async (r)=>{
         return {
           title: 'perfil creado exitosamente.',
@@ -24,8 +26,15 @@ export function createUser(data) {
 
 export function updateUser(data) {
   return async dispatch => {
-    return requests.update_user(data)
+    return requests.update_user(formatFormData(data))
       .then(async (r)=>{
+        await dispatch({
+          type: UPDATE_PROFILE,
+          payload: {
+            ...data,
+            profile_picture: r.data.profile_picture_url
+          }
+        })
         return {
           title: 'perfil actualizado exitosamente.',
           success: true,

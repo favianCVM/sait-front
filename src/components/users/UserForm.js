@@ -131,11 +131,12 @@ const UserForm = ({ handleSubmit, updateUser }) => {
             containerClasses="mt-12 mb-8"
             imagePreviewSize="xl"
             toolTipMessage="Foto de perfil"
-            id="image__"
+            id="profile_picture"
             labelIcon={<FaUserAlt/>}
             disabled={props.isSubmitting}
             helperText=""
             label=""
+            previewPicture={updateUser ? updateUser.profile_picture : ""}
           />
 
           <Center>
