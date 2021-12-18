@@ -11,7 +11,7 @@ import {
   UnorderedList,
 } from "@chakra-ui/react";
 
-const SubmitFormButton = ({ title, errors, isSubmitting }) => {
+const SubmitFormButton = ({ title = "", errors = [], isSubmitting = false }) => {
   return (
     <Popover>
       <PopoverTrigger>
@@ -38,7 +38,7 @@ const SubmitFormButton = ({ title, errors, isSubmitting }) => {
           <PopoverBody className="flex flex-col items-start">
             <UnorderedList>
               {Object.keys(errors).map((err) => (
-                <ListItem>{errors[err]}</ListItem>
+                <ListItem key={errors[err]}>{errors[err]}</ListItem>
               ))}
             </UnorderedList>
           </PopoverBody>

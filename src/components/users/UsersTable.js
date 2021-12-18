@@ -49,7 +49,7 @@ const UserTable = ({
           <Tbody>
             {!isFetching ? (
               displayData.map((row) => (
-                <Tr>
+                <Tr key={row.id}>
                   <Td>{row.id}</Td>
                   <Td>
                     {row.first_name} {row.last_name}

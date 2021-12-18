@@ -8,7 +8,6 @@ import {SpinnerScreen} from '@components/common'
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as actions from "@actions/";
-import formatFormData from "@utils/formatFormData"
 
 const DisplayUsers = ({ actions }) => {
   const [users, setUsers] = React.useState([]);
@@ -41,10 +40,9 @@ const DisplayUsers = ({ actions }) => {
 
   const handleSubmitUser = async (values) => {
     let response;
-    let data = formatFormData(values)
 
-    if (values.id) response = await actions.updateUser(data);
-    else response = await actions.createUser(data);
+    if (values.id) response = await actions.updateUser(values);
+    else response = await actions.createUser(values);
 
     await toast({
       title: response.title || "",

@@ -43,12 +43,12 @@ const AppRouter = (props) => {
               <Switch>
                 {
                   routes.adminRoutes.map((route) => (
-                    <Route exact path={route.as} component={route.component} />
+                    <Route key={route.to} exact path={route.as} component={route.component} />
                   ))
                 }
                 {
                   routes.adminRoutes.map((route) => (
-                    <Route exact path={route.to}>
+                    <Route key={route.to} exact path={route.to}>
                       <Redirect to={route.as}/>
                     </Route>
                   ))
