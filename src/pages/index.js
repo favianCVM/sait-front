@@ -46,7 +46,7 @@ const HomePage = ({isLogged, isAdmin}) => {
             textAlign="center"
             color="transparent"
           >
-            S-A-I-T
+            S-A-I-T --test
           </Heading>
         </Box>
       </Center>
