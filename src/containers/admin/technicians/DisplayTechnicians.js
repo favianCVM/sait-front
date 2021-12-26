@@ -3,19 +3,21 @@ import {
   useDisclosure,
 } from "@chakra-ui/react"
 import PageHeader from '@components/common/PageHeader'
-import {IoAddCircleOutline} from 'react-icons/io5'
+import TechniciansTable from "@components/technicians/TechniciansTable"
 
-const TechnicianAssignmentDisplay = () => {
+const DisplayTechnicians = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return(
     <Box>
       <PageHeader 
-        title="Asignacion de tecnicos"
+        title="Técnicos"
       />
+
+      <TechniciansTable data={[]}/>
 
     </Box>
   )
 }
 
-export default TechnicianAssignmentDisplay;
+export default DisplayTechnicians;

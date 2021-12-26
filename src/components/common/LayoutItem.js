@@ -13,15 +13,20 @@ export default function LayoutItem({ icon, title, to, clickLink, as }) {
   const [isOn, setIsOn] = useBoolean(false);
   const { colorMode, toggleColorMode } = useColorMode();
 
-  React.useEffect(()=>{
-    history.location.pathname === as ? setIsOn.on() : setIsOn.off();
+  React.useEffect(() => {
+    let active = location.pathname === as;
+    if(active) setIsOn.on()
+  }, []);
 
-    return () => false;
-  },[history.location])
+  history.listen((location, action) => {
+    let active = location.pathname === as;
 
-  // history.listen((location, action) => {
-  //   history.location.pathname === as ? setIsOn.on() : setIsOn.off();
-  // });
+    if (active) setIsOn.on();
+    else {
+      if (isOn === false) return;
+      else setIsOn.off();
+    }
+  });
 
   return (
     <Flex
@@ -39,7 +44,7 @@ export default function LayoutItem({ icon, title, to, clickLink, as }) {
         _hover={{
           bg: "blue.500",
           textColor: "white",
-          shadow: "none"
+          shadow: "none",
         }}
         bg={isOn ? "blue.500" : colorMode === "dark" ? "gray.700" : null}
         textColor={isOn ? "gray.800" : null}
@@ -52,7 +57,10 @@ export default function LayoutItem({ icon, title, to, clickLink, as }) {
           base: "fit-content",
           md: "100%",
         }}
-        onClick={() => clickLink(to)}
+        onClick={() => {
+          setIsOn.off();
+          clickLink(to);
+        }}
       >
         <Flex>
           <Icon as={icon} fontSize="xl" />

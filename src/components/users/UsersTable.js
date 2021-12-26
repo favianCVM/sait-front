@@ -3,7 +3,6 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
@@ -12,10 +11,9 @@ import {
   Box,
   IconButton,
   Tooltip,
-  Skeleton,
   useDisclosure,
 } from "@chakra-ui/react";
-import { Paginator, ConfirmDialog } from "@components/common";
+import { Paginator, ConfirmDialog, TableSkeleton } from "@components/common";
 import { FiEdit, FiDelete } from "react-icons/fi";
 import { tableStyles } from "@utils/commonStyles";
 
@@ -78,13 +76,7 @@ const UserTable = ({
                 </Tr>
               ))
             ) : (
-              <>
-                <TableSkeleton />
-                <TableSkeleton />
-                <TableSkeleton />
-                <TableSkeleton />
-                <TableSkeleton />
-              </>
+              <TableSkeleton cols={4} />
             )}
           </Tbody>
         </Table>
@@ -100,25 +92,6 @@ const UserTable = ({
         title="Desea eliminar este usuario?"
       />
     </>
-  );
-};
-
-const TableSkeleton = () => {
-  return (
-    <Tr>
-      <Td>
-        <Skeleton height="18px" />
-      </Td>
-      <Td>
-        <Skeleton height="18px" />
-      </Td>
-      <Td>
-        <Skeleton height="18px" />
-      </Td>
-      <Td>
-        <Skeleton height="18px" />
-      </Td>
-    </Tr>
   );
 };
 
