@@ -1,6 +1,6 @@
 import {
   RegisterIncident,
-  TechnicianAssigment,
+  Technicians,
   Users,
   Incidences,
   Components,
@@ -33,11 +33,11 @@ const adminRoutes = [
     component: RegisterIncident
   },
   {
-    to: "/admin/technician-assignment",
-    as: "/admin/asignar-tecnico",
+    to: "/admin/technicians",
+    as: "/admin/tecnicos",
     icon: IoBuild,
-    title: "Asignación de técnico",
-    component: TechnicianAssigment
+    title: "Técnicos",
+    component: Technicians
   },
   {
     to: "/admin/components",
