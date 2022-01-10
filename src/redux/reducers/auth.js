@@ -15,10 +15,6 @@ const user = (state = initialState, action) => {
   const userId = JSON.parse(localStorage.getItem("id"));
   const isUserUpdate = userId === parseInt(action?.payload?.id) ? true : false;
 
-  console.log('isUserUpdate :', isUserUpdate);
-  console.log(action);
-
-
   switch (action.type) {
     case LOG_OUT:
       localStorage.removeItem("token");

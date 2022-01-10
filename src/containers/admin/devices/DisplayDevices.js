@@ -23,7 +23,23 @@ const DisplayDevices = ({ actions }) => {
     getUsers();
   }, []);
 
-  const getDevices = () => {};
+  const getDevices = async () => {
+    togleIsFetching.on();
+
+    let response = await actions.getAllDevices();
+
+    if (response.success) setDevices(response.data);
+    else
+      toast({
+        title: response.title || "",
+        description: response.description || "",
+        status: response.status,
+        duration: 5000,
+        isClosable: true,
+      });
+
+    togleIsFetching.off();
+  };
 
   const getUsers = async () => {
     togleIsFetching.on();
@@ -43,13 +59,56 @@ const DisplayDevices = ({ actions }) => {
     togleIsFetching.off();
   };
 
-  const handleSubmitDevice = (values) => {
-    console.log(values)
+  const handleSubmitDevice = async (values) => {
+    togleIsFetching.on();
+
+    let response;
+
+    if (values.id) response = await actions.updateDevice(values);
+    else response = await actions.createDevice(values);
+
+    await toast({
+      title: response.title || "",
+      description: response.description || "",
+      status: response.status,
+      duration: 5000,
+      isClosable: true,
+    });
+
+    if (response.success) {
+      getDevices();
+      getUsers();
+      onClose();
+    }
+
+    togleIsFetching.off();
   };
 
-  const handleEditDevice = () => {};
+  const handleEditDevice = (device) => {
+    setUpdateDevice(device);
+    onOpen();
+  };
 
-  const handleDeleteDevice = () => {};
+  const handleDeleteDevice = async (id) => {
+    togleIsFetching.on();
+
+    let response = await actions.deleteDevice(id);
+
+    await toast({
+      title: response.title || "",
+      description: response.description || "",
+      status: response.status,
+      duration: 5000,
+      isClosable: true,
+    });
+
+    if (response.success) {
+      getUsers();
+      getDevices();
+    }
+
+    togleIsFetching.off();
+  };
 
   return (
     <Box>
@@ -65,12 +124,13 @@ const DisplayDevices = ({ actions }) => {
       <DeviceTable
         data={devices}
         isFetching={false}
-        handleDeleteDevice={handleDeleteDevice}
-        handleEditDevice={handleEditDevice}
+        handleDelete={handleDeleteDevice}
+        handleEdit={handleEditDevice}
       />
 
       <ManageDevice
         handleSubmit={handleSubmitDevice}
+        updateDevice={updateDevice}
         isOpen={isOpen}
         onClose={onClose}
         users={users}

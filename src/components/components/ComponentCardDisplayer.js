@@ -19,7 +19,7 @@ const ComponentCardDisplayer = ({ data = [] }) => {
         columnGap="6"
       >
         {displayData.map((el) => (
-          <ComponentCard {...el} />
+          <ComponentCard key={`${el.id}-${el.name}`} {...el} />
         ))}
       </Grid>
     </Box>
