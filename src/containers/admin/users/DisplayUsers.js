@@ -59,6 +59,8 @@ const DisplayUsers = ({ actions }) => {
   };
 
   const handleDeleteUser = async (id) => {
+    togleIsFetching.on()
+
     let response = await actions.deleteUser(id);
 
     await toast({
@@ -72,6 +74,7 @@ const DisplayUsers = ({ actions }) => {
     if (response.success) {
       getUsers();
     }
+    togleIsFetching.off()
   };
 
   const handleEditUser = async (user) => {

@@ -15,11 +15,24 @@ import {
   Skeleton,
   useDisclosure,
 } from "@chakra-ui/react";
-import { Paginator } from "@components/common";
+import { Paginator, ConfirmDialog, TableSkeleton } from "@components/common";
 import { tableStyles } from "@utils/commonStyles";
+import { FiEdit, FiDelete } from "react-icons/fi";
 
-const DeviceTable = ({ data, isFetching }) => {
+const DeviceTable = ({
+  data = [],
+  isFetching = false,
+  handleEdit = () => {},
+  handleDelete = () => {},
+}) => {
   const [displayData, setDisplayData] = React.useState(data);
+  const [selectedDevice, setSelectedDevice] = React.useState(null);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const handleDeleteConfirmation = (id) => {
+    setSelectedDevice(id);
+    onOpen();
+  };
 
   return (
     <>
@@ -28,28 +41,47 @@ const DeviceTable = ({ data, isFetching }) => {
           <Thead>
             <Tr>
               <Th>#</Th>
-              <Th>#</Th>
-              <Th>#</Th>
+              <Th>Usuario</Th>
+              <Th>#Usuario</Th>
+              <Th>Serial</Th>
+              <Th></Th>
             </Tr>
           </Thead>
           <Tbody>
-            { !isFetching ? (
+            {!isFetching ? (
               displayData.map((row) => (
                 <Tr>
                   <Td>{row.id}</Td>
                   <Td>
-                    {row.first_name} {row.last_name}
+                    {row?.user?.first_name} {row?.user?.last_name}
                   </Td>
+                  <Td>{row?.user?.id}</Td>
                   <Td display={{ base: "none", md: "table-cell" }}>
-                    {row.email}
+                    {row.serial}
+                  </Td>
+                  <Td>
+                    <Stack direction="row" spacing="2">
+                      <Tooltip hasArrow label="Editar">
+                        <IconButton
+                          size="sm"
+                          onClick={() => handleEdit(row)}
+                          icon={<FiEdit />}
+                        />
+                      </Tooltip>
+                      <Tooltip hasArrow label="Eliminar">
+                        <IconButton
+                          size="sm"
+                          onClick={() => handleDeleteConfirmation(row.id)}
+                          icon={<FiDelete />}
+                        />
+                      </Tooltip>
+                    </Stack>
                   </Td>
                 </Tr>
               ))
             ) : (
               <>
-                <TableSkeleton />
-                <TableSkeleton />
-                <TableSkeleton />
+                <TableSkeleton cols={4} />
               </>
             )}
           </Tbody>
@@ -58,26 +90,14 @@ const DeviceTable = ({ data, isFetching }) => {
       <Flex justify="end">
         <Paginator data={data} setDisplayData={setDisplayData} />
       </Flex>
-    </>
-  );
-};
 
-const TableSkeleton = () => {
-  return (
-    <Tr>
-      <Td>
-        <Skeleton height="18px" />
-      </Td>
-      <Td>
-        <Skeleton height="18px" />
-      </Td>
-      <Td>
-        <Skeleton height="18px" />
-      </Td>
-      <Td>
-        <Skeleton height="18px" />
-      </Td>
-    </Tr>
+      <ConfirmDialog
+        isOpen={isOpen}
+        onClose={onClose}
+        confirmMethod={() => handleDelete(selectedDevice)}
+        title="Desea eliminar este equipo?"
+      />
+    </>
   );
 };
 

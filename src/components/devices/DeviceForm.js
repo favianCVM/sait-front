@@ -1,7 +1,4 @@
-import {
-  Stack,
-  Flex,
-} from "@chakra-ui/react";
+import { Stack, Flex } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
 import { deviceRegisterValidations } from "@utils/validations";
 import {
@@ -12,24 +9,10 @@ import {
 } from "@components/common";
 import device from "@models/device";
 
-const components = [
-  {
-    label: "ram",
-    value: 0,
-  },
-  {
-    label: "ssd",
-    value: 1,
-  },
-  {
-    label: "cpu",
-    value: 2,
-  },
-];
 const DeviceForm = ({ handleSubmit, users = [], updateDevice }) => {
   return (
     <Formik
-      initialValues={device}
+      initialValues={updateDevice ? updateDevice : device}
       onSubmit={handleSubmit}
       validate={deviceRegisterValidations}
     >
@@ -48,14 +31,14 @@ const DeviceForm = ({ handleSubmit, users = [], updateDevice }) => {
                 label="Perfil"
               />
 
-              <MultiSelectField
+              {/* <MultiSelectField
                 options={components}
                 name="components"
                 id="components"
                 placeholder="componentes"
                 label="Componentes"
                 disabled={props.isSubmitting}
-              />
+              /> */}
 
               <TextField
                 placeholder="serial del equipo"

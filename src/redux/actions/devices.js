@@ -1,0 +1,89 @@
+import requests from '@utils/requests'
+import formatFormData from "@utils/formatFormData"
+
+export function createDevice(data){
+  return async dispatch => {
+    return requests.create_device(formatFormData(data))
+    .then(r => {
+      return {
+        title: 'equipo creado exitosamente.',
+        success: true,
+        description: '.....',
+        status: 'success',
+      }
+    })
+    .catch(e => {
+      return {
+        title: e.response?.data?.error?.message || 'Hubo un problema en la creacion del equipo.',
+        success: false,
+        status: 'error',
+        description: 'Intente de nuevo'
+      }
+    })
+  }
+}
+
+export function updateDevice(data){
+  return async dispatch => {
+    return requests.update_device(formatFormData(data))
+    .then(r => {
+      return {
+        title: 'equipo actualizado exitosamente.',
+        success: true,
+        description: '.....',
+        status: 'success',
+      }
+    })
+    .catch(e => {
+      return {
+        title: e.response?.data?.error?.message || 'Hubo un problema al actualizar del equipo.',
+        success: false,
+        status: 'error',
+        description: 'Intente de nuevo'
+      }
+    })
+  }
+}
+
+export function deleteDevice(id){
+  return async dispatch => {
+    return requests.delete_device(id)
+    .then(r => {
+      return {
+        title: 'equipo eliminado exitosamente.',
+        success: true,
+        description: '.....',
+        status: 'success',
+      }
+    })
+    .catch(e => {
+      return {
+        title: e.response?.data?.error?.message || 'Hubo un problema al eliminar del equipo.',
+        success: false,
+        status: 'error',
+        description: 'Intente de nuevo'
+      }
+    })
+  }
+}
+
+
+export function getAllDevices(){
+  return async dispatch => {
+    return requests.get_all_devices()
+    .then(r => {
+      return {
+        data: r.data,
+        success: true,
+      }
+    })
+    .catch(e => {
+      return {
+        title: e.response?.data?.error?.message || 'Hubo un problema en la obtencion de los equipos.',
+        success: false,
+        status: 'error',
+        description: 'Intente de nuevo'
+      }
+    })
+  }
+}

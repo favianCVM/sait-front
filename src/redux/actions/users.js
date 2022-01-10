@@ -1,5 +1,5 @@
-import requests from '@utils/requests'
 import {UPDATE_PROFILE} from '../actionTypes'
+import requests from '@utils/requests'
 import formatFormData from "@utils/formatFormData"
 
 export function createUser(data) {

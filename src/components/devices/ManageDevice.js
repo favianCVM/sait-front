@@ -12,7 +12,14 @@ import {
 
 import DeviceForm from "@components/devices/DeviceForm";
 
-const ManageDevice = ({ isOpen, onClose, handleSubmit, dialogBlocked, users }) => {
+const ManageDevice = ({
+  isOpen,
+  onClose,
+  handleSubmit,
+  dialogBlocked,
+  users,
+  updateDevice,
+}) => {
   const [isMobile] = useMediaQuery("(max-width: 680px)");
   return (
     <Modal
@@ -21,7 +28,7 @@ const ManageDevice = ({ isOpen, onClose, handleSubmit, dialogBlocked, users }) =
       onClose={onClose}
       trapFocus={false}
       isCentered
-      size={`${isMobile ? 'full' : '2xl'}`}
+      size={`${isMobile ? "full" : "2xl"}`}
     >
       <ModalOverlay />
 
@@ -33,7 +40,11 @@ const ManageDevice = ({ isOpen, onClose, handleSubmit, dialogBlocked, users }) =
         </ModalHeader>
 
         <ModalBody>
-          <DeviceForm users={users} handleSubmit={handleSubmit} />
+          <DeviceForm
+            updateDevice={updateDevice}
+            users={users}
+            handleSubmit={handleSubmit}
+          />
         </ModalBody>
 
         <ModalFooter>

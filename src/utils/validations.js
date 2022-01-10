@@ -120,15 +120,11 @@ const userUpdateValidations = (values, props) => {
 
 const deviceRegisterValidations = (values, props) => {
   const errors = {};
-  let { user_id, serial, components } = values;
+  let { user_id, serial } = values;
 
   if(!allTypeValidation.test(serial)){
     errors.serial = "Ingrese un serial valido"
   } else delete errors.serial
-
-  if(!components.length){
-    errors.components = "Seleccione al menos un componente"
-  } else delete errors.components
 
   if(!user_id || user_id === null){
     errors.user_id = "Seleccione un perfil propietario del equipo"
