@@ -11,7 +11,13 @@ import {
 } from "@chakra-ui/react";
 import ComponentForm from "@components/components/ComponentForm";
 
-const ManageComponent = ({ isOpen, onClose, handleSubmit, dialogBlocked, updateComponent }) => {
+const ManageComponent = ({
+  isOpen,
+  onClose,
+  handleSubmit,
+  dialogBlocked,
+  updateComponent,
+}) => {
   const [isMobile] = useMediaQuery("(max-width: 680px)");
   return (
     <Modal
@@ -20,7 +26,7 @@ const ManageComponent = ({ isOpen, onClose, handleSubmit, dialogBlocked, updateC
       onClose={onClose}
       trapFocus={false}
       isCentered
-      size={`${isMobile ? 'full' : '2xl'}`}
+      size={`${isMobile ? "full" : "2xl"}`}
     >
       <ModalOverlay />
 
@@ -32,7 +38,10 @@ const ManageComponent = ({ isOpen, onClose, handleSubmit, dialogBlocked, updateC
         </ModalHeader>
 
         <ModalBody>
-          <ComponentForm handleSubmit={handleSubmit} updateComponent={updateComponent} />
+          <ComponentForm
+            handleSubmit={handleSubmit}
+            updateComponent={updateComponent}
+          />
         </ModalBody>
 
         <ModalFooter>

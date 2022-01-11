@@ -1,17 +1,19 @@
 import { Stack, Flex } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
-import {componentRegisterValidations} from "@utils/validations";
+import { componentRegisterValidations } from "@utils/validations";
 import {
   TextareaField,
   TextField,
   SubmitFormButton,
+  FileField,
 } from "@components/common";
 import component from "@models/component";
+import { AiFillTool } from "react-icons/ai";
 
 const ComponentForm = ({ handleSubmit, updateComponent }) => {
   return (
     <Formik
-      initialValues={component}
+      initialValues={updateComponent ? updateComponent : component}
       onSubmit={handleSubmit}
       // validate={componentRegisterValidations}
     >
@@ -26,13 +28,6 @@ const ComponentForm = ({ handleSubmit, updateComponent }) => {
                 disabled={props.isSubmitting}
                 id="name"
               />
-              <TextField
-                name="type"
-                label="Tipo"
-                placeholder="Tipo"
-                disabled={props.isSubmitting}
-                id="type"
-              />
 
               <TextareaField
                 name="description"
@@ -44,6 +39,19 @@ const ComponentForm = ({ handleSubmit, updateComponent }) => {
                 disabled={props.isSubmitting}
               />
             </Stack>
+
+            <FileField
+              name="picture"
+              containerClasses="mt-12 mb-8"
+              imagePreviewSize="xl"
+              toolTipMessage="Foto del componente"
+              id="picture"
+              labelIcon={<AiFillTool />}
+              disabled={props.isSubmitting}
+              helperText=""
+              label=""
+              previewPicture={updateComponent ? updateComponent.picture : ""}
+            />
 
             <SubmitFormButton
               isSubmitting={props.isSubmitting}

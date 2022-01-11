@@ -79,7 +79,33 @@ const userRoutes = [
   },
 ];
 
+const technicianRoutes = [
+  {
+    to: "/incidences",
+    as: "/incidencias",
+    icon: IoAlertCircle,
+    title: "Incidencias",
+    component: Incidences
+  },
+  {
+    to: "/register-incident",
+    as: "/registrar-incidencia",
+    icon: IoAddCircleOutline,
+    title: "Registrar incidencia",
+    component: RegisterIncident
+  },
+  {
+    to: "/components",
+    as: "/componentes",
+    icon: BiChip,
+    title: "Componentes",
+    component: Components
+  },
+];
+
+
 export default {
-  adminRoutes,
-  userRoutes,
+  '60': adminRoutes,
+  '50': userRoutes,
+  '55': technicianRoutes
 }

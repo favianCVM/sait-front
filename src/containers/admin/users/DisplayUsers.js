@@ -4,7 +4,7 @@ import PageHeader from "@components/common/PageHeader";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import UsersTable from "@components/users/UsersTable";
 import ManageUser from "@components/users/ManageUser";
-import {SpinnerScreen} from '@components/common'
+import { SpinnerScreen } from "@components/common";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as actions from "@actions/";
@@ -21,7 +21,7 @@ const DisplayUsers = ({ actions }) => {
   }, []);
 
   const getUsers = async () => {
-    togleIsFetching.on()
+    togleIsFetching.on();
 
     let response = await actions.getAllUsers();
 
@@ -35,10 +35,12 @@ const DisplayUsers = ({ actions }) => {
         isClosable: true,
       });
 
-    togleIsFetching.off()
+    togleIsFetching.off();
   };
 
   const handleSubmitUser = async (values) => {
+    togleIsFetching.on();
+
     let response;
 
     if (values.id) response = await actions.updateUser(values);
@@ -56,10 +58,12 @@ const DisplayUsers = ({ actions }) => {
       getUsers();
       onClose();
     }
+
+    togleIsFetching.off();
   };
 
   const handleDeleteUser = async (id) => {
-    togleIsFetching.on()
+    togleIsFetching.on();
 
     let response = await actions.deleteUser(id);
 
@@ -74,7 +78,7 @@ const DisplayUsers = ({ actions }) => {
     if (response.success) {
       getUsers();
     }
-    togleIsFetching.off()
+    togleIsFetching.off();
   };
 
   const handleEditUser = async (user) => {

@@ -6,15 +6,17 @@ import {
   useColorMode,
   IconButton,
   Flex,
+  Grid,
 } from "@chakra-ui/react";
 import { FiEdit, FiDelete } from "react-icons/fi";
+import { AiFillTool } from "react-icons/ai";
 
 const ComponentCard = ({
   name = "",
   description = "",
-  image = "",
-  handleDelete = ()=>{},
-  handleEdit = ()=>{},
+  picture = null,
+  handleDelete = () => {},
+  handleEdit = () => {},
   id = null,
 }) => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -28,13 +30,41 @@ const ComponentCard = ({
       w="full"
       shadow="md"
       _hover={{
-        shadow: "lg"
+        shadow: "lg",
       }}
       rounded="md"
     >
-      <Center flexDirection="column">
-        <Image maxH="40" maxW="full" src={image} />
-        <Text my="4" fontWeight="bold" fontSize="lg">{name}</Text>
+      <Flex
+        placeItems="center"
+        justifyContent="start"
+        flexDir="column"
+        minH={420}
+        pt="8"
+      >
+        <Flex
+          flexDir="column"
+          justifyContent="space-between"
+          alignItems="center"
+          minH="60"
+        >
+          {(picture === "null" || !picture) ? (
+            <Center flexDir="column" h="full">
+              <AiFillTool size="80px" />
+            </Center>
+          ) : (
+            <Image maxH="40" maxW="full" src={picture} />
+          )}
+          <Text
+            my="4"
+            fontWeight="bold"
+            fontSize={{
+              base: "lg",
+              xl: "2xl",
+            }}
+          >
+            {name}
+          </Text>
+        </Flex>
         <Text
           w="full"
           textOverflow="initial"
@@ -46,13 +76,13 @@ const ComponentCard = ({
         >
           {description}
         </Text>
-      </Center>
+      </Flex>
 
       <Center mb="5" justifyContent="space-around">
         <IconButton
           colorScheme="blue"
           size="md"
-          onClick={() => handleEdit(id)}
+          onClick={handleEdit}
           icon={<FiEdit />}
         />
         <IconButton
