@@ -25,7 +25,7 @@ const LoginContainer = (props) => {
 
     if (response.success && parseInt(response.role) === 60) {
       history.push("/admin/incidences");
-    } else if (response.success && parseInt(response.role) === 50) {
+    } else if (response.success && (parseInt(response.role) === 50 || parseInt(response.role) === 55)) {
       history.push("/incidences");
     }
   };

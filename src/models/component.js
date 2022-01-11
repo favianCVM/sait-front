@@ -1,6 +1,6 @@
 export default {
   description: "",
   name: "",
-  image: null,
+  picture: null,
   type: "",
 }

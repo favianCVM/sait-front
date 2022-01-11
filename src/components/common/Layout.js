@@ -158,15 +158,11 @@ const Sidebar = (props) => {
               }}
             >
               {/* routes */}
-              {isAdmin &&
-                routes.adminRoutes.map((route) => (
+              {
+                routes[props.role]?.map((route) => (
                   <LayoutItem key={route.to} {...route} clickLink={redirect} />
-                ))}
-
-              {isUser &&
-                routes.userRoutes.map((route) => (
-                  <LayoutItem key={route.to} {...route} clickLink={redirect} />
-                ))}
+                ))
+              }
             </Flex>
           </Flex>
 

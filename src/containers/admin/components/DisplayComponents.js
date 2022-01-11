@@ -1,9 +1,14 @@
-import { useDisclosure, useBoolean, Grid } from "@chakra-ui/react";
+import React from "react";
+import { useDisclosure, useBoolean, Grid, useToast } from "@chakra-ui/react";
 import PageHeader from "@components/common/PageHeader";
 import { IoAddCircleOutline } from "react-icons/io5";
-import ComponentTable from "@components/components/ComponentTable";
 import ManageComponent from "@components/components/ManageComponent";
 import ComponentCardDisplayer from "@components/components/ComponentCardDisplayer";
+import { SpinnerScreen, ConfirmDialog } from "@components/common";
+
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as actions from "@actions/";
 
 const data = [
   {
@@ -71,17 +76,95 @@ const data = [
   },
 ];
 
-const DisplayComponents = () => {
+const DisplayComponents = ({ actions }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [dialogBlocked, setDialogBlocked] = useBoolean(false);
+  const { isOpen: confirmIsOpen, onOpen: confirmOnOpen, onClose: confirmOnClose } = useDisclosure();
+  const [isFetching, togleIsFetching] = useBoolean(false);
+  const [components, setComponents] = React.useState([]);
+  const [updateComponent, setUpdateComponent] = React.useState(null);
+  const [deleteComponentId, setDeleteComponentId] = React.useState(null);
 
-  const handleSubmit = (values) => {
-    console.log(values);
-    setDialogBlocked.on();
+  const toast = useToast();
+
+  React.useEffect(() => {
+    getComponents();
+  }, []);
+
+  const getComponents = async () => {
+    togleIsFetching.on();
+
+    let response = await actions.getAllComponents();
+
+    if (response.success) setComponents(response.data);
+    else
+      toast({
+        title: response.title || "",
+        description: response.description || "",
+        status: response.status,
+        duration: 5000,
+        isClosable: true,
+      });
+
+    togleIsFetching.off();
+  };
+
+  const handleSubmit = async (values) => {
+    togleIsFetching.on();
+
+    let response;
+
+    if (values.id) response = await actions.updateComponent(values);
+    else response = await actions.createComponent(values);
+
+    await toast({
+      title: response.title || "",
+      description: response.description || "",
+      status: response.status,
+      duration: 5000,
+      isClosable: true,
+    });
+
+    if (response.success) {
+      getComponents();
+      onClose();
+    }
+
+    togleIsFetching.off();
+  };
+
+  const handleEditComponent = (component) => {
+    setUpdateComponent(component);
+    onOpen();
+  };
+
+  const handleDeleteModal = (id) => {
+    setDeleteComponentId(id)
+    confirmOnOpen()
+  };
+
+  const handleDeleteComponent = async () => {
+    togleIsFetching.on();
+
+    let response = await actions.deleteComponent(deleteComponentId);
+
+    await toast({
+      title: response.title || "",
+      description: response.description || "",
+      status: response.status,
+      duration: 5000,
+      isClosable: true,
+    });
+
+    await getComponents();
+
+    setDeleteComponentId(null)
+    togleIsFetching.off();
   };
 
   return (
     <>
+      <SpinnerScreen open={isFetching} />
+
       <PageHeader
         title="Componentes"
         action={onOpen}
@@ -92,88 +175,31 @@ const DisplayComponents = () => {
       <ManageComponent
         handleSubmit={handleSubmit}
         isOpen={isOpen}
-        onClose={onClose}
-        dialogBlocked={dialogBlocked}
+        onClose={() => {
+          setUpdateComponent(null);
+          onClose();
+        }}
+        updateComponent={updateComponent}
       />
 
       <ComponentCardDisplayer
-        data={[
-          {
-            name: "lag",
-            description: "something bored",
-            image:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiFqgQWqPMtL9jjdMFs5t-0uyIc8I2S9JX6w&usqp=CAU",
-          },
-          {
-            name: "lag",
-            description: "something bored",
-            image:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiFqgQWqPMtL9jjdMFs5t-0uyIc8I2S9JX6w&usqp=CAU",
-          },
-          {
-            name: "lagKOKOKOK",
-            description: "something bored",
-            image:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiFqgQWqPMtL9jjdMFs5t-0uyIc8I2S9JX6w&usqp=CAU",
-          },
-          {
-            name: "lag",
-            description: "something bored",
-            image:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiFqgQWqPMtL9jjdMFs5t-0uyIc8I2S9JX6w&usqp=CAU",
-          },
-          {
-            name: "lag",
-            description: "something bored",
-            image:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiFqgQWqPMtL9jjdMFs5t-0uyIc8I2S9JX6w&usqp=CAU",
-          },
-          {
-            name: "lag",
-            description: "something bored",
-            image:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlGkaC3ZMU3-5Nbr82mnJzd2wk5WaQSNpzfg&usqp=CAU",
-          },
-          {
-            name: "lag",
-            description: "something bored",
-            image:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlGkaC3ZMU3-5Nbr82mnJzd2wk5WaQSNpzfg&usqp=CAU",
-          },
-          {
-            name: "lag",
-            description: "something bored",
-            image:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiFqgQWqPMtL9jjdMFs5t-0uyIc8I2S9JX6w&usqp=CAU",
-          },
-          {
-            name: "lag",
-            description: "something bored",
-            image:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiFqgQWqPMtL9jjdMFs5t-0uyIc8I2S9JX6w&usqp=CAU",
-          },
-          {
-            name: "lag",
-            description: "something bored",
-            image:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiFqgQWqPMtL9jjdMFs5t-0uyIc8I2S9JX6w&usqp=CAU",
-          },
-          {
-            name: "lag",
-            description: "something bored",
-            image:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiFqgQWqPMtL9jjdMFs5t-0uyIc8I2S9JX6w&usqp=CAU",
-          },
-          {
-            name: "lag",
-            description: "something bored",
-            image:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiFqgQWqPMtL9jjdMFs5t-0uyIc8I2S9JX6w&usqp=CAU",
-          },
-        ]}
+        handleEdit={handleEditComponent}
+        handleDelete={handleDeleteModal}
+        data={components}
+      />
+
+      <ConfirmDialog
+        isOpen={confirmIsOpen}
+        onClose={confirmOnClose}
+        confirmMethod={handleDeleteComponent}
+        title="Desea eliminar este componente?"
       />
     </>
   );
 };
 
-export default DisplayComponents;
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(actions, dispatch),
+});
+
+export default connect(null, mapDispatchToProps)(DisplayComponents);
