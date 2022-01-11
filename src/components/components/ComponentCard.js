@@ -61,8 +61,9 @@ const ComponentCard = ({
               base: "lg",
               xl: "2xl",
             }}
+            wordBreak="break-word"
           >
-            {name}
+            #{id} {name}
           </Text>
         </Flex>
         <Text
