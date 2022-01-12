@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, useDisclosure, useBoolean } from "@chakra-ui/react";
+import { Box, useDisclosure, useBoolean, useToast } from "@chakra-ui/react";
 import PageHeader from "@components/common/PageHeader";
 import TechniciansTable from "@components/technicians/TechniciansTable";
 import { SpinnerScreen } from "@components/common";
@@ -11,9 +11,10 @@ import * as actions from "@actions/";
 const DisplayTechnicians = ({
   actions
 }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [technicians, setTechnicians] = React.useState([]);
   const [isFetching, togleIsFetching] = useBoolean(false);
+
+  const toast = useToast()
 
   React.useEffect(() => {
     getTechnicians()

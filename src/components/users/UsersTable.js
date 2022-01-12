@@ -40,7 +40,7 @@ const UserTable = ({
           <Thead>
             <Tr>
               <Th>#</Th>
-              <Th>Role</Th>
+              <Th>Rol</Th>
               <Th>Nombre y apellido</Th>
               <Th display={{ base: "none", md: "table-cell" }}>Email</Th>
               <Th></Th>

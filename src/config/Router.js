@@ -30,14 +30,14 @@ const AppRouter = (props) => {
             <Switch>
               {routes[props.role]?.map((route) => (
                 <Route
-                  key={route.to}
+                  key={`route-${route.to}`}
                   exact
                   path={route.as}
                   component={route.component}
                 />
               ))}
               {routes[props.role]?.map((route) => (
-                <Route key={route.to} exact path={route.to}>
+                <Route key={`redirect-${route.to}`} exact path={route.to}>
                   <Redirect to={route.as} />
                 </Route>
               ))}

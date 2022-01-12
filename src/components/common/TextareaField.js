@@ -1,5 +1,5 @@
 import { Textarea } from "@chakra-ui/react";
-import { Field } from "formik";
+import { Field, getIn } from "formik";
 import {
   InputGroup,
   FormLabel,
@@ -24,7 +24,7 @@ const TextareaField = ({
       {({ field, form }) => (
         <FormControl
           id={id}
-          isInvalid={form.errors[name] && form.touched[name]}
+          isInvalid={getIn(form.errors, name) && getIn(form.touched, name)}
         >
           {label && (
             <FormLabel opacity={0.4}>
@@ -46,9 +46,9 @@ const TextareaField = ({
           </InputGroup>
           {showError && (
             <FormHelperText>
-              {field.value && !form.errors[name]
+              {field.value && !getIn(form.errors, name)
                 ? null
-                : form.errors[name] || helperText}
+                : getIn(form.errors, name) || helperText}
             </FormHelperText>
           )}
         </FormControl>
