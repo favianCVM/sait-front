@@ -26,9 +26,9 @@ const DeviceForm = ({ handleSubmit, users = [], updateDevice }) => {
                   value: el.id,
                 }))}
                 name="user_id"
-                placeholder="seleccione un perfil"
+                placeholder="seleccione un usuario propietario"
                 disabled={props.isSubmitting}
-                label="Perfil"
+                label="Usuario propietario"
               />
 
               {/* <MultiSelectField

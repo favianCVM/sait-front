@@ -19,9 +19,11 @@ const create_component = (data) =>
   Api().post(`/components/create-component`, data);
 const update_component = (data) => Api().put(`/components/update-component/${data.get("id")}`, data)
 const delete_component = (id) => Api().delete(`/components/delete-component/${id}`)
+//TECHNICIANS
+const get_all_technicians = () => Api().get(`/technicians/get-all-technicians`)
 
 export default {
-  //USER AUTH
+  // user auth
   login,
   // users
   create_user,
@@ -38,4 +40,6 @@ export default {
   create_component,
   update_component,
   delete_component,
+  // technicians 
+  get_all_technicians,
 };

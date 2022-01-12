@@ -1,6 +1,6 @@
 import { Select } from "chakra-react-select";
 import { FormHelperText, FormLabel, FormControl } from "@chakra-ui/react";
-import { Field } from "formik";
+import { Field, getIn } from "formik";
 
 const SelectTest = ({
   name = "",
@@ -20,7 +20,7 @@ const SelectTest = ({
         <FormControl
           id={id}
           isDisabled={disabled}
-          isInvalid={form.errors[name] && form.touched[name]}
+          isInvalid={getIn(form.errors, name) && getIn(form.touched, name)}
         >
           {label && (
             <FormLabel opacity={0.4}>

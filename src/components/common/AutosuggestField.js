@@ -5,7 +5,7 @@ import {
   FormControl,
   InputGroup,
 } from "@chakra-ui/react";
-import { Field } from "formik";
+import { Field, getIn } from "formik";
 import {
   AutoComplete,
   AutoCompleteInput,
@@ -59,7 +59,7 @@ const AutosuggestField = ({
                 autoFocus={autoFocus}
                 disabled={disabled}
                 // isInvalid={form.errors[name]}
-                isInvalid={form.errors[name] && form.touched[name]}
+                isInvalid={getIn(form.errors, name) && getIn(form.touched, name)}
                 value={
                   data.find((el) => el.value === field.value)?.label || null
                 }

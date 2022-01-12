@@ -1,23 +1,56 @@
-import {
-  Box,
-  useDisclosure,
-} from "@chakra-ui/react"
-import PageHeader from '@components/common/PageHeader'
-import TechniciansTable from "@components/technicians/TechniciansTable"
+import React from "react";
+import { Box, useDisclosure, useBoolean, useToast } from "@chakra-ui/react";
+import PageHeader from "@components/common/PageHeader";
+import TechniciansTable from "@components/technicians/TechniciansTable";
+import { SpinnerScreen } from "@components/common";
 
-const DisplayTechnicians = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as actions from "@actions/";
 
-  return(
+const DisplayTechnicians = ({
+  actions
+}) => {
+  const [technicians, setTechnicians] = React.useState([]);
+  const [isFetching, togleIsFetching] = useBoolean(false);
+
+  const toast = useToast()
+
+  React.useEffect(() => {
+    getTechnicians()
+  }, [])
+
+  const getTechnicians = async () => {
+    togleIsFetching.on();
+
+    let response = await actions.getAllTechnicians();
+
+    if (response.success) setTechnicians(response.data);
+    else
+      toast({
+        title: response.title || "",
+        description: response.description || "",
+        status: response.status,
+        duration: 5000,
+        isClosable: true,
+      });
+
+    togleIsFetching.off();
+  };
+
+  return (
     <Box>
-      <PageHeader 
-        title="Técnicos"
-      />
+      <SpinnerScreen open={isFetching} />
 
-      <TechniciansTable data={[]}/>
+      <PageHeader title="Técnicos" />
 
+      <TechniciansTable data={technicians} />
     </Box>
-  )
-}
+  );
+};
 
-export default DisplayTechnicians;
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(actions, dispatch),
+});
+
+export default connect(null, mapDispatchToProps)(DisplayTechnicians);

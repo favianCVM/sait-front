@@ -1,6 +1,12 @@
+import error from './error'
+
 export default {
-  user: "",
-  priority: "",
-  date: new Date(),
+  type_id: "",
   description: "",
+  //this is fow the new incidence type case
+  type: {
+    name: ""
+  },
+  //incidence errors
+  errors: [error]
 }

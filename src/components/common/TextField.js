@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { useState } from "react";
 import {
   Input,
   InputGroup,
@@ -8,36 +8,40 @@ import {
   InputRightElement,
   InputLeftElement,
   Button,
-} from "@chakra-ui/react"
-import { Field } from 'formik';
-import { FaEye } from 'react-icons/fa'
+} from "@chakra-ui/react";
+import { Field, getIn } from "formik";
+import { FaEye } from "react-icons/fa";
 export default function TextField({
   placeholder,
-  size = 'md',
+  size = "md",
   addClass,
-  type = 'text',
+  type = "text",
   name,
   helperText,
   label,
   id,
   leftChildren = null,
   rightChildren = null,
-  disabled=false,
-}){
+  disabled = false,
+}) {
+  const [showPassword, setShowPassword] = useState(false);
 
-  const [showPassword, setShowPassword] = useState(false)
-
-  return(
+  return (
     <Field name={name}>
-      {({field, form}) => (
-        <FormControl id={id} isInvalid={form.errors[name] && form.touched[name]}>
-          {label && <FormLabel opacity={.4}>{label}<sup>*</sup></FormLabel>}
+      {({ field, form }) => (
+        <FormControl
+          id={id}
+          isInvalid={getIn(form.errors, name) && getIn(form.touched, name)}
+        >
+          {label && (
+            <FormLabel opacity={0.4}>
+              {label}
+              <sup>*</sup>
+            </FormLabel>
+          )}
           <InputGroup size={size}>
-
             {leftChildren && (
-              <InputLeftElement>
-                {leftChildren}
-              </InputLeftElement>
+              <InputLeftElement>{leftChildren}</InputLeftElement>
             )}
 
             <Input
@@ -46,12 +50,18 @@ export default function TextField({
               placeholder={placeholder}
               size={size}
               className={addClass}
-              type={type === 'password' ? (showPassword ? 'text' : 'password') :type }
+              type={
+                type === "password"
+                  ? showPassword
+                    ? "text"
+                    : "password"
+                  : type
+              }
               disabled={disabled}
               {...field}
             />
 
-            { (type === 'password') && (
+            {type === "password" && (
               <InputRightElement width="4.5rem">
                 <Button
                   borderRadius="md"
@@ -65,17 +75,13 @@ export default function TextField({
               </InputRightElement>
             )}
 
-            { rightChildren && (
-              <InputRightElement>
-                {rightChildren}
-              </InputRightElement>
+            {rightChildren && (
+              <InputRightElement>{rightChildren}</InputRightElement>
             )}
           </InputGroup>
-          <FormHelperText>
-            {helperText}
-          </FormHelperText>
+          <FormHelperText>{helperText}</FormHelperText>
         </FormControl>
       )}
     </Field>
-  )
+  );
 }

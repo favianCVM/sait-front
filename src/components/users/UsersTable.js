@@ -16,6 +16,7 @@ import {
 import { Paginator, ConfirmDialog, TableSkeleton } from "@components/common";
 import { FiEdit, FiDelete } from "react-icons/fi";
 import { tableStyles } from "@utils/commonStyles";
+import {roles} from "@utils/transtalers"
 
 const UserTable = ({
   data = [],
@@ -39,6 +40,7 @@ const UserTable = ({
           <Thead>
             <Tr>
               <Th>#</Th>
+              <Th>Rol</Th>
               <Th>Nombre y apellido</Th>
               <Th display={{ base: "none", md: "table-cell" }}>Email</Th>
               <Th></Th>
@@ -49,6 +51,7 @@ const UserTable = ({
               displayData.map((row) => (
                 <Tr key={row.id}>
                   <Td>{row.id}</Td>
+                  <Td>{roles[row.role]}</Td>
                   <Td>
                     {row.first_name} {row.last_name}
                   </Td>

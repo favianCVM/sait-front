@@ -105,6 +105,7 @@ const UserForm = ({ handleSubmit, updateUser }) => {
                 <SelectField
                   options={[
                     { label: "Admin", value: 60 },
+                    { label: "Tecnico", value: 55 },
                     { label: "Usuario", value: 50 },
                   ]}
                   name="role"
