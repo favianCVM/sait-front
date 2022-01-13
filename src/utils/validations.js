@@ -19,9 +19,21 @@ const loginValidations = (values, props) => {
 };
 
 const incidenceValidations = (values, props) => {
-  let { type_id, description, errors: incidenceErrors, type = {} } = values;
+  let {
+    type_id,
+    description,
+    errors: incidenceErrors,
+    type = {},
+    user_id,
+  } = values;
+  let { isAdmin } = props;
   const errors = {};
   errors.type = {};
+
+  if (isAdmin && !user_id) {
+    errors.user_id =
+      "Debe seleccionar un usuario que percibio la incidencia";
+  } else delete errors.user_id;
 
   if (type_id === "new" && !type.name) {
     errors.type.name = "Debe introducir un nombre al nuevo tipo de incidencia";

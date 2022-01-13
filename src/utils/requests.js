@@ -17,10 +17,16 @@ const delete_device = (id) => Api().delete(`/devices/delete-device/${id}`);
 const get_all_components = () => Api().get(`/components/get-all-components`);
 const create_component = (data) =>
   Api().post(`/components/create-component`, data);
-const update_component = (data) => Api().put(`/components/update-component/${data.get("id")}`, data)
-const delete_component = (id) => Api().delete(`/components/delete-component/${id}`)
+const update_component = (data) =>
+  Api().put(`/components/update-component/${data.get("id")}`, data);
+const delete_component = (id) =>
+  Api().delete(`/components/delete-component/${id}`);
 //TECHNICIANS
-const get_all_technicians = () => Api().get(`/technicians/get-all-technicians`)
+const get_all_technicians = () => Api().get(`/technicians/get-all-technicians`);
+//INCIDENCES
+const create_incidence = (data) =>
+  Api().post(`/incidences/create-incidence`, data);
+const get_incidence_types = () => Api().get(`/incidences/incidence-types`);
 
 export default {
   // user auth
@@ -40,6 +46,9 @@ export default {
   create_component,
   update_component,
   delete_component,
-  // technicians 
+  // technicians
   get_all_technicians,
+  // incidences
+  create_incidence,
+  get_incidence_types,
 };

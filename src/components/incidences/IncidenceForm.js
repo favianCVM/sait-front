@@ -30,12 +30,13 @@ const IncidenceForm = ({
   handleSubmit,
   isAdmin = false,
   incidenceTypes = [],
+  users = [],
 }) => {
   return (
     <Formik
       initialValues={incidence}
       onSubmit={handleSubmit}
-      validate={incidenceValidations}
+      validate={(values) => incidenceValidations(values, { isAdmin })}
     >
       {(props) => (
         <Form>
@@ -52,6 +53,20 @@ const IncidenceForm = ({
               <Heading as="h2" fontSize="4xl">
                 Datos de la incidencia
               </Heading>
+
+              {isAdmin && (
+                <AutosuggestField
+                  data={users.map((el) => ({
+                    label: `${el.first_name} #${el.id}`,
+                    value: el.id,
+                  }))}
+                  name="user_id"
+                  placeholder="seleccione un usuario"
+                  disabled={props.isSubmitting}
+                  label="Usuario que percibio la incindencia"
+                />
+              )}
+
               <SelectField
                 label="Tipo de incidencia"
                 name="type_id"
@@ -59,7 +74,10 @@ const IncidenceForm = ({
                 disabled={props.isSubmitting}
                 options={[
                   { value: "new", label: "Nuevo tipo" },
-                  ...incidenceTypes,
+                  ...incidenceTypes.map((el) => ({
+                    value: el.id,
+                    label: el.name,
+                  })),
                 ]}
               />
 
@@ -140,6 +158,13 @@ const IncidenceForm = ({
                           label="Descripcion"
                           placeholder="introduzca una descripción"
                           disabled={props.isSubmitting}
+                        />
+
+                        <DateField
+                          name={`errors[${index}].date`}
+                          id={`errors[${index}].date`}
+                          label="Fecha de la falla"
+                          maxDate={new Date()}
                         />
 
                         {isAdmin && (

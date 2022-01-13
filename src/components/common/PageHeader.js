@@ -36,6 +36,7 @@ const PageHeader = ({
           base: "space-between",
         }}
         w="100%"
+        minH="210px"
       >
         <Heading
           as="h2"
