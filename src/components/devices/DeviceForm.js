@@ -9,7 +9,12 @@ import {
 } from "@components/common";
 import device from "@models/device";
 
-const DeviceForm = ({ handleSubmit, users = [], updateDevice }) => {
+const DeviceForm = ({
+  handleSubmit,
+  users = [],
+  updateDevice,
+  components = [],
+}) => {
   return (
     <Formik
       initialValues={updateDevice ? updateDevice : device}
@@ -31,14 +36,17 @@ const DeviceForm = ({ handleSubmit, users = [], updateDevice }) => {
                 label="Usuario propietario"
               />
 
-              {/* <MultiSelectField
-                options={components}
+              <MultiSelectField
+                options={components.map((el) => ({
+                  value: el.id,
+                  label: el.name,
+                }))}
                 name="components"
                 id="components"
                 placeholder="componentes"
                 label="Componentes"
                 disabled={props.isSubmitting}
-              /> */}
+              />
 
               <TextField
                 placeholder="serial del equipo"
@@ -49,7 +57,7 @@ const DeviceForm = ({ handleSubmit, users = [], updateDevice }) => {
                 label="Serial"
               />
             </Stack>
-
+            
             <SubmitFormButton
               errors={props.errors}
               title={updateDevice ? "Actualizar equipo" : "Registrar equipo"}

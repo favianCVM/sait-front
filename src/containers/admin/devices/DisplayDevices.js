@@ -14,6 +14,8 @@ const DisplayDevices = ({ actions }) => {
 
   const [devices, setDevices] = React.useState([]);
   const [users, setUsers] = React.useState([]);
+  const [components, setComponents] = React.useState([]);
+
   const [updateDevice, setUpdateDevice] = React.useState(null);
   const [isFetching, togleIsFetching] = useBoolean(true);
   const toast = useToast();
@@ -21,6 +23,7 @@ const DisplayDevices = ({ actions }) => {
   React.useEffect(() => {
     getDevices();
     getUsers();
+    getComponents();
   }, []);
 
   const getDevices = async () => {
@@ -29,6 +32,24 @@ const DisplayDevices = ({ actions }) => {
     let response = await actions.getAllDevices();
 
     if (response.success) setDevices(response.data);
+    else
+      toast({
+        title: response.title || "",
+        description: response.description || "",
+        status: response.status,
+        duration: 5000,
+        isClosable: true,
+      });
+
+    togleIsFetching.off();
+  };
+
+  const getComponents = async () => {
+    togleIsFetching.on();
+
+    let response = await actions.getAllComponents();
+
+    if (response.success) setComponents(response.data);
     else
       toast({
         title: response.title || "",
@@ -85,7 +106,11 @@ const DisplayDevices = ({ actions }) => {
   };
 
   const handleEditDevice = (device) => {
-    setUpdateDevice(device);
+    setUpdateDevice({
+      user_id: device.user_id,
+      serial: device.serial,
+      components: device.deviceComponents?.map((el) => el?.component?.id) || [],
+    });
     onOpen();
   };
 
@@ -132,8 +157,12 @@ const DisplayDevices = ({ actions }) => {
         handleSubmit={handleSubmitDevice}
         updateDevice={updateDevice}
         isOpen={isOpen}
-        onClose={onClose}
+        onClose={() => {
+          setUpdateDevice(null);
+          onClose();
+        }}
         users={users}
+        components={components}
       />
     </Box>
   );

@@ -1,4 +1,5 @@
 export default {
   user_id: null,
-  serial: null
-}
+  serial: null,
+  components: [],
+};

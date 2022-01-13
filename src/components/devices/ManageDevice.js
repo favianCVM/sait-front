@@ -18,6 +18,7 @@ const ManageDevice = ({
   handleSubmit,
   dialogBlocked,
   users,
+  components,
   updateDevice,
 }) => {
   const [isMobile] = useMediaQuery("(max-width: 680px)");
@@ -44,6 +45,7 @@ const ManageDevice = ({
             updateDevice={updateDevice}
             users={users}
             handleSubmit={handleSubmit}
+            components={components}
           />
         </ModalBody>
 
