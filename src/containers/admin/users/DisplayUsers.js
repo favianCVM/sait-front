@@ -108,7 +108,7 @@ const DisplayUsers = ({ actions }) => {
         handleSubmit={handleSubmitUser}
         isOpen={isOpen}
         onClose={async () => {
-          await setUpdateUser(null);
+          setUpdateUser(null);
           onClose();
         }}
       />

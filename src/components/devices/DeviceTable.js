@@ -14,6 +14,8 @@ import {
   Tooltip,
   Skeleton,
   useDisclosure,
+  List,
+  ListItem,
 } from "@chakra-ui/react";
 import { Paginator, ConfirmDialog, TableSkeleton } from "@components/common";
 import { tableStyles } from "@utils/commonStyles";
@@ -44,13 +46,14 @@ const DeviceTable = ({
               <Th>Usuario</Th>
               <Th>#Usuario</Th>
               <Th>Serial</Th>
+              <Th>Componentes</Th>
               <Th></Th>
             </Tr>
           </Thead>
           <Tbody>
             {!isFetching ? (
               displayData.map((row) => (
-                <Tr>
+                <Tr key={`device-${row.id}`}>
                   <Td>{row.id}</Td>
                   <Td>
                     {row?.user?.first_name} {row?.user?.last_name}
@@ -58,6 +61,15 @@ const DeviceTable = ({
                   <Td>{row?.user?.id}</Td>
                   <Td display={{ base: "none", md: "table-cell" }}>
                     {row.serial}
+                  </Td>
+                  <Td display={{ base: "none", md: "table-cell" }}>
+                    <List>
+                      {row?.deviceComponents?.map((el) => (
+                        <ListItem key={`device-component-${el.id}-${row.id}`}>
+                          {el?.component?.name}
+                        </ListItem>
+                      ))}
+                    </List>
                   </Td>
                   <Td>
                     <Stack direction="row" spacing="2">

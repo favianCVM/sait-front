@@ -37,7 +37,10 @@ const MultiSelectField = ({
             placeholder={placeholder}
             closeMenuOnSelect={closeMenuOnSelect}
             onChange={(values) => {
-              form.setFieldValue(name, values.map(el => el.value));
+              form.setFieldValue(
+                name,
+                values.map((el) => el.value)
+              );
             }}
             value={options.filter((el) => field.value.includes(el.value))}
             {...props}
@@ -48,6 +51,5 @@ const MultiSelectField = ({
     </Field>
   );
 };
-
 
 export default MultiSelectField;

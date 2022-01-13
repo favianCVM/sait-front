@@ -3,7 +3,7 @@ export default function formatFormData(data = {}, type = "") {
 
   Object.keys(data).forEach((key) => {
     if (
-      (typeof data[key] === "object" && Date.parse(data[key]) === NaN) ||
+      (typeof data[key] === "object" && isNaN(Date.parse(data[key]))) ||
       Array.isArray(data[key])
     )
       newData.append(key, JSON.stringify(data[key]));
