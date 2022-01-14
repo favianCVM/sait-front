@@ -84,6 +84,7 @@ const DisplayDevices = ({ actions }) => {
     togleIsFetching.on();
 
     let response;
+    console.log("VALUES", values);
 
     if (values.id) response = await actions.updateDevice(values);
     else response = await actions.createDevice(values);
@@ -107,6 +108,7 @@ const DisplayDevices = ({ actions }) => {
 
   const handleEditDevice = (device) => {
     setUpdateDevice({
+      id: device.id,
       user_id: device.user_id,
       serial: device.serial,
       components: device.deviceComponents?.map((el) => el?.component?.id) || [],

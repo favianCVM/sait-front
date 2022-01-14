@@ -43,3 +43,24 @@ export function getIncidenceTypes(){
   }
 }
 
+
+export function getAllIncidences(){
+  return async dispatch => {
+    return requests.get_all_incidences()
+    .then(r => {
+      return {
+        success: true,
+        data: r.data,
+      }
+    })
+    .catch(e => {
+      return {
+        title: e.response?.data?.error?.message || 'Hubo un problema en la obtencion de las incidencias.',
+        success: false,
+        status: 'error',
+        description: 'Intente de nuevo'
+      }
+    })
+  }
+}
+
