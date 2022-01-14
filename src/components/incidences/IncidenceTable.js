@@ -15,11 +15,18 @@ import {
   Skeleton,
   useDisclosure,
 } from "@chakra-ui/react";
-import { Paginator, ConfirmDialog } from "@components/common";
+import { Paginator, ConfirmDialog, TableSkeleton } from "@components/common";
 import { FiEdit, FiDelete } from "react-icons/fi";
+import { BiPencil } from "react-icons/bi";
 import { tableStyles } from "@utils/commonStyles";
 
-const IncidenceTable = ({ data, handleEdit, handleDelete, isFetching }) => {
+const IncidenceTable = ({
+  data,
+  handleEdit,
+  handleDelete,
+  isFetching,
+  isAdmin,
+}) => {
   const [displayData, setDisplayData] = React.useState(data);
   const [selectedUser, setSelectedUser] = React.useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -37,20 +44,24 @@ const IncidenceTable = ({ data, handleEdit, handleDelete, isFetching }) => {
             <Tr>
               <Th>#</Th>
               <Th>Nombre y apellido</Th>
-              <Th display={{ base: "none", md: "table-cell" }}>Email</Th>
+              <Th>Tipo de incidencia</Th>
+              <Th>Email</Th>
               <Th></Th>
             </Tr>
           </Thead>
           <Tbody>
-            { !isFetching ? (
+            {!isFetching ? (
               displayData.map((row) => (
                 <Tr>
                   <Td>{row.id}</Td>
                   <Td>
-                    {row.first_name} {row.last_name}
+                    {row?.user?.first_name} {row?.user?.last_name}
                   </Td>
                   <Td display={{ base: "none", md: "table-cell" }}>
-                    {row.email}
+                    {row?.type?.name}
+                  </Td>
+                  <Td display={{ base: "none", md: "table-cell" }}>
+                    {row?.user?.email}
                   </Td>
                   <Td>
                     <Stack direction="row" spacing="2">
@@ -68,16 +79,22 @@ const IncidenceTable = ({ data, handleEdit, handleDelete, isFetching }) => {
                           icon={<FiDelete />}
                         />
                       </Tooltip>
+                      {isAdmin && (
+                        <Tooltip hasArrow label="Gestionar">
+                          <IconButton
+                            size="sm"
+                            onClick={() => {}}
+                            icon={<BiPencil />}
+                          />
+                        </Tooltip>
+                      )}
                     </Stack>
                   </Td>
                 </Tr>
               ))
             ) : (
               <>
-                <TableSkeleton />
-                <TableSkeleton />
-                <TableSkeleton />
-                <TableSkeleton />
+                <TableSkeleton cols={4} />
               </>
             )}
           </Tbody>
@@ -91,28 +108,9 @@ const IncidenceTable = ({ data, handleEdit, handleDelete, isFetching }) => {
         isOpen={isOpen}
         onClose={onClose}
         confirmMethod={() => handleDelete(selectedUser)}
-        title="Desea eliminar este usuario?"
+        title="Desea eliminar esta incidencia?"
       />
     </>
-  );
-};
-
-const TableSkeleton = () => {
-  return (
-    <Tr>
-      <Td>
-        <Skeleton height="18px" />
-      </Td>
-      <Td>
-        <Skeleton height="18px" />
-      </Td>
-      <Td>
-        <Skeleton height="18px" />
-      </Td>
-      <Td>
-        <Skeleton height="18px" />
-      </Td>
-    </Tr>
   );
 };
 

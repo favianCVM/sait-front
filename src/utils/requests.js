@@ -27,6 +27,7 @@ const get_all_technicians = () => Api().get(`/technicians/get-all-technicians`);
 const create_incidence = (data) =>
   Api().post(`/incidences/create-incidence`, data);
 const get_incidence_types = () => Api().get(`/incidences/incidence-types`);
+const get_all_incidences = () => Api().get(`/incidences/get-all-incidences`);
 
 export default {
   // user auth
@@ -51,4 +52,5 @@ export default {
   // incidences
   create_incidence,
   get_incidence_types,
+  get_all_incidences,
 };
