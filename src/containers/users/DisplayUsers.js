@@ -5,6 +5,7 @@ import { AiOutlineUserAdd } from "react-icons/ai";
 import UsersTable from "@components/users/UsersTable";
 import ManageUser from "@components/users/ManageUser";
 import { SpinnerScreen } from "@components/common";
+
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as actions from "@actions/";
@@ -12,7 +13,8 @@ import * as actions from "@actions/";
 const DisplayUsers = ({ actions }) => {
   const [users, setUsers] = React.useState([]);
   const [updateUser, setUpdateUser] = React.useState(null);
-  const [isFetching, togleIsFetching] = useBoolean(true);
+
+  const [isFetching, togleIsFetching] = useBoolean(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
 

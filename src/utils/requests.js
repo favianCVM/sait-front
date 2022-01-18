@@ -7,6 +7,7 @@ const get_all_users = () => Api().get("/users/get-all-users");
 const update_user = (data) =>
   Api().put(`/users/update-user/${data.get("id")}`, data);
 const delete_user = (id) => Api().delete(`/users/delete-user/${id}`);
+const password_reset = (data) => Api().post(``, data);
 //DEVICES
 const create_device = (data) => Api().post(`/devices/create-device`, data);
 const update_device = (data) =>
@@ -37,6 +38,7 @@ export default {
   get_all_users,
   update_user,
   delete_user,
+  password_reset,
   // devices
   create_device,
   update_device,

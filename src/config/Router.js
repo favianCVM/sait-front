@@ -1,5 +1,6 @@
 import { Switch, Route, Redirect, Router } from "react-router-dom";
 import HomePage from "@pages/";
+import PasswordReset from "@pages/PasswordReset";
 import Error404 from "@containers/404";
 import LoginPage from "@pages/LoginPage";
 import Layout from "@components/common/Layout";
@@ -19,6 +20,24 @@ const AppRouter = (props) => {
           {!isLogged && (
             <>
               <Route exact path="/iniciar-sesion" component={LoginPage} />
+              <Route
+                exact
+                path="/reiniciar-contraseña"
+                component={PasswordReset}
+              />
+              <Route
+                exact
+                path="/cambio-contraseña/:token/:id"
+                component={PasswordReset}
+              />
+
+              <Route exact path="/password-reset">
+                <Redirect to="/reiniciar-contraseña" />
+              </Route>
+
+              <Route exact path="/password-change/:token/:id">
+                <Redirect to="/cambio-contraseña/:token/:id" />
+              </Route>
 
               <Route exact path="/login">
                 <Redirect to="/iniciar-sesion" />

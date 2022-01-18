@@ -5,10 +5,12 @@ export default {
   description: "",
   //user
   user_id: null,
+  //user device incidence
+  device_id: null,
   //this is fow the new incidence type case
   type: {
     name: ""
   },
   //incidence errors
-  errors: [error]
+  errors: [error],
 }

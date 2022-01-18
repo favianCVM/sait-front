@@ -12,12 +12,14 @@ const RegisterIncidence = ({ isAdmin, actions, userId }) => {
   const [isFetching, togleIsFetching] = useBoolean(false);
   const [incidenceTypes, setIncidenceTypes] = React.useState([]);
   const [users, setUsers] = React.useState([]);
+  const [userDevices, setUserDevices] = React.useState([]);
 
   const toast = useToast();
 
   React.useEffect(() => {
     getIncidenceTypes();
-    getUsers();
+    if (isAdmin) getUsers();
+    else getUserDevices();
   }, []);
 
   const getUsers = async () => {
@@ -37,6 +39,8 @@ const RegisterIncidence = ({ isAdmin, actions, userId }) => {
 
     togleIsFetching.off();
   };
+
+  const getUserDevices = async () => {};
 
   const getIncidenceTypes = async () => {
     togleIsFetching.on();
@@ -59,7 +63,7 @@ const RegisterIncidence = ({ isAdmin, actions, userId }) => {
   const handleSubmit = async (values, { resetForm }) => {
     togleIsFetching.on();
 
-    if(!isAdmin) values.user_id = userId
+    if (!isAdmin) values.user_id = userId;
 
     let response = await actions.createIncidence(values);
 
@@ -80,6 +84,13 @@ const RegisterIncidence = ({ isAdmin, actions, userId }) => {
     togleIsFetching.off();
   };
 
+  const handleUserChange = ({ name, value, form = {} }) => {
+    let userDevices = users.find((el) => el.id === value)?.devices;
+
+    setUserDevices(userDevices);
+    form.setFieldValue("device_id", null);
+  };
+
   return (
     <>
       <SpinnerScreen open={isFetching} />
@@ -91,6 +102,8 @@ const RegisterIncidence = ({ isAdmin, actions, userId }) => {
         users={users}
         handleSubmit={handleSubmit}
         isAdmin={isAdmin}
+        userDevices={userDevices}
+        handleUserChange={handleUserChange}
       />
     </>
   );

@@ -25,19 +25,23 @@ const incidenceValidations = (values, props) => {
     errors: incidenceErrors,
     type = {},
     user_id,
+    device_id,
   } = values;
   let { isAdmin } = props;
   const errors = {};
   errors.type = {};
 
   if (isAdmin && !user_id) {
-    errors.user_id =
-      "Debe seleccionar un usuario que percibio la incidencia";
+    errors.user_id = "Debe seleccionar un usuario que percibio la incidencia";
   } else delete errors.user_id;
 
   if (type_id === "new" && !type.name) {
     errors.type.name = "Debe introducir un nombre al nuevo tipo de incidencia";
   } else delete errors.type.name;
+
+  if (!device_id) {
+    errors.device_id = "Debe seleccionar el equipo que presenta la incidencia";
+  } else delete errors.device_id;
 
   errors.errors = incidenceErrors.reduce((acc, item, index) => {
     let elErrors = {};
@@ -156,6 +160,17 @@ const deviceRegisterValidations = (values, props) => {
   return errors;
 };
 
+const passwordResetValidations = (values, props) => {
+  const errors = {};
+  const { email } = values;
+
+  if (!emailValidation.test(email)) {
+    errors.email = "Debe introducir un email";
+  } else delete errors.email;
+
+  return errors;
+};
+
 const componentRegisterValidations = (values, props) => {};
 
 //EXPORTS
@@ -166,4 +181,5 @@ export {
   userUpdateValidations,
   deviceRegisterValidations,
   componentRegisterValidations,
+  passwordResetValidations,
 };

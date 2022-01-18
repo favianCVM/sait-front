@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as actions from "@actions/";
 
-const DisplayIncidences = ({ actions, isAdmin }) => {
+const DisplayIncidences = ({ actions, isAdmin, isTechnician }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [incidences, setIncidences] = React.useState([]);
   const [isFetching, togleIsFetching] = useBoolean(false);
@@ -17,7 +17,7 @@ const DisplayIncidences = ({ actions, isAdmin }) => {
   const toast = useToast();
 
   React.useEffect(() => {
-    getAllIncidences();
+    if (isAdmin || isTechnician) getAllIncidences();
   }, []);
 
   const getAllIncidences = async () => {
@@ -38,9 +38,9 @@ const DisplayIncidences = ({ actions, isAdmin }) => {
     togleIsFetching.off();
   };
 
-  const handleSubmit = (values) => {
-    console.log(values);
-  };
+  // const handleSubmit = (values) => {
+  //   console.log(values);
+  // };
 
   return (
     <>
@@ -48,16 +48,17 @@ const DisplayIncidences = ({ actions, isAdmin }) => {
 
       <PageHeader
         title="Incidencias"
-        action={onOpen}
-        actionIcon={<IoAddCircleOutline />}
-        actionName="anadir incidencia"
+        // action={onOpen}
+        // actionIcon={<IoAddCircleOutline />}
+        // actionName="anadir incidencia"
       />
 
+      {/* 
       <ManageIncidence
         handleSubmit={handleSubmit}
         isOpen={isOpen}
         onClose={onClose}
-      />
+      /> */}
 
       <IncidenceTable isAdmin={isAdmin} data={incidences} />
     </>
@@ -66,6 +67,8 @@ const DisplayIncidences = ({ actions, isAdmin }) => {
 
 const mapStateToProps = (state) => ({
   isAdmin: state.auth.get("token") && parseInt(state.auth.get("role")) === 60,
+  isTechnician:
+    state.auth.get("token") && parseInt(state.auth.get("role")) === 55,
 });
 
 const mapDispatchToProps = (dispatch) => ({
