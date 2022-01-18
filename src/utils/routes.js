@@ -1,21 +1,23 @@
 import {
-  RegisterIncident,
-  Technicians,
-  Users,
-  Incidences,
-  Components,
-  Devices
-} from '@pages/admin/index'
+  RegisterIncidence as AdminRegisterIncidence,
+  Technicians as AdminTechnicians,
+  Users as AdminUsers,
+  Incidences as AdminIncidences,
+  Components as AdminComponents,
+  Devices as AdminDevices,
+} from "@pages/admin/index";
+import {
+  RegisterIncidence as TechnicianRegisterIncidence,
+  Components as TechnicianComponents,
+  Incidences as TechnicianIncidences,
+} from "@pages/technician/index";
 import {
   IoPerson,
   IoAddCircleOutline,
   IoAlertCircle,
   IoBuild,
 } from "react-icons/io5";
-import {
-  BiDevices,
-  BiChip
-} from 'react-icons/bi'
+import { BiDevices, BiChip } from "react-icons/bi";
 
 const adminRoutes = [
   {
@@ -23,59 +25,59 @@ const adminRoutes = [
     as: "/admin/incidencias",
     icon: IoAlertCircle,
     title: "Incidencias",
-    component: Incidences
+    component: AdminIncidences,
   },
   {
-    to: "/admin/register-incident",
+    to: "/admin/register-incidence",
     as: "/admin/registrar-incidencia",
     icon: IoAddCircleOutline,
     title: "Registrar incidencia",
-    component: RegisterIncident
+    component: AdminRegisterIncidence,
   },
   {
     to: "/admin/technicians",
     as: "/admin/tecnicos",
     icon: IoBuild,
     title: "Técnicos",
-    component: Technicians
+    component: AdminTechnicians,
   },
   {
     to: "/admin/components",
     as: "/admin/componentes",
     icon: BiChip,
     title: "Componentes",
-    component: Components
+    component: AdminComponents,
   },
   {
     to: "/admin/devices",
     as: "/admin/equipos",
     icon: BiDevices,
     title: "Equipos",
-    component: Devices
+    component: AdminDevices,
   },
   {
     to: "/admin/users",
     as: "/admin/usuarios",
     icon: IoPerson,
     title: "Usuarios",
-    component: Users
+    component: AdminUsers,
   },
 ];
 
 const userRoutes = [
   {
-    to: "/register-incident",
+    to: "/register-incidence",
     as: "/registrar-incidencia",
     icon: IoAddCircleOutline,
     title: "Registrar incidencia",
-    component: null
+    component: null,
   },
   {
     to: "/incidences",
     as: "/incidencias",
     icon: IoAlertCircle,
     title: "Incidencias",
-    component: null
+    component: null,
   },
 ];
 
@@ -85,27 +87,26 @@ const technicianRoutes = [
     as: "/incidencias",
     icon: IoAlertCircle,
     title: "Incidencias",
-    component: Incidences
+    component: TechnicianIncidences,
   },
-  {
-    to: "/register-incident",
-    as: "/registrar-incidencia",
-    icon: IoAddCircleOutline,
-    title: "Registrar incidencia",
-    component: RegisterIncident
-  },
+  // {
+  //   to: "/register-incidence",
+  //   as: "/registrar-incidencia",
+  //   icon: IoAddCircleOutline,
+  //   title: "Registrar incidencia",
+  //   component: TechnicianRegisterIncidence,
+  // },
   {
     to: "/components",
     as: "/componentes",
     icon: BiChip,
     title: "Componentes",
-    component: Components
+    component: TechnicianComponents,
   },
 ];
 
-
 export default {
-  '60': adminRoutes,
-  '50': userRoutes,
-  '55': technicianRoutes
-}
+  60: adminRoutes,
+  50: userRoutes,
+  55: technicianRoutes,
+};

@@ -1,4 +1,4 @@
-import DisplayDevices from "@containers/admin/devices/DisplayDevices"
+import DisplayDevices from "@containers/devices/DisplayDevices"
 
 const Devices = () => {
 

@@ -14,11 +14,15 @@ import {
   Tooltip,
   Skeleton,
   useDisclosure,
+  Badge,
 } from "@chakra-ui/react";
+import { maxBy } from "lodash";
 import { Paginator, ConfirmDialog, TableSkeleton } from "@components/common";
 import { FiEdit, FiDelete } from "react-icons/fi";
 import { BiPencil } from "react-icons/bi";
+import { BsEye } from "react-icons/bs";
 import { tableStyles } from "@utils/commonStyles";
+import { priorities } from "@utils/translater";
 
 const IncidenceTable = ({
   data,
@@ -45,6 +49,7 @@ const IncidenceTable = ({
               <Th>#</Th>
               <Th>Nombre y apellido</Th>
               <Th>Tipo de incidencia</Th>
+              <Th>Maxima prioridad</Th>
               <Th>Email</Th>
               <Th></Th>
             </Tr>
@@ -52,17 +57,31 @@ const IncidenceTable = ({
           <Tbody>
             {!isFetching ? (
               displayData.map((row) => (
-                <Tr>
+                <Tr key={`incidence-${row.id}`}>
                   <Td>{row.id}</Td>
                   <Td>
                     {row?.user?.first_name} {row?.user?.last_name}
                   </Td>
-                  <Td display={{ base: "none", md: "table-cell" }}>
-                    {row?.type?.name}
+                  <Td>{row?.type?.name}</Td>
+                  <Td>
+                    <Tooltip
+                      hasArrow
+                      label={
+                        priorities[maxBy(row.errors, "priority")?.priority]
+                      }
+                    >
+                      <Badge
+                        _hover={{
+                          cursor: "default",
+                        }}
+                        fontSize="lg"
+                        p="2"
+                      >
+                        {maxBy(row.errors, "priority")?.priority}
+                      </Badge>
+                    </Tooltip>
                   </Td>
-                  <Td display={{ base: "none", md: "table-cell" }}>
-                    {row?.user?.email}
-                  </Td>
+                  <Td>{row?.user?.email}</Td>
                   <Td>
                     <Stack direction="row" spacing="2">
                       <Tooltip hasArrow label="Editar">
@@ -84,7 +103,7 @@ const IncidenceTable = ({
                           <IconButton
                             size="sm"
                             onClick={() => {}}
-                            icon={<BiPencil />}
+                            icon={<BsEye />}
                           />
                         </Tooltip>
                       )}

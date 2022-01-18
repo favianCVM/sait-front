@@ -1,8 +1,6 @@
 import {
   Stack,
   Flex,
-  Button,
-  IconButton,
   Heading,
   Box,
   Accordion,
@@ -12,7 +10,7 @@ import {
   AccordionProvider,
   AccordionPanel,
 } from "@chakra-ui/react";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form } from "formik";
 import { incidenceValidations } from "@utils/validations";
 import { FaTimes, FaPlus } from "react-icons/fa";
 import {
@@ -22,25 +20,39 @@ import {
   AutosuggestField,
   TextField,
   SubmitFormButton,
+  FormButton,
 } from "@components/common";
 import incidence from "@models/incidence";
 import error from "@models/error";
+import { priorities } from "@utils/options";
 
 const IncidenceForm = ({
   handleSubmit,
   isAdmin = false,
   incidenceTypes = [],
   users = [],
+  userDevices = [],
+  handleUserChange = () => {},
+  updateIncidence = {},
 }) => {
   return (
     <Formik
-      initialValues={incidence}
+      initialValues={updateIncidence ? updateIncidence : incidence}
       onSubmit={handleSubmit}
       validate={(values) => incidenceValidations(values, { isAdmin })}
     >
       {(props) => (
         <Form>
-          <Flex>
+          <Flex
+            px={{
+              base: "6",
+              lg: "0",
+            }}
+            flexDir={{
+              base: "column",
+              lg: "row",
+            }}
+          >
             <Stack
               flexDir="column"
               w={{
@@ -60,12 +72,25 @@ const IncidenceForm = ({
                     label: `${el.first_name} #${el.id}`,
                     value: el.id,
                   }))}
+                  handleChangeCallback={isAdmin ? handleUserChange : null}
                   name="user_id"
                   placeholder="seleccione un usuario"
                   disabled={props.isSubmitting}
                   label="Usuario que percibio la incindencia"
                 />
               )}
+
+              <SelectField
+                label="Equipo"
+                placeholder="Equipo"
+                name={`device_id`}
+                id={`device_id`}
+                disabled={props.isSubmitting}
+                options={userDevices.map((el) => ({
+                  label: el.serial,
+                  value: el.id,
+                }))}
+              />
 
               <SelectField
                 label="Tipo de incidencia"
@@ -103,6 +128,10 @@ const IncidenceForm = ({
             </Stack>
 
             <Stack
+              mt={{
+                base: "12",
+                lg: "0",
+              }}
               w={{
                 lg: "65%",
               }}
@@ -114,21 +143,16 @@ const IncidenceForm = ({
                   lg: "100%",
                 }}
               >
-                <Field name="add_error">
-                  {({ field, form }) => (
-                    <Button
-                      leftIcon={<FaPlus />}
-                      colorScheme="green"
-                      onClick={() => {
-                        let errors = form.values.errors;
-                        errors.push(error);
-                        form.setFieldValue("errors", errors);
-                      }}
-                    >
-                      Anadir falla
-                    </Button>
-                  )}
-                </Field>
+                <FormButton
+                  title="Anadir falla"
+                  handleClick={({ form }) => {
+                    let errors = form.values.errors;
+                    errors.push(error);
+                    form.setFieldValue("errors", errors);
+                  }}
+                  colorScheme="green"
+                  Icon={FaPlus}
+                />
               </Flex>
 
               <Accordion
@@ -143,6 +167,7 @@ const IncidenceForm = ({
                     borderWidth={2}
                     borderRadius={4}
                     key={`accordion-${index}`}
+                    data-aos="fade-in"
                   >
                     <AccordionButton>
                       <Box flex="1" textAlign="left">
@@ -158,6 +183,7 @@ const IncidenceForm = ({
                           label="Descripcion"
                           placeholder="introduzca una descripción"
                           disabled={props.isSubmitting}
+                          showError={false}
                         />
 
                         <DateField
@@ -169,40 +195,26 @@ const IncidenceForm = ({
 
                         {isAdmin && (
                           <SelectField
+                            label="Prioridad"
                             placeholder="prioridad"
                             name={`errors[${index}].priority`}
                             id={`errors[${index}].priority`}
                             disabled={props.isSubmitting}
-                            options={[
-                              {
-                                value: 1,
-                                label: "-1 no presenta mayor problema",
-                              },
-                              { value: 2, label: "-2 recomendado de atender" },
-                              { value: 3, label: "-3 necesario de atender" },
-                              { value: 4, label: "-4 potencialmente critico" },
-                              { value: 5, label: "-5 actualmente critico" },
-                            ]}
+                            options={priorities}
                           />
                         )}
                       </Stack>
                       <Flex justifyContent="end" my="4">
-                        <Field>
-                          {({ field, form }) => (
-                            <Button
-                              colorScheme="pink"
-                              size="md"
-                              onClick={() => {
-                                let errors = form.values.errors;
-                                errors.splice(index, 1);
-                                form.setFieldValue("errors", errors);
-                              }}
-                              leftIcon={<FaTimes />}
-                            >
-                              Eliminar falla
-                            </Button>
-                          )}
-                        </Field>
+                        <FormButton
+                          title="Eliminar falla"
+                          handleClick={({ form }) => {
+                            let errors = form.values.errors;
+                            errors.splice(index, 1);
+                            form.setFieldValue("errors", errors);
+                          }}
+                          colorScheme="pink"
+                          Icon={FaTimes}
+                        />
                       </Flex>
                     </AccordionPanel>
                   </AccordionItem>
@@ -217,7 +229,8 @@ const IncidenceForm = ({
             title={"Crear incidencia"}
             containerProps={{
               textAlign: "center",
-              my: "16",
+              mt: "28",
+              mb: "8",
             }}
           />
         </Form>

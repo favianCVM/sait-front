@@ -11,14 +11,17 @@ const ComponentCardDisplayer = ({
   const [displayData, setDisplayData] = React.useState(data);
 
   return (
-    <Box>
+    <Box px={{
+      base: "8",
+      sm: "none"
+    }}>
       <Flex justify="end">
         <Paginator data={data} setDisplayData={setDisplayData} />
       </Flex>
       <Grid
         templateColumns={{
-          md: "repeat(2, 1fr)",
-          lg: "repeat(3, 1fr)",
+          lg: "repeat(2, 1fr)",
+          xl: "repeat(3, 1fr)",
         }}
         rowGap="6"
         columnGap="6"

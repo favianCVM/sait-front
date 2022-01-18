@@ -12,6 +12,7 @@ const SelectTest = ({
   disabled = false,
   helperText = "",
   size = "md",
+  handleChangeCallback = () => {},
   ...props
 }) => {
   return (
@@ -37,9 +38,10 @@ const SelectTest = ({
             disabled={disabled}
             onChange={(e) => {
               form.setFieldValue(name, e.value);
+              handleChangeCallback({ name, value: e.value, form });
             }}
             className="cursor-pointer"
-            value={options.find(el => el.value === field.value)}
+            value={options.find((el) => el.value === field.value) || null}
             {...props}
           />
           <FormHelperText>{helperText}</FormHelperText>

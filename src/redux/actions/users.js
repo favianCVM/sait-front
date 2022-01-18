@@ -94,3 +94,23 @@ export function getAllUsers() {
       })
   }
 }
+
+export function getUserDevices(id) {
+  return async dispatch => {
+    return requests.get_all_users(id)
+      .then(async (r)=>{
+        return {
+          success: true,
+          data: r.data,
+        }
+      })
+      .catch((e)=>{
+        return {
+          title: e.response?.data?.error?.message || 'Hubo un problema al obtener los equipos del usuario.',
+          success: false,
+          status: 'error',
+          description: 'Intente de nuevo'
+        }
+      })
+  }
+}

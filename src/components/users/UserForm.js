@@ -12,7 +12,8 @@ import {
   FileField,
 } from "@components/common";
 import User from "@models/user";
-import {FaUserAlt} from "react-icons/fa"
+import { FaUserAlt } from "react-icons/fa";
+import { roles, genders } from "@utils/options";
 
 const UserForm = ({ handleSubmit, updateUser }) => {
   const setIntialProps = (type) => {
@@ -90,10 +91,7 @@ const UserForm = ({ handleSubmit, updateUser }) => {
               />
 
               <SelectField
-                options={[
-                  { label: "Masculino", value: "M" },
-                  { label: "Femenino", value: "F" },
-                ]}
+                options={genders}
                 name="sex"
                 id="sex"
                 placeholder="sexo"
@@ -101,20 +99,14 @@ const UserForm = ({ handleSubmit, updateUser }) => {
                 label="Sexo"
               />
 
-              {!updateUser && (
-                <SelectField
-                  options={[
-                    { label: "Admin", value: 60 },
-                    { label: "Tecnico", value: 55 },
-                    { label: "Usuario", value: 50 },
-                  ]}
-                  name="role"
-                  id="role"
-                  placeholder="rol"
-                  disabled={props.isSubmitting}
-                  label="Rol"
-                />
-              )}
+              <SelectField
+                options={roles}
+                name="role"
+                id="role"
+                placeholder="rol"
+                disabled={props.isSubmitting}
+                label="Rol"
+              />
 
               <DateField
                 name="birth_date"
@@ -133,7 +125,7 @@ const UserForm = ({ handleSubmit, updateUser }) => {
             imagePreviewSize="xl"
             toolTipMessage="Foto de perfil"
             id="profile_picture"
-            labelIcon={<FaUserAlt/>}
+            labelIcon={<FaUserAlt />}
             disabled={props.isSubmitting}
             helperText=""
             label=""
