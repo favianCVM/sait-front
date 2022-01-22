@@ -39,7 +39,7 @@ const RegisterIncidence = ({ isAdmin, actions, userId }) => {
   const handleSubmit = async (values, { resetForm }) => {
     togleIsFetching.on();
     values.user_id = userId;
-    
+
     let response = await actions.createIncidence(values);
 
     if (response.success) {
@@ -65,10 +65,7 @@ const RegisterIncidence = ({ isAdmin, actions, userId }) => {
 
       <PageHeader title="Registro de incidencias" />
 
-      <IncidenceForm
-        devices={devices}
-        handleSubmit={handleSubmit}
-      />
+      <IncidenceForm devices={devices} handleSubmit={handleSubmit} />
     </>
   );
 };

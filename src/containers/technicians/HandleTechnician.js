@@ -1,5 +1,4 @@
 import React from "react";
-import history from "@utils/history";
 import {
   
 } from "@chakra-ui/react"

@@ -73,8 +73,8 @@ const adminRoutes = [
     component: AdminUsers,
   },
   {
-    to: "/admin/incidence-management/:incidence_id",
-    as: "/admin/gestion-incidencia/:incidence_id",
+    to: "/admin/incidence-management",
+    as: "/admin/gestion-incidencia",
     icon: null,
     title: null,
     component: AdminHandleIncidence,

@@ -1,8 +1,8 @@
-------> ahora las incidencias no estan ligadas a los usuarios, ahora el user es quien reporta la incidencia,
+------> ahora las incidencias no estan ligadas a los usuarios, ahora el user es quien reporta la incidencia, // 
 
-------> ahora los equipos no estan ligados a los usuarios, ahora cualquier usuario puede registrar cualquier equipo,
+------> ahora los equipos no estan ligados a los usuarios, ahora cualquier usuario puede registrar cualquier equipo, //
 
-------> ahora las incidencias pueden ser asignadas a varios tecnicos,  ->>>
+------> ahora las incidencias pueden ser asignadas a varios tecnicos
 
 ------> ahora las incidencias tienen un campo llamado location, //
 

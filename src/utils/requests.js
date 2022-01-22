@@ -1,13 +1,15 @@
 import Api from "./api";
 
-//USERS & LOGIN
+//LOGIN
 const login = (data) => Api().post("/users/login", data);
+const password_reset = (data) => Api().post(``, data);
+//USERS
 const create_user = (data) => Api().post("/users/create-user", data);
 const get_all_users = () => Api().get("/users/get-all-users");
 const update_user = (data) =>
   Api().put(`/users/update-user/${data.get("id")}`, data);
 const delete_user = (id) => Api().delete(`/users/delete-user/${id}`);
-const password_reset = (data) => Api().post(``, data);
+const get_user = (id) => Api().get(`/users/get-user/${id}`);
 //DEVICES
 const create_device = (data) => Api().post(`/devices/create-device`, data);
 const update_device = (data) =>
@@ -30,6 +32,9 @@ const create_incidence = (data) =>
   Api().post(`/incidences/create-incidence`, data);
 const get_incidence_types = () => Api().get(`/incidences/incidence-types`);
 const get_all_incidences = () => Api().get(`/incidences/get-all-incidences`);
+const get_incidence = (id) => Api().get(`/incidences/get-incidence/${id}`);
+const asign_technicians = (id) =>
+  Api(data, id).get(`/incidences/asign-technicians/${id}`);
 
 export default {
   // user auth
@@ -40,6 +45,7 @@ export default {
   update_user,
   delete_user,
   password_reset,
+  get_user,
   // devices
   create_device,
   update_device,
@@ -57,4 +63,6 @@ export default {
   create_incidence,
   get_incidence_types,
   get_all_incidences,
+  get_incidence,
+  asign_technicians,
 };

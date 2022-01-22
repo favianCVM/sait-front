@@ -1,5 +1,4 @@
 import React from "react";
-import history from "@utils/history";
 import { useBoolean } from "@chakra-ui/react";
 import IncidenceTable from "@components/incidences/IncidenceTable";
 import { SpinnerScreen } from "@components/common";
@@ -22,7 +21,7 @@ const TechnicianProfile = ({}) => {
     <>
       <SpinnerScreen open={isFetching} />
 
-      <IncidenceTable data={technicianIncidences}  />
+      <IncidenceTable data={technicianIncidences} />
     </>
   );
 };

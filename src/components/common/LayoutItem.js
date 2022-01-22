@@ -15,7 +15,7 @@ export default function LayoutItem({ icon, title, to, clickLink, as }) {
 
   React.useEffect(() => {
     let active = location.pathname === as;
-    if(active) setIsOn.on()
+    if (active) setIsOn.on();
   }, []);
 
   history.listen((location, action) => {

@@ -9,7 +9,6 @@ import { bindActionCreators } from "redux";
 import * as actions from "@actions/";
 
 const DisplayIncidences = ({ actions, isAdmin, isTechnician }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [incidences, setIncidences] = React.useState([]);
   const [isFetching, togleIsFetching] = useBoolean(false);
 
@@ -40,14 +39,14 @@ const DisplayIncidences = ({ actions, isAdmin, isTechnician }) => {
   const handleManagement = (incidence_id) => {
     if (isAdmin)
       history.push({
-        pathname: "/admin/incidence-management",
+        pathname: `/admin/incidence-management`,
         state: {
           incidence_id,
         },
       });
-    else if (isTechnician)
+    else
       history.push({
-        pathname: "/technician/incidence-management",
+        pathname: `/technician/incidence-management/`,
         state: {
           incidence_id,
         },

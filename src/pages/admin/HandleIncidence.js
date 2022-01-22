@@ -1,3 +1,12 @@
-const TechnicianProfile = () => {};
+import React from "react";
+import ManageIncidence from "@containers/incidences/ManageIncidence";
 
-export default TechnicianProfile;
+const HandleIncidence = () => {
+  return (
+    <>
+      <ManageIncidence />
+    </>
+  );
+};
+
+export default HandleIncidence;
