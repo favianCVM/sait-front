@@ -3,7 +3,6 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
@@ -12,24 +11,23 @@ import {
   Box,
   IconButton,
   Tooltip,
-  Skeleton,
   useDisclosure,
   Badge,
 } from "@chakra-ui/react";
-import { maxBy } from "lodash";
 import { Paginator, ConfirmDialog, TableSkeleton } from "@components/common";
 import { FiEdit, FiDelete } from "react-icons/fi";
 import { BiPencil } from "react-icons/bi";
 import { BsEye } from "react-icons/bs";
 import { tableStyles } from "@utils/commonStyles";
-import { priorities } from "@utils/translater";
+import { priorities, priorities_colors } from "@utils/translater";
 
 const IncidenceTable = ({
-  data,
-  handleEdit,
-  handleDelete,
-  isFetching,
-  isAdmin,
+  data = [],
+  handleManagement = () => {},
+  handleEdit = () => {},
+  handleDelete = () => {},
+  isFetching = false,
+  isAdmin = false,
 }) => {
   const [displayData, setDisplayData] = React.useState(data);
   const [selectedUser, setSelectedUser] = React.useState(null);
@@ -49,7 +47,7 @@ const IncidenceTable = ({
               <Th>#</Th>
               <Th>Nombre y apellido</Th>
               <Th>Tipo de incidencia</Th>
-              <Th>Maxima prioridad</Th>
+              <Th>Prioridad</Th>
               <Th>Email</Th>
               <Th></Th>
             </Tr>
@@ -62,22 +60,21 @@ const IncidenceTable = ({
                   <Td>
                     {row?.user?.first_name} {row?.user?.last_name}
                   </Td>
-                  <Td>{row?.type?.name}</Td>
+                  <Td>{row.incidence_type}</Td>
                   <Td>
-                    <Tooltip
-                      hasArrow
-                      label={
-                        priorities[maxBy(row.errors, "priority")?.priority]
-                      }
-                    >
+                    <Tooltip hasArrow label={priorities[row.priority]}>
                       <Badge
                         _hover={{
                           cursor: "default",
                         }}
+                        textColor="gray.700"
+                        bg={priorities_colors[row.priority]}
+                        borderColor="gray.300"
+                        border="2px"
                         fontSize="lg"
                         p="2"
                       >
-                        {maxBy(row.errors, "priority")?.priority}
+                        {row.priority}
                       </Badge>
                     </Tooltip>
                   </Td>
@@ -87,22 +84,22 @@ const IncidenceTable = ({
                       <Tooltip hasArrow label="Editar">
                         <IconButton
                           size="sm"
-                          onClick={() => handleEdit(row)}
+                          onClick={() => handleEdit(row.id)}
                           icon={<FiEdit />}
                         />
                       </Tooltip>
-                      <Tooltip hasArrow label="Eliminar">
+                      {/* <Tooltip hasArrow label="Eliminar">
                         <IconButton
                           size="sm"
                           onClick={() => handleDeleteConfirmation(row.id)}
                           icon={<FiDelete />}
                         />
-                      </Tooltip>
+                      </Tooltip> */}
                       {isAdmin && (
                         <Tooltip hasArrow label="Gestionar">
                           <IconButton
                             size="sm"
-                            onClick={() => {}}
+                            onClick={() => handleManagement(row.id)}
                             icon={<BsEye />}
                           />
                         </Tooltip>

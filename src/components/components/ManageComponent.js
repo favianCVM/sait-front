@@ -15,7 +15,6 @@ const ManageComponent = ({
   isOpen,
   onClose,
   handleSubmit,
-  dialogBlocked,
   updateComponent,
 }) => {
   const [isMobile] = useMediaQuery("(max-width: 680px)");
@@ -32,8 +31,8 @@ const ManageComponent = ({
 
       <ModalContent paddingTop={isMobile ? 50 : 0}>
         <ModalHeader>
-          {dialogBlocked
-            ? "Estamos procesando su peticion, espere unos segundos..."
+          {updateComponent
+            ? "Actualización de componente"
             : "Registro de componente"}
         </ModalHeader>
 
@@ -45,12 +44,7 @@ const ManageComponent = ({
         </ModalBody>
 
         <ModalFooter>
-          <Button
-            disabled={dialogBlocked}
-            colorScheme="blue"
-            mr={3}
-            onClick={onClose}
-          >
+          <Button colorScheme="blue" mr={3} onClick={onClose}>
             Cerrar
           </Button>
         </ModalFooter>

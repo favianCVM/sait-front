@@ -1,12 +1,12 @@
 import requests from '@utils/requests'
-import formatFormData from "@utils/formatFormData"
+import formatFormData from '@utils/formatFormData'
 
 export function createIncidence(data){
   return async dispatch => {
     return requests.create_incidence(formatFormData(data))
     .then(r => {
       return {
-        title: 'incidencia creada exitosamente.',
+        title: 'Incidencia creada exitosamente.',
         success: true,
         description: '.....',
         status: 'success',
@@ -14,7 +14,7 @@ export function createIncidence(data){
     })
     .catch(e => {
       return {
-        title: e.response?.data?.error?.message || 'Hubo un problema en la creacion de la incidencia.',
+        title: e.response?.data?.error?.message || 'Hubo un problema en la creación de la incidencia.',
         success: false,
         status: 'error',
         description: 'Intente de nuevo'
@@ -34,7 +34,7 @@ export function getIncidenceTypes(){
     })
     .catch(e => {
       return {
-        title: e.response?.data?.error?.message || 'Hubo un problema en la obtencion de los tipos de incidencia.',
+        title: e.response?.data?.error?.message || 'Hubo un problema en la obtención de los tipos de incidencia.',
         success: false,
         status: 'error',
         description: 'Intente de nuevo'
@@ -55,7 +55,7 @@ export function getAllIncidences(){
     })
     .catch(e => {
       return {
-        title: e.response?.data?.error?.message || 'Hubo un problema en la obtencion de las incidencias.',
+        title: e.response?.data?.error?.message || 'Hubo un problema en la obtención de las incidencias.',
         success: false,
         status: 'error',
         description: 'Intente de nuevo'

@@ -13,13 +13,12 @@ import {
 import DeviceForm from "@components/devices/DeviceForm";
 
 const ManageDevice = ({
-  isOpen,
-  onClose,
-  handleSubmit,
-  dialogBlocked,
-  users,
-  components,
-  updateDevice,
+  isOpen = false,
+  onClose = false,
+  handleSubmit = () => {},
+  components = [],
+  deviceTypes = [],
+  updateDevice = null,
 }) => {
   const [isMobile] = useMediaQuery("(max-width: 680px)");
   return (
@@ -35,27 +34,20 @@ const ManageDevice = ({
 
       <ModalContent paddingTop={isMobile ? 50 : 0}>
         <ModalHeader>
-          {dialogBlocked
-            ? "Estamos procesando su peticion, espere unos segundos..."
-            : "Registro de equipo"}
+          {updateDevice ? "Actualización de equipo" : "Registro de equipo"}
         </ModalHeader>
 
         <ModalBody>
           <DeviceForm
             updateDevice={updateDevice}
-            users={users}
             handleSubmit={handleSubmit}
             components={components}
+            deviceTypes={deviceTypes}
           />
         </ModalBody>
 
         <ModalFooter>
-          <Button
-            disabled={dialogBlocked}
-            colorScheme="blue"
-            mr={3}
-            onClick={onClose}
-          >
+          <Button colorScheme="blue" mr={3} onClick={onClose}>
             Cerrar
           </Button>
         </ModalFooter>

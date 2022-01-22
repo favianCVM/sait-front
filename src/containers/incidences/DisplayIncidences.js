@@ -1,9 +1,8 @@
 import React from "react";
 import { Box, useDisclosure, useBoolean, useToast } from "@chakra-ui/react";
 import { PageHeader, SpinnerScreen } from "@components/common";
-import ManageIncidence from "@components/incidences/ManageIncidence";
-import { IoAddCircleOutline } from "react-icons/io5";
 import IncidenceTable from "@components/incidences/IncidenceTable";
+import history from "@utils/history";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -38,9 +37,22 @@ const DisplayIncidences = ({ actions, isAdmin, isTechnician }) => {
     togleIsFetching.off();
   };
 
-  // const handleSubmit = (values) => {
-  //   console.log(values);
-  // };
+  const handleManagement = (incidence_id) => {
+    if (isAdmin)
+      history.push({
+        pathname: "/admin/incidence-management",
+        state: {
+          incidence_id,
+        },
+      });
+    else if (isTechnician)
+      history.push({
+        pathname: "/technician/incidence-management",
+        state: {
+          incidence_id,
+        },
+      });
+  };
 
   return (
     <>
@@ -60,7 +72,11 @@ const DisplayIncidences = ({ actions, isAdmin, isTechnician }) => {
         onClose={onClose}
       /> */}
 
-      <IncidenceTable isAdmin={isAdmin} data={incidences} />
+      <IncidenceTable
+        isAdmin={isAdmin}
+        data={incidences}
+        handleManagement={handleManagement}
+      />
     </>
   );
 };

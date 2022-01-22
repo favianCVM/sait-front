@@ -11,7 +11,7 @@ import {
   AccordionPanel,
 } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
-import { incidenceValidations } from "@utils/validations";
+import { incidenceCreationValidations } from "@utils/validations";
 import { FaTimes, FaPlus } from "react-icons/fa";
 import {
   DateField,
@@ -23,23 +23,20 @@ import {
   FormButton,
 } from "@components/common";
 import incidence from "@models/incidence";
-import error from "@models/error";
 import { priorities } from "@utils/options";
 
 const IncidenceForm = ({
-  handleSubmit,
-  isAdmin = false,
-  incidenceTypes = [],
-  users = [],
-  userDevices = [],
-  handleUserChange = () => {},
-  updateIncidence = {},
+  handleSubmit = () => {},
+  devices = [],
+  updateIncidence = null,
 }) => {
   return (
     <Formik
-      initialValues={updateIncidence ? updateIncidence : incidence}
+      initialValues={
+        updateIncidence ? updateIncidence : { ...incidence}
+      }
       onSubmit={handleSubmit}
-      validate={(values) => incidenceValidations(values, { isAdmin })}
+      validate={incidenceCreationValidations}
     >
       {(props) => (
         <Form>
@@ -52,6 +49,7 @@ const IncidenceForm = ({
               base: "column",
               lg: "row",
             }}
+            justifyContent="center"
           >
             <Stack
               flexDir="column"
@@ -66,55 +64,38 @@ const IncidenceForm = ({
                 Datos de la incidencia
               </Heading>
 
-              {isAdmin && (
-                <AutosuggestField
-                  data={users.map((el) => ({
-                    label: `${el.first_name} #${el.id}`,
-                    value: el.id,
-                  }))}
-                  handleChangeCallback={isAdmin ? handleUserChange : null}
-                  name="user_id"
-                  placeholder="seleccione un usuario"
-                  disabled={props.isSubmitting}
-                  label="Usuario que percibio la incindencia"
-                />
-              )}
-
               <SelectField
                 label="Equipo"
                 placeholder="Equipo"
                 name={`device_id`}
                 id={`device_id`}
                 disabled={props.isSubmitting}
-                options={userDevices.map((el) => ({
+                options={devices.map((el) => ({
                   label: el.serial,
                   value: el.id,
                 }))}
               />
 
               <SelectField
-                label="Tipo de incidencia"
-                name="type_id"
+                label="Tipo de incidencia (opcional)"
+                name="incidence_type"
                 placeholder="seleccione un tipo"
                 disabled={props.isSubmitting}
                 options={[
-                  { value: "new", label: "Nuevo tipo" },
-                  ...incidenceTypes.map((el) => ({
-                    value: el.id,
-                    label: el.name,
-                  })),
+                  { value: "hardware", label: "Hardware" },
+                  { value: "software", label: "Software" },
+                  { value: "other", label: "Otro" },
                 ]}
               />
 
-              {props.values?.type_id === "new" && (
-                <TextField
-                  name="type.name"
-                  id="type.name"
-                  label="Nombre del tipo de incidencia"
-                  disabled={props.isSubmitting}
-                  placeholder="Introduzca el nombre del tipo de incidencia"
-                />
-              )}
+              <SelectField
+                label="Prioridad"
+                placeholder="prioridad"
+                name="priority"
+                id="priority"
+                disabled={props.isSubmitting}
+                options={priorities}
+              />
 
               <TextareaField
                 name="description"
@@ -125,9 +106,19 @@ const IncidenceForm = ({
                 label="Descripción"
                 disabled={props.isSubmitting}
               />
+
+              <TextareaField
+                name="location"
+                id="location"
+                placeholder="introduzca el area donde sucedio"
+                size="md"
+                showError={false}
+                label="Zona de incidencia"
+                disabled={props.isSubmitting}
+              />
             </Stack>
 
-            <Stack
+            {/* <Stack
               mt={{
                 base: "12",
                 lg: "0",
@@ -192,17 +183,6 @@ const IncidenceForm = ({
                           label="Fecha de la falla"
                           maxDate={new Date()}
                         />
-
-                        {isAdmin && (
-                          <SelectField
-                            label="Prioridad"
-                            placeholder="prioridad"
-                            name={`errors[${index}].priority`}
-                            id={`errors[${index}].priority`}
-                            disabled={props.isSubmitting}
-                            options={priorities}
-                          />
-                        )}
                       </Stack>
                       <Flex justifyContent="end" my="4">
                         <FormButton
@@ -220,7 +200,7 @@ const IncidenceForm = ({
                   </AccordionItem>
                 ))}
               </Accordion>
-            </Stack>
+            </Stack> */}
           </Flex>
 
           <SubmitFormButton
@@ -229,8 +209,8 @@ const IncidenceForm = ({
             title={"Crear incidencia"}
             containerProps={{
               textAlign: "center",
-              mt: "28",
               mb: "8",
+              my: "10"
             }}
           />
         </Form>

@@ -38,9 +38,9 @@ const FileField = ({
 }) => {
   const [picture, setPicture] = React.useState(null);
 
-  React.useEffect(()=>{
-    if(previewPicture) setPicture(previewPicture)
-  },[])
+  React.useEffect(() => {
+    if (previewPicture) setPicture(previewPicture);
+  }, []);
 
   return (
     <Field>
@@ -89,13 +89,13 @@ const FileField = ({
               accept="image/*"
               disabled={disabled}
               onChange={(e) => {
-                const file = e.target.files[0];
                 const reader = new FileReader();
+                const fileObject = e.target.files[0];
 
-                reader.readAsDataURL(file);
+                reader.readAsDataURL(fileObject);
 
                 reader.onloadend = () => {
-                  form.setFieldValue(name, file);
+                  form.setFieldValue(name, fileObject);
                   setPicture(reader.result);
                 };
               }}

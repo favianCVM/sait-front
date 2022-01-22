@@ -10,44 +10,20 @@ import * as actions from "@actions/";
 
 const RegisterIncidence = ({ isAdmin, actions, userId }) => {
   const [isFetching, togleIsFetching] = useBoolean(false);
-  const [incidenceTypes, setIncidenceTypes] = React.useState([]);
-  const [users, setUsers] = React.useState([]);
-  const [userDevices, setUserDevices] = React.useState([]);
+  const [devices, setDevices] = React.useState([]);
 
   const toast = useToast();
 
   React.useEffect(() => {
-    getIncidenceTypes();
-    if (isAdmin) getUsers();
-    else getUserDevices();
+    getDevices();
   }, []);
 
-  const getUsers = async () => {
+  const getDevices = async () => {
     togleIsFetching.on();
 
-    let response = await actions.getAllUsers();
+    let response = await actions.getAllDevices();
 
-    if (response.success) setUsers(response.data);
-    else
-      toast({
-        title: response.title || "",
-        description: response.description || "",
-        status: response.status,
-        duration: 5000,
-        isClosable: true,
-      });
-
-    togleIsFetching.off();
-  };
-
-  const getUserDevices = async () => {};
-
-  const getIncidenceTypes = async () => {
-    togleIsFetching.on();
-
-    let response = await actions.getIncidenceTypes();
-
-    if (response.success) setIncidenceTypes(response.data);
+    if (response.success) setDevices(response.data);
     else
       await toast({
         title: response.title || "",
@@ -62,9 +38,8 @@ const RegisterIncidence = ({ isAdmin, actions, userId }) => {
 
   const handleSubmit = async (values, { resetForm }) => {
     togleIsFetching.on();
-
-    if (!isAdmin) values.user_id = userId;
-
+    values.user_id = userId;
+    
     let response = await actions.createIncidence(values);
 
     if (response.success) {
@@ -84,13 +59,6 @@ const RegisterIncidence = ({ isAdmin, actions, userId }) => {
     togleIsFetching.off();
   };
 
-  const handleUserChange = ({ name, value, form = {} }) => {
-    let userDevices = users.find((el) => el.id === value)?.devices;
-
-    setUserDevices(userDevices);
-    form.setFieldValue("device_id", null);
-  };
-
   return (
     <>
       <SpinnerScreen open={isFetching} />
@@ -98,12 +66,8 @@ const RegisterIncidence = ({ isAdmin, actions, userId }) => {
       <PageHeader title="Registro de incidencias" />
 
       <IncidenceForm
-        incidenceTypes={incidenceTypes}
-        users={users}
+        devices={devices}
         handleSubmit={handleSubmit}
-        isAdmin={isAdmin}
-        userDevices={userDevices}
-        handleUserChange={handleUserChange}
       />
     </>
   );

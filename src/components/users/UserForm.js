@@ -83,11 +83,11 @@ const UserForm = ({ handleSubmit, updateUser }) => {
               <TextField
                 name="dni"
                 id="dni"
-                placeholder="dni"
+                placeholder="introduzca su cédula de identidad"
                 size="md"
                 showError={false}
                 disabled={props.isSubmitting}
-                label="DNI"
+                label="Cédula de identidad"
               />
 
               <SelectField

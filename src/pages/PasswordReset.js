@@ -38,7 +38,7 @@ const PasswordReset = ({ actions }) => {
         minH="70%"
       >
         <Heading textAlign="center" my="10">
-          Recuperacion de contrasenna
+          Recuperacion de contraseña
         </Heading>
         <PasswordResetForm handleSubmit={handleSubmit} />
       </Center>

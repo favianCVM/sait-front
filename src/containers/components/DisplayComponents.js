@@ -169,7 +169,7 @@ const DisplayComponents = ({ actions }) => {
         title="Componentes"
         action={onOpen}
         actionIcon={<IoAddCircleOutline />}
-        actionName="anadir componente"
+        actionName="Añadir componente"
       />
 
       <ManageComponent
@@ -192,7 +192,7 @@ const DisplayComponents = ({ actions }) => {
         isOpen={confirmIsOpen}
         onClose={confirmOnClose}
         confirmMethod={handleDeleteComponent}
-        title="Desea eliminar este componente?"
+        title="¿Desea eliminar este componente?"
       />
     </>
   );

@@ -12,6 +12,7 @@ const password_reset = (data) => Api().post(``, data);
 const create_device = (data) => Api().post(`/devices/create-device`, data);
 const update_device = (data) =>
   Api().put(`/devices/update-device/${data.get("id")}`, data);
+const get_all_device_types = () => Api().get("/devices/get-all-device-types");
 const get_all_devices = () => Api().get("/devices/get-all-devices");
 const delete_device = (id) => Api().delete(`/devices/delete-device/${id}`);
 //COMPONENTS
@@ -44,6 +45,7 @@ export default {
   update_device,
   get_all_devices,
   delete_device,
+  get_all_device_types,
   // components
   get_all_components,
   create_component,

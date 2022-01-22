@@ -52,7 +52,7 @@ const LoginContainer = (props) => {
     <>
       <Box data-aos="fade-in" py={14}>
         <Heading my={6} textAlign="center">
-          Iniciar sesion
+          Iniciar sesión
         </Heading>
         <Center
           width={{
@@ -67,7 +67,7 @@ const LoginContainer = (props) => {
             border="none"
             bg="transparent"
           >
-            Has olvidado la contraseña?
+            ¿Ha olvidado su contraseña?
           </Button>
         </Center>
       </Box>
