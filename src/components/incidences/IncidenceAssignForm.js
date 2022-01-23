@@ -31,7 +31,8 @@ const IncidenceAsignForm = ({
       px="8"
       py="12"
       mx={{
-        base: "auto",
+        base: "auto", 
+        lg: "initial"
       }}
       w={{
         base: "80%",

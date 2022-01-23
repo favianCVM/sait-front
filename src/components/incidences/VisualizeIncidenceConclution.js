@@ -45,9 +45,10 @@ const VisualizeIncidenceConclution = ({ incidence }) => {
       }}
       px="8"
       py="12"
-      mx={{
-        base: "auto",
-      }}
+      // mx={{
+      //   base: "auto", 
+      //   lg: "initial"
+      // }}
       w={{
         base: "80%",
         lg: "50%",

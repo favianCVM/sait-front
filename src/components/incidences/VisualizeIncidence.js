@@ -37,7 +37,10 @@ const VisualizeIncidence = ({ incidence }) => {
         base: "none",
         lg: "none",
       }}
-      mx="auto"
+      mx={{
+        base: "auto", 
+        lg: "initial"
+      }}
       w={{
         base: "80%",
         lg: "50%",

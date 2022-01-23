@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as actions from "@actions/";
 
-const DisplayIncidences = ({ actions, isAdmin, isTechnician, userId }) => {
+const DisplayIncidences = ({ actions, isAdmin, isUser, isTechnician, userId }) => {
   const [incidences, setIncidences] = React.useState([]);
   const [isFetching, togleIsFetching] = useBoolean(false);
 

@@ -1,6 +1,11 @@
+import ManageIncidence from "@containers/incidences/ManageIncidence";
+
 const HandleIncidence = () => {
-  
-}
+  return (
+    <>
+      <ManageIncidence />
+    </>
+  );
+};
 
-
-export default HandleIncidence
+export default HandleIncidence;

@@ -48,6 +48,7 @@ const ConcludeIncidenceForm = ({ components = [], handleSubmit }) => {
       py="12"
       mx={{
         base: "auto",
+        lg: "initial"
       }}
       w={{
         base: "80%",

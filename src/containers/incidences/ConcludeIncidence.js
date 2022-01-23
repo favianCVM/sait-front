@@ -76,7 +76,7 @@ const ConcludeIncidence = ({ actions, technician_id }) => {
         title={`Incidencia #${incidence.id}`}
         displayGoBackButton={true}
       />
-      <Flex flexWrap="wrap">
+      <Flex flexWrap="wrap" justifyContent="center">
         <VisualizeIncidence incidence={incidence} />
         <ConcludeIncidenceForm
           handleSubmit={handleConcludeIncidence}

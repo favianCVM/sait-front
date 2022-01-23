@@ -1,8 +1,8 @@
-import DisplayIncidences from "@containers/incidences/DisplayIncidences"
+import UserIncidences from "@containers/incidences/UserIncidences"
 
 const Incidences = () =>{
   return(
-    <DisplayIncidences></DisplayIncidences>
+    <UserIncidences></UserIncidences>
   )
 }
 

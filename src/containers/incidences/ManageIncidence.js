@@ -93,22 +93,20 @@ const ManageIncidence = ({
         actionIcon={<BsClock />}
         actionName="Concluir incidencia"
       />
-      <Flex flexWrap="wrap">
+      <Flex flexWrap="wrap" justifyContent="center">
         <VisualizeIncidence incidence={incidence} />
         {incidence.status === "succeeded" && (
           <VisualizeIncidenceConclution incidence={incidence} />
         )}
-        {isAdmin &&
-          incidence.status ===
-            "pending"(
-              <IncidenceAssignForm
-                incidence={{
-                  technicians: incidence?.technicians?.map((el) => el.id),
-                }}
-                handleAsign={handleAsign}
-                technicians={technicians}
-              />
-            )}
+        {isAdmin && incidence.status === "pending" && (
+          <IncidenceAssignForm
+            incidence={{
+              technicians: incidence?.technicians?.map((el) => el.id),
+            }}
+            handleAsign={handleAsign}
+            technicians={technicians}
+          />
+        )}
       </Flex>
     </>
   );

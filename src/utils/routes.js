@@ -26,6 +26,7 @@ import {
   HandleIncidence as UserHandleIncidence,
   Incidences as UserIncidences,
   RegisterIncidence as UserRegisterIncidence,
+  UpdateIncidence as UserUpdateIncidence,
 } from "@pages/user/index";
 import {
   IoPerson,
@@ -104,6 +105,13 @@ const adminRoutes = [
 
 const userRoutes = [
   {
+    to: "/incidences",
+    as: "/incidencias",
+    icon: IoAlertCircle,
+    title: "Incidencias",
+    component: UserIncidences,
+  },
+  {
     to: "/register-incidence",
     as: "/registrar-incidencia",
     icon: IoAddCircleOutline,
@@ -111,12 +119,20 @@ const userRoutes = [
     component: UserRegisterIncidence,
   },
   {
-    to: "/incidences",
-    as: "/incidencias",
-    icon: IoAlertCircle,
-    title: "Incidencias",
-    component: UserIncidences,
+    to: "/incidence-management",
+    as: "/gestion-incidencia",
+    icon: null,
+    title: null,
+    component: UserHandleIncidence,
   },
+  {
+    to: "/incidence-update",
+    as: "/actualizacion-incidencia",
+    icon: null,
+    title: null,
+    component: UserUpdateIncidence,
+  },
+
   // {
   //   to: "/profile",
   //   as: "/perfil",
@@ -124,13 +140,6 @@ const userRoutes = [
   //   title: "Perfil",
   //   component: UserUserProfile,
   // },
-  {
-    to: "/handle-incidence/:incidence_id",
-    as: "/gestionar-incidencia/:incidence_id",
-    icon: null,
-    title: null,
-    component: UserHandleIncidence,
-  },
 ];
 
 const technicianRoutes = [

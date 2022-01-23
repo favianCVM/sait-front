@@ -1,6 +1,11 @@
-const RegisterIncidence = () => {
-  
-}
+import RegisterIncidence from "@containers/incidences/RegisterIncidence";
 
+const RegisterIncident = () => {
+  return (
+    <>
+      <RegisterIncidence />
+    </>
+  );
+};
 
-export default RegisterIncidence
+export default RegisterIncident;

@@ -37,7 +37,7 @@ const UserIncidences = ({ actions, isAdmin, isTechnician, userId }) => {
         ? `/admin/incidence-management`
         : isTechnician
         ? `/technician/incidence-management`
-        : `/incidences-management`,
+        : `/incidence-management`,
       state: {
         incidence,
       },
