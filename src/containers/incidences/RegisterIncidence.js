@@ -63,7 +63,7 @@ const RegisterIncidence = ({ isAdmin, actions, userId }) => {
     <>
       <SpinnerScreen open={isFetching} />
 
-      <PageHeader title="Registro de incidencias" />
+      <PageHeader title={"Registro de incidencias"} />
 
       <IncidenceForm devices={devices} handleSubmit={handleSubmit} />
     </>

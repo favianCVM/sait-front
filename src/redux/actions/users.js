@@ -9,7 +9,6 @@ export function createUser(data) {
         return {
           title: 'perfil creado exitosamente.',
           success: true,
-          description: '.....',
           status: 'success',
         }
       })
@@ -38,7 +37,6 @@ export function updateUser(data) {
         return {
           title: 'Perfil actualizado exitosamente.',
           success: true,
-          description: '.....',
           status: 'success',
         }
       })
@@ -60,7 +58,6 @@ export function deleteUser(id) {
         return {
           title: 'Perfil eliminado exitosamente.',
           success: true,
-          description: '.....',
           status: 'success',
         }
       })

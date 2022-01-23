@@ -66,6 +66,7 @@ const LoginContainer = (props) => {
             my="6"
             border="none"
             bg="transparent"
+            disabled={isFetching}
           >
             ¿Ha olvidado su contraseña?
           </Button>

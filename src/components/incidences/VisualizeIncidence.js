@@ -12,25 +12,50 @@ import {
   UnorderedList,
   Divider,
   Heading,
+  Badge,
 } from "@chakra-ui/react";
+import { status, status_color_schemes } from "@utils/translater";
+
 const VisualizeIncidence = ({ incidence }) => {
   return (
     <Box
       px="5"
       py="8"
-      borderRadius="md"
+
+      borderBottomLeftRadius={{
+        base: "none",
+        lg: "xl"
+      }}
+      borderTopLeftRadius={{
+        base: "xl",
+        lg: "xl"
+      }}
+      borderTopRightRadius={{
+        base: "xl",
+        lg:"none"
+      }}
+      borderBottomRightRadius={{
+        base: "none",
+        lg: "none"
+      }}
       mx="auto"
       w={{
-        base: "65%",
+        base: "80%",
+        lg: "60%",
       }}
       border="1px"
-      boxShadow="xl"
+      className="shadow-2xl"
     >
       <Heading textAlign="center" my="2">
         Datos de la incidencia
       </Heading>
 
       <Flex flexDir="column">
+        <Row title="Estatus">
+          <Badge p="2" colorScheme={status_color_schemes[incidence.status]}>
+            {status[incidence.status]}
+          </Badge>
+        </Row>
         <Row title="Localizacion">
           <Box>{incidence.location}</Box>
         </Row>
@@ -45,7 +70,7 @@ const VisualizeIncidence = ({ incidence }) => {
         <Row title="Componentes del equipo">
           <UnorderedList>
             {incidence.device?.components?.map((el) => (
-              <ListItem>{el.name}</ListItem>
+              <ListItem key={`component-${el.id}`}>{el.name}</ListItem>
             ))}
           </UnorderedList>
         </Row>
@@ -62,10 +87,28 @@ const VisualizeIncidence = ({ incidence }) => {
 const Row = ({ children, title }) => {
   return (
     <Box w="100">
-      <Flex w="100" justifyContent="space-between" my="4">
-        <Text>{title}</Text>
+      <Grid
+        w="100%"
+        placeContent={{
+          base: "center",
+        }}
+        justifyContent={{
+          base: "center",
+        }}
+        gridAutoFlow={{
+          base: "row",
+          md: "column",
+        }}
+        templateColumns="repeat(2 1fr)"
+        w="100"
+        justifyContent="space-between"
+        my="4"
+      >
+        <Text fontWeight="bold" fontSize="lg">
+          {title}
+        </Text>
         {children}
-      </Flex>
+      </Grid>
       <Divider />
     </Box>
   );

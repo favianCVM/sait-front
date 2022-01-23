@@ -1,21 +1,24 @@
 import React from "react";
 import { PageHeader, SpinnerScreen } from "@components/common";
-import { useBoolean, useToast } from "@chakra-ui/react";
+import { useBoolean, useToast, Flex } from "@chakra-ui/react";
 import VisualizeIncidence from "@components/incidences/VisualizeIncidence";
-import IncidenceAsign from "@components/incidences/IncidenceAsign";
+import IncidenceAssignForm from "@components/incidences/IncidenceAssignForm";
 
 import history from "@utils/history";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as actions from "@actions/";
+import { el } from "date-fns/locale";
 
 const ManageIncidence = ({
   actions,
   isAdmin = false,
   isTechnician = false,
 }) => {
-  const [incidence, setIncidence] = React.useState({});
+  const [incidence, setIncidence] = React.useState({
+    ...history.location.state?.incidence,
+  });
   const [technicians, setTechnicians] = React.useState([]);
   const [isFetching, togleIsFetching] = useBoolean(false);
 
@@ -24,7 +27,6 @@ const ManageIncidence = ({
   React.useEffect(() => {
     if (!history.location.state) history.goBack();
     else {
-      getIncidence();
       getTechnicians();
     }
   }, []);
@@ -36,7 +38,11 @@ const ManageIncidence = ({
       history.location.state.incidence_id
     );
 
-    if (response.success) setIncidence(response.data);
+    if (response.success)
+      setIncidence({
+        ...response.data,
+        technicians: response.data?.technicians?.map((el) => el.id) || [],
+      });
     else
       toast({
         title: response.title || "",
@@ -70,10 +76,9 @@ const ManageIncidence = ({
   const handleAsign = async (values) => {
     togleIsFetching.on();
 
-    let response = await actions.asignTechnicians(
-      values,
-      history.location.state.incidence_id
-    );
+    values.incidence_id = history.location.state.incidence_id;
+
+    let response = await actions.asignTechnicians(values);
 
     await toast({
       title: response.title || "",
@@ -97,10 +102,18 @@ const ManageIncidence = ({
         title={`Manejo de incidencia #${incidence.id}`}
         displayGoBackButton={true}
       />
-      <VisualizeIncidence incidence={incidence} />
-      {isAdmin && (
-        <IncidenceAsign handleAsign={handleAsign} technicians={technicians} />
-      )}
+      <Flex flexWrap="wrap">
+        <VisualizeIncidence incidence={incidence} />
+        {isAdmin && (
+          <IncidenceAssignForm
+            incidence={{
+              technicians: incidence?.technicians?.map((el) => el.id),
+            }}
+            handleAsign={handleAsign}
+            technicians={technicians}
+          />
+        )}
+      </Flex>
     </>
   );
 };

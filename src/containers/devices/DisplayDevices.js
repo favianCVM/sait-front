@@ -84,7 +84,6 @@ const DisplayDevices = ({ actions }) => {
     togleIsFetching.on();
 
     let response;
-    console.log("VALUES", values);
 
     if (values.id) response = await actions.updateDevice(values);
     else response = await actions.createDevice(values);

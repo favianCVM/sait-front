@@ -7,6 +7,7 @@ import {
   Devices as AdminDevices,
   HandleIncidence as AdminHandleIncidence,
   TechnicianProfile as AdminTechnicianProfile,
+  UpdateIncidence as AdminUpdateIncidence,
 } from "@pages/admin/index";
 import {
   RegisterIncidence as TechnicianRegisterIncidence,
@@ -80,11 +81,18 @@ const adminRoutes = [
     component: AdminHandleIncidence,
   },
   {
-    to: "/admin/technician-profile/:technician_id",
-    as: "/admin/perfil-tecnico/:technician_id",
+    to: "/admin/technician-profile",
+    as: "/admin/perfil-tecnico",
     icon: null,
     title: null,
     component: AdminTechnicianProfile,
+  },
+  {
+    to: "/admin/incidence-update",
+    as: "/admin/actualizacion-incidencia",
+    icon: null,
+    title: null,
+    component: AdminUpdateIncidence,
   },
 ];
 

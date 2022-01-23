@@ -9,7 +9,6 @@ export function createIncidence(data) {
         return {
           title: "Incidencia creada exitosamente.",
           success: true,
-          description: ".....",
           status: "success",
         };
       })
@@ -95,13 +94,15 @@ export function getIncidence(id) {
   };
 }
 
-export function asignTechnicians(values, id) {
+export function asignTechnicians(data) {
   return async (dispatch) => {
     return requests
-      .asign_technicians(id)
+      .asign_technicians(formatFormData(data))
       .then((r) => {
         return {
           success: true,
+          title: "Asignación de técnico exitosa",
+          status: "success",
           data: r.data,
         };
       })
@@ -110,6 +111,30 @@ export function asignTechnicians(values, id) {
           title:
             e.response?.data?.error?.message ||
             "Hubo un problema en la asignacion de tecnicos.",
+          success: false,
+          status: "error",
+          description: "Intente de nuevo",
+        };
+      });
+  };
+}
+
+export function updateIncidence(data) {
+  return async (dispatch) => {
+    return requests
+      .update_incidence(formatFormData(data))
+      .then((r) => {
+        return {
+          title: "Incidencia actualizada exitosamente.",
+          success: true,
+          status: "success",
+        };
+      })
+      .catch((e) => {
+        return {
+          title:
+            e.response?.data?.error?.message ||
+            "Hubo un problema en la actualización de la incidencia.",
           success: false,
           status: "error",
           description: "Intente de nuevo",

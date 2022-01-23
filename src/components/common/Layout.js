@@ -71,7 +71,7 @@ const Sidebar = (props) => {
           }}
           py={{
             base: 2,
-            md: 4,
+            md: 6,
           }}
           px={{
             base: 2,
@@ -125,7 +125,10 @@ const Sidebar = (props) => {
               flexDirection="column"
             >
               <Avatar src={profile_picture} size="lg" />
-              <Heading textAlign="center">{username}</Heading>
+              <Heading fontSize={{
+                base: "2xl",
+                lg: "4xl"
+              }} textAlign="center">{username}</Heading>
               <LayoutFooter
                 isDark={isDark}
                 setShowLogOut={setShowLogOut}

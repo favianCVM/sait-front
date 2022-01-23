@@ -1,26 +1,11 @@
-import {
-  Stack,
-  Flex,
-  Heading,
-  Box,
-  Accordion,
-  AccordionButton,
-  AccordionItem,
-  AccordionIcon,
-  AccordionProvider,
-  AccordionPanel,
-} from "@chakra-ui/react";
+import { Stack, Flex, Heading, Box } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
 import { incidenceCreationValidations } from "@utils/validations";
-import { FaTimes, FaPlus } from "react-icons/fa";
 import {
   DateField,
   TextareaField,
   SelectField,
-  AutosuggestField,
-  TextField,
   SubmitFormButton,
-  FormButton,
 } from "@components/common";
 import incidence from "@models/incidence";
 import { priorities } from "@utils/options";
@@ -32,9 +17,7 @@ const IncidenceForm = ({
 }) => {
   return (
     <Formik
-      initialValues={
-        updateIncidence ? updateIncidence : { ...incidence}
-      }
+      initialValues={updateIncidence ? updateIncidence : incidence}
       onSubmit={handleSubmit}
       validate={incidenceCreationValidations}
     >
@@ -95,6 +78,15 @@ const IncidenceForm = ({
                 id="priority"
                 disabled={props.isSubmitting}
                 options={priorities}
+              />
+
+              <DateField
+                name="date"
+                id="date"
+                placeholder="fecha de incidencia"
+                maxDate={new Date()}
+                disabled={props.isSubmitting}
+                label="Fecha de incidencia"
               />
 
               <TextareaField
@@ -206,11 +198,13 @@ const IncidenceForm = ({
           <SubmitFormButton
             isSubmitting={props.isSubmitting}
             errors={props.errors}
-            title={"Crear incidencia"}
+            title={
+              updateIncidence ? "Actualizar incidencia" : "Registrar incidencia"
+            }
             containerProps={{
               textAlign: "center",
               mb: "8",
-              my: "10"
+              my: "10",
             }}
           />
         </Form>

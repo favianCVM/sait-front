@@ -19,7 +19,13 @@ import { FiEdit, FiDelete } from "react-icons/fi";
 import { BiPencil } from "react-icons/bi";
 import { BsEye } from "react-icons/bs";
 import { tableStyles } from "@utils/commonStyles";
-import { priorities, priorities_colors } from "@utils/translater";
+import {
+  priorities,
+  priorities_colors,
+  status,
+  status_color_schemes,
+} from "@utils/translater";
+import formatDate from "@utils/formatDate";
 
 const IncidenceTable = ({
   data = [],
@@ -28,6 +34,7 @@ const IncidenceTable = ({
   handleDelete = () => {},
   isFetching = false,
   isAdmin = false,
+  user_id = null,
 }) => {
   const [displayData, setDisplayData] = React.useState(data);
   const [selectedUser, setSelectedUser] = React.useState(null);
@@ -45,10 +52,11 @@ const IncidenceTable = ({
           <Thead>
             <Tr>
               <Th>#</Th>
-              <Th>Nombre y apellido</Th>
+              <Th>Reportador</Th>
               <Th>Tipo de incidencia</Th>
               <Th>Prioridad</Th>
-              <Th>Email</Th>
+              <Th>Estatus</Th>
+              <Th>Fecha de reporte</Th>
               <Th></Th>
             </Tr>
           </Thead>
@@ -67,7 +75,7 @@ const IncidenceTable = ({
                         _hover={{
                           cursor: "default",
                         }}
-                        textColor="gray.700"
+                        textColor="gray.900"
                         bg={priorities_colors[row.priority]}
                         borderColor="gray.300"
                         border="2px"
@@ -78,16 +86,27 @@ const IncidenceTable = ({
                       </Badge>
                     </Tooltip>
                   </Td>
-                  <Td>{row?.user?.email}</Td>
+                  <Td>
+                    <Badge
+                      p="2"
+                      fontSize="sm"
+                      colorScheme={status_color_schemes[row.status]}
+                    >
+                      {status[row.status]}
+                    </Badge>
+                  </Td>
+                  <Td>{formatDate(row?.date)}</Td>
                   <Td>
                     <Stack direction="row" spacing="2">
-                      <Tooltip hasArrow label="Editar">
-                        <IconButton
-                          size="sm"
-                          onClick={() => handleEdit(row.id)}
-                          icon={<FiEdit />}
-                        />
-                      </Tooltip>
+                      {(isAdmin || row.user_id === user_id) && (
+                        <Tooltip hasArrow label="Editar">
+                          <IconButton
+                            size="sm"
+                            onClick={() => handleEdit(row)}
+                            icon={<FiEdit />}
+                          />
+                        </Tooltip>
+                      )}
                       {/* <Tooltip hasArrow label="Eliminar">
                         <IconButton
                           size="sm"
@@ -99,7 +118,7 @@ const IncidenceTable = ({
                         <Tooltip hasArrow label="Gestionar">
                           <IconButton
                             size="sm"
-                            onClick={() => handleManagement(row.id)}
+                            onClick={() => handleManagement(row)}
                             icon={<BsEye />}
                           />
                         </Tooltip>

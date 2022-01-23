@@ -52,7 +52,7 @@ const PageHeader = ({
         >
           {title}
         </Heading>
-        {displayGoBackButton && <GoBackButton isAbsolute={false} />}
+        {displayGoBackButton && <GoBackButton mx={{base: "auto", lg: "0"}} isAbsolute={false} />}
         {action && actionIcon && actionName && (
           <Button
             shadow="sm"

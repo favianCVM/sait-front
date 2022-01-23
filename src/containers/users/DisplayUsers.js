@@ -1,10 +1,9 @@
 import React from "react";
 import { Box, useDisclosure, useToast, useBoolean } from "@chakra-ui/react";
-import PageHeader from "@components/common/PageHeader";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import UsersTable from "@components/users/UsersTable";
 import ManageUser from "@components/users/ManageUser";
-import { SpinnerScreen } from "@components/common";
+import { SpinnerScreen, PageHeader } from "@components/common";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";

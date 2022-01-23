@@ -19,3 +19,13 @@ export const priorities_colors = {
   4: "orange.400",
   5: "red.400",
 };
+
+export const status = {
+  succeeded: "Finalizada",
+  pending: "Pendiente",
+};
+
+export const status_color_schemes = {
+  succeeded: "green",
+  pending: "red",
+};

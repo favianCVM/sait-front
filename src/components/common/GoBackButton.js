@@ -8,6 +8,7 @@ const GoBackButton = ({
   route = null,
   callBack = () => {},
   isAbsolute = true,
+  ...props
 }) => {
   return (
     <Button
@@ -23,6 +24,7 @@ const GoBackButton = ({
       position={isAbsolute ? "absolute" : "block"}
       padding="6"
       disabled={disabled}
+      {...props}
     >
       <Icon size={28} />
     </Button>

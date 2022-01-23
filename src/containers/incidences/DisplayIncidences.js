@@ -36,21 +36,30 @@ const DisplayIncidences = ({ actions, isAdmin, isTechnician }) => {
     togleIsFetching.off();
   };
 
-  const handleManagement = (incidence_id) => {
+  const handleManagement = (incidence) => {
     if (isAdmin)
       history.push({
         pathname: `/admin/incidence-management`,
         state: {
-          incidence_id,
+          incidence,
         },
       });
     else
       history.push({
         pathname: `/technician/incidence-management/`,
         state: {
-          incidence_id,
+          incidence,
         },
       });
+  };
+
+  const handleEdit = (incidence) => {
+    history.push({
+      pathname: "/admin/incidence-update",
+      state: {
+        incidence,
+      },
+    });
   };
 
   return (
@@ -75,6 +84,7 @@ const DisplayIncidences = ({ actions, isAdmin, isTechnician }) => {
         isAdmin={isAdmin}
         data={incidences}
         handleManagement={handleManagement}
+        handleEdit={handleEdit}
       />
     </>
   );
