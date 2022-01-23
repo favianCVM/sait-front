@@ -6,7 +6,7 @@ export const roles = {
 
 export const priorities = {
   1: "No presenta mayor problema",
-  2: "Recomendado atender",
+  2: "Presenta problemas para continuar el trabajo",
   3: "Necesario de atender",
   4: "Potencialmente crítico",
   5: "Altamente crítico",

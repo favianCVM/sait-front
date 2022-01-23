@@ -61,6 +61,37 @@ const incidenceCreationValidations = (values, props) => {
   return errors;
 };
 
+const concludeIncidenceValidations = (values) => {
+  let { errors } = values;
+  const formErrors = {};
+
+  formErrors.errors = errors.reduce((acc, item, index) => {
+    let elErrors = {};
+
+    if (!item.description) {
+      elErrors.description = `Debe introducir una descripcion en la falla #${index}`;
+    } else delete elErrors.description;
+
+    // if (!item.priority || item.priority === 0) {
+    //   elErrors.priority = `Debe seleccionar una prioridad para la falla #${index}`;
+    // } else delete elErrors.priority;
+
+    acc.push(elErrors);
+
+    return acc;
+  }, []);
+
+  if (!errors.length) {
+    formErrors.empty_errors =
+      "Debe introducir la o las fallas de la incidencia.";
+  } else delete formErrors.empty_errors;
+
+  if (formErrors.errors.every((el) => Object.keys(el).length <= 0))
+    delete formErrors.errors;
+
+  return formErrors;
+};
+
 const userCreationValidations = (values, props) => {
   const errors = {};
   let { email, password, birth_date, first_name, last_name, dni, role, sex } =
@@ -177,4 +208,5 @@ export {
   deviceRegisterValidations,
   componentRegisterValidations,
   passwordResetValidations,
+  concludeIncidenceValidations,
 };

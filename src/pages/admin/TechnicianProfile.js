@@ -1,3 +1,5 @@
-const TechnicianProfile = () => {};
+const TechnicianProfile = () => {
+  return <>hola</>;
+};
 
 export default TechnicianProfile;

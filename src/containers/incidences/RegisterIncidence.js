@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as actions from "@actions/";
 
-const RegisterIncidence = ({ isAdmin, actions, userId }) => {
+const RegisterIncidence = ({ isAdmin, actions, userId, isTechnician }) => {
   const [isFetching, togleIsFetching] = useBoolean(false);
   const [devices, setDevices] = React.useState([]);
 
@@ -45,6 +45,7 @@ const RegisterIncidence = ({ isAdmin, actions, userId }) => {
     if (response.success) {
       resetForm();
       if (isAdmin) history.push("/admin/incidences");
+      else if (isTechnician) history.push("/technician/incidences");
       else history.push("/incidences");
     }
 
@@ -72,6 +73,9 @@ const RegisterIncidence = ({ isAdmin, actions, userId }) => {
 
 const mapStateToProps = (state) => ({
   isAdmin: state.auth.get("token") && parseInt(state.auth.get("role")) === 60,
+  isTechnician:
+    state.auth.get("token") && parseInt(state.auth.get("role")) === 55,
+  isUser: state.auth.get("token") && parseInt(state.auth.get("role")) === 50,
   userId: state.auth.get("id"),
 });
 

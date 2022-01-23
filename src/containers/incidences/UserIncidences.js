@@ -8,85 +8,58 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as actions from "@actions/";
 
-const DisplayIncidences = ({ actions, isAdmin, isTechnician, userId }) => {
+const UserIncidences = ({ actions, isAdmin, isTechnician, userId }) => {
   const [incidences, setIncidences] = React.useState([]);
   const [isFetching, togleIsFetching] = useBoolean(false);
 
   const toast = useToast();
 
   React.useEffect(() => {
-    if (isAdmin) getAllIncidences();
-    else if (isTechnician) getTechnicianIncidences();
-    else if (isUser) return;
+    getUserIncidences();
   }, []);
 
-  const getAllIncidences = async () => {
-    togleIsFetching.on();
-
-    let response = await actions.getAllIncidences();
-
-    if (response.success) setIncidences(response.data);
-    else
-      toast({
-        title: response.title || "",
-        description: response.description || "",
-        status: response.status,
-        duration: 5000,
-        isClosable: true,
-      });
-
-    togleIsFetching.off();
-  };
-
-  const getTechnicianIncidences = async () => {
-    togleIsFetching.on();
-
-    let response = await actions.getTechnicianIncidences(userId);
-
-    if (response.success) setIncidences(response.data);
-    else
-      toast({
-        title: response.title || "",
-        description: response.description || "",
-        status: response.status,
-        duration: 5000,
-        isClosable: true,
-      });
-
-    togleIsFetching.off();
+  const handleEdit = (incidence) => {
+    history.push({
+      pathname: isAdmin
+        ? "/admin/incidence-update"
+        : isTechnician
+        ? "/technician/incidence-update"
+        : "/incidence-update",
+      state: {
+        incidence,
+      },
+    });
   };
 
   const handleManagement = (incidence) => {
-    console.log("la incidencia", incidence);
     history.push({
       pathname: isAdmin
         ? `/admin/incidence-management`
         : isTechnician
         ? `/technician/incidence-management`
-        : `/incidence-management`,
+        : `/incidences-management`,
       state: {
         incidence,
       },
     });
   };
 
-  const handleEdit = (incidence) => {
-    history.push({
-      pathname: "/admin/incidence-update",
-      state: {
-        incidence,
-      },
-    });
-  };
+  const getUserIncidences = async () => {
+    togleIsFetching.on();
 
-  const handleConclude = (incidence) => {
-    console.log(incidence);
-    history.push({
-      pathname: `/technician/conclude-incidence`,
-      state: {
-        incidence,
-      },
-    });
+    let response = await actions.getUserIncidences(userId);
+
+    if (response.success) setIncidences(response.data);
+    else
+      toast({
+        title: response.title || "",
+        description: response.description || "",
+        status: response.status,
+        duration: 5000,
+        isClosable: true,
+      });
+
+    togleIsFetching.off();
   };
 
   return (
@@ -94,7 +67,7 @@ const DisplayIncidences = ({ actions, isAdmin, isTechnician, userId }) => {
       <SpinnerScreen open={isFetching} />
 
       <PageHeader
-        title={isTechnician ? "Incidencias asignadas" : "Incidencias"}
+        title="Incidencias"
         // action={onOpen}
         // actionIcon={<IoAddCircleOutline />}
         // actionName="anadir incidencia"
@@ -108,12 +81,11 @@ const DisplayIncidences = ({ actions, isAdmin, isTechnician, userId }) => {
       /> */}
 
       <IncidenceTable
+        userId={userId}
         isAdmin={isAdmin}
-        isTechnician={isTechnician}
         data={incidences}
         handleManagement={handleManagement}
         handleEdit={handleEdit}
-        handleConclude={handleConclude}
       />
     </>
   );
@@ -131,4 +103,4 @@ const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(actions, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(DisplayIncidences);
+export default connect(mapStateToProps, mapDispatchToProps)(UserIncidences);

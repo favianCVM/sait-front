@@ -17,7 +17,7 @@ import history from "@utils/history";
 import headerBg from "@assets/bg_header.jpg";
 import { connect } from "react-redux";
 
-const HomePage = ({ isLogged, isAdmin }) => {
+const HomePage = ({ isLogged, isAdmin, isTechnician }) => {
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
@@ -100,6 +100,8 @@ const HomePage = ({ isLogged, isAdmin }) => {
               isLogged
                 ? isAdmin
                   ? history.push("/admin/incidences")
+                  : isTechnician
+                  ? history.push("/technician/incidences")
                   : history.push("/incidences")
                 : history.push("/login");
             }}
@@ -115,6 +117,8 @@ const HomePage = ({ isLogged, isAdmin }) => {
 const mapStateToProps = (state) => ({
   isLogged: state.auth.get("logged"),
   isAdmin: state.auth.get("token") && parseInt(state.auth.get("role")) === 60,
+  isTechnician:
+    state.auth.get("token") && parseInt(state.auth.get("role")) === 55,
 });
 
 export default connect(mapStateToProps, null)(HomePage);

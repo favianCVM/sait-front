@@ -80,14 +80,14 @@ const IncidenceForm = ({
                 options={priorities}
               />
 
-              <DateField
+              {/* <DateField
                 name="date"
                 id="date"
                 placeholder="fecha de incidencia"
                 maxDate={new Date()}
                 disabled={props.isSubmitting}
                 label="Fecha de incidencia"
-              />
+              /> */}
 
               <TextareaField
                 name="description"

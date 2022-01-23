@@ -18,6 +18,7 @@ const PageHeader = ({
   actionIcon,
   actionName,
   displayGoBackButton = false,
+  disabledAction = false,
 }) => {
   return (
     <Box
@@ -52,19 +53,35 @@ const PageHeader = ({
         >
           {title}
         </Heading>
-        {displayGoBackButton && <GoBackButton mx={{base: "auto", lg: "0"}} isAbsolute={false} />}
-        {action && actionIcon && actionName && (
-          <Button
-            shadow="sm"
-            _hover={{
-              shadow: "lg",
-            }}
-            rightIcon={actionIcon}
-            onClick={action}
-          >
-            {actionName}
-          </Button>
-        )}
+
+        <Flex
+          alignItems="center"
+          w="100%"
+          justifyContent={{
+            base: "center",
+            md: "start",
+          }}
+          my={{
+            base: "4",
+            md: "0",
+          }}
+        >
+          {displayGoBackButton && <GoBackButton isAbsolute={false} />}
+          {action && actionIcon && actionName && (
+            <Button
+              shadow="sm"
+              _hover={{
+                shadow: "lg",
+              }}
+              ml={displayGoBackButton ? "5" : "0"}
+              rightIcon={actionIcon}
+              onClick={action}
+              disabled={disabledAction}
+            >
+              {actionName}
+            </Button>
+          )}
+        </Flex>
         <Divider my={5} />
       </Flex>
 

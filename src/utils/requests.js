@@ -32,11 +32,17 @@ const create_incidence = (data) =>
   Api().post(`/incidences/create-incidence`, data);
 const get_incidence_types = () => Api().get(`/incidences/incidence-types`);
 const get_all_incidences = () => Api().get(`/incidences/get-all-incidences`);
+const get_user_incidences = (id) =>
+  Api().get(`/incidences/get-user-incidences/${id}`);
+const get_technician_incidences = (id) =>
+  Api().get(`/incidences/get-technician-incidences/${id}`);
 const get_incidence = (id) => Api().get(`/incidences/get-incidence/${id}`);
 const asign_technicians = (data) =>
   Api().post(`/incidences/assign-technicians`, data);
 const update_incidence = (data) =>
   Api().put(`/incidences/update-incidence/${data.get("id")}`, data);
+const conclude_incidence = (data) =>
+  Api().post(`/incidences/conclude-incidence/${data.get("incidence_id")}`, data);
 
 export default {
   // user auth
@@ -65,7 +71,10 @@ export default {
   create_incidence,
   update_incidence,
   get_incidence_types,
+  get_technician_incidences,
   get_all_incidences,
   get_incidence,
   asign_technicians,
+  get_user_incidences,
+  conclude_incidence
 };

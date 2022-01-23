@@ -21,22 +21,21 @@ const VisualizeIncidence = ({ incidence }) => {
     <Box
       px="5"
       py="8"
-
       borderBottomLeftRadius={{
         base: "none",
-        lg: "xl"
+        lg: "xl",
       }}
       borderTopLeftRadius={{
         base: "xl",
-        lg: "xl"
+        lg: "xl",
       }}
       borderTopRightRadius={{
         base: "xl",
-        lg:"none"
+        lg: "none",
       }}
       borderBottomRightRadius={{
         base: "none",
-        lg: "none"
+        lg: "none",
       }}
       mx="auto"
       w={{
@@ -44,12 +43,12 @@ const VisualizeIncidence = ({ incidence }) => {
         lg: "60%",
       }}
       border="1px"
-      className="shadow-2xl"
     >
       <Heading textAlign="center" my="2">
         Datos de la incidencia
       </Heading>
 
+      {console.log(incidence)}
       <Flex flexDir="column">
         <Row title="Estatus">
           <Badge p="2" colorScheme={status_color_schemes[incidence.status]}>

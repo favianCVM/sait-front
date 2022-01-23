@@ -1,9 +1,11 @@
-const HandleIncidence = () => {
-  return(
-    <>
-      <DisplayComponents/>
-    </>
-  )
-}
+import ManageIncidence from "@containers/incidences/ManageIncidence";
 
-export default HandleIncidence
+const HandleIncidence = () => {
+  return (
+    <>
+      <ManageIncidence />
+    </>
+  );
+};
+
+export default HandleIncidence;

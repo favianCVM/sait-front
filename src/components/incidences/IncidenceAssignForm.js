@@ -10,7 +10,6 @@ const IncidenceAsignForm = ({
 }) => {
   return (
     <Box
-      className="shadow-2xl"
       border="1px"
   
       borderBottomLeftRadius={{

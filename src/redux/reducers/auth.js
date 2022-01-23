@@ -6,6 +6,7 @@ const initialState = map({
   first_name: localStorage.getItem("first_name"),
   username: localStorage.getItem("username"),
   id: localStorage.getItem("id"),
+  technician_id: localStorage.getItem("technician_id"),
   role: parseInt(localStorage.getItem("role")),
   logged: localStorage.getItem("logged"),
   profile_picture: localStorage.getItem("profile_picture"),
@@ -24,6 +25,7 @@ const user = (state = initialState, action) => {
       localStorage.removeItem("username");
       localStorage.removeItem("role");
       localStorage.removeItem("profile_picture");
+      localStorage.removeItem("technician_id");
       return state
         .set("logged", false)
         .set("token", null)
@@ -44,6 +46,11 @@ const user = (state = initialState, action) => {
       localStorage.setItem("profile_picture", action.payload.profile_picture);
       localStorage.setItem("role", parseInt(action.payload.role));
       localStorage.setItem("logged", true);
+
+      if (action.payload.technicians?.id) {
+        localStorage.setItem("technician_id", action.payload.technicians.id);
+        state.set("technician_id", action.payload.technicians.id);
+      }
 
       return state
         .set("logged", true)

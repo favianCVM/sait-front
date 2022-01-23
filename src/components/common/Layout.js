@@ -186,7 +186,7 @@ const Sidebar = (props) => {
 
       {/* TERMINA LA SIDEBAR  */}
 
-      <div className="flex flex-col w-full px-0 pb-20 pt-3 sm:pl-6 sm:pr-10 md:pr-16 md:pl-12 sm:pb-8">
+      <div className="flex flex-col w-full px-0 pb-24 pt-3 sm:pl-6 sm:pr-10 md:pr-16 md:pl-12 sm:pb-24">
         {children}
       </div>
 

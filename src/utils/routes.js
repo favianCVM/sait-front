@@ -14,6 +14,11 @@ import {
   Components as TechnicianComponents,
   Incidences as TechnicianIncidences,
   HandleIncidence as TechnicianHandleIncidence,
+  TechnicianProfile,
+  TechnicianIncidences as TechnicianUserIncidences,
+  ConcludeIncidence as TechnicianConcludeIncidence,
+  UpdateIncidence as TechnicianUpdateIncidence,
+  Devices as TechnicianDevices,
 } from "@pages/technician/index";
 
 import {
@@ -29,6 +34,7 @@ import {
   IoBuild,
 } from "react-icons/io5";
 import { BiDevices, BiChip } from "react-icons/bi";
+import { BsList } from "react-icons/bs";
 
 const adminRoutes = [
   {
@@ -111,13 +117,13 @@ const userRoutes = [
     title: "Incidencias",
     component: UserIncidences,
   },
-  {
-    to: "/profile",
-    as: "/perfil",
-    icon: IoPerson,
-    title: "Perfil",
-    component: UserUserProfile,
-  },
+  // {
+  //   to: "/profile",
+  //   as: "/perfil",
+  //   icon: IoPerson,
+  //   title: "Perfil",
+  //   component: UserUserProfile,
+  // },
   {
     to: "/handle-incidence/:incidence_id",
     as: "/gestionar-incidencia/:incidence_id",
@@ -133,15 +139,30 @@ const technicianRoutes = [
     as: "/tecnico/incidencias",
     icon: IoAlertCircle,
     title: "Incidencias",
+    component: TechnicianUserIncidences,
+  },
+  {
+    to: "/technician/assigned-incidences",
+    as: "/tecnico/incidencias-asignadas",
+    icon: BsList,
+    title: "Incidencias asignadas",
     component: TechnicianIncidences,
   },
   {
-    to: "/register-incidence",
-    as: "/registrar-incidencia",
+    to: "/technician/register-incidence",
+    as: "/tecnico/tecregistrar-incidencia",
     icon: IoAddCircleOutline,
     title: "Registrar incidencia",
     component: TechnicianRegisterIncidence,
   },
+  {
+    to: "/technician/devices",
+    as: "/tecnico/equipos",
+    icon: BiDevices,
+    title: "Equipos",
+    component: TechnicianDevices,
+  },
+
   {
     to: "/technician/components",
     as: "/tecnico/componentes",
@@ -150,12 +171,33 @@ const technicianRoutes = [
     component: TechnicianComponents,
   },
   {
-    to: "/technician/incidence-management/:incidence_id",
-    as: "/tecnico/gestion-incidencia/:incidence_id",
+    to: "/technician/incidence-management",
+    as: "/tecnico/gestion-incidencia",
     icon: null,
     title: null,
     component: TechnicianHandleIncidence,
   },
+  {
+    to: "/technician/incidence-update",
+    as: "/tecnico/actualizacion-incidencia",
+    icon: null,
+    title: null,
+    component: TechnicianUpdateIncidence,
+  },
+  {
+    to: "/technician/conclude-incidence",
+    as: "/tecnico/concluir-incidencia",
+    icon: null,
+    title: null,
+    component: TechnicianConcludeIncidence,
+  },
+  // {
+  //   to: "/technician/profile",
+  //   as: "/tecnico/perfil",
+  //   icon: IoPerson,
+  //   title: "Perfil",
+  //   component: TechnicianProfile,
+  // },
 ];
 
 export default {

@@ -20,7 +20,14 @@ const GoBackButton = ({
       }}
       bottom={0}
       left={0}
-      m={isAbsolute ? "10" : "0"}
+      mb={{
+        base: isAbsolute ? "20" : "0",
+        md: isAbsolute ? "10" : "0",
+      }}
+      ml={{
+        base: isAbsolute ? "4" : "0",
+        md: isAbsolute ? "10" : "0",
+      }}
       position={isAbsolute ? "absolute" : "block"}
       padding="6"
       disabled={disabled}

@@ -1,4 +1,9 @@
 export { default as RegisterIncidence } from "./RegisterIncidence";
 export { default as Components } from "./Components";
 export { default as Incidences } from "./Incidences";
+export { default as TechnicianIncidences } from "./TechnicianIncidences";
 export { default as HandleIncidence } from "./HandleIncidence";
+export { default as TechnicianProfile } from "./TechnicianProfile";
+export { default as ConcludeIncidence } from "./ConcludeIncidence";
+export { default as UpdateIncidence } from "./UpdateIncidence";
+export { default as Devices } from "./Devices";

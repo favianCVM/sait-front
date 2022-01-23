@@ -1,6 +1,6 @@
 import React from "react";
 import { PageHeader, SpinnerScreen } from "@components/common";
-import { useBoolean, useToast, Flex } from "@chakra-ui/react";
+import { useBoolean, useToast, Flex, Button } from "@chakra-ui/react";
 import VisualizeIncidence from "@components/incidences/VisualizeIncidence";
 import IncidenceAssignForm from "@components/incidences/IncidenceAssignForm";
 
@@ -9,7 +9,7 @@ import history from "@utils/history";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as actions from "@actions/";
-import { el } from "date-fns/locale";
+import { BsClock } from "react-icons/bs";
 
 const ManageIncidence = ({
   actions,
@@ -26,34 +26,10 @@ const ManageIncidence = ({
 
   React.useEffect(() => {
     if (!history.location.state) history.goBack();
-    else {
+    else if (isAdmin) {
       getTechnicians();
     }
   }, []);
-
-  const getIncidence = async () => {
-    togleIsFetching.on();
-
-    let response = await actions.getIncidence(
-      history.location.state.incidence_id
-    );
-
-    if (response.success)
-      setIncidence({
-        ...response.data,
-        technicians: response.data?.technicians?.map((el) => el.id) || [],
-      });
-    else
-      toast({
-        title: response.title || "",
-        description: response.description || "",
-        status: response.status,
-        duration: 5000,
-        isClosable: true,
-      });
-
-    togleIsFetching.off();
-  };
 
   const getTechnicians = async () => {
     togleIsFetching.on();
@@ -76,7 +52,7 @@ const ManageIncidence = ({
   const handleAsign = async (values) => {
     togleIsFetching.on();
 
-    values.incidence_id = history.location.state.incidence_id;
+    values.incidence_id = history.location.state.incidence.id;
 
     let response = await actions.asignTechnicians(values);
 
@@ -95,12 +71,25 @@ const ManageIncidence = ({
     togleIsFetching.off();
   };
 
+  const handleConclude = () => {
+    history.push({
+      pathname: `/technician/conclude-incidence`,
+      state: {
+        incidence,
+      },
+    });
+  };
+
   return (
     <>
       <SpinnerScreen open={isFetching} />
       <PageHeader
         title={`Manejo de incidencia #${incidence.id}`}
         displayGoBackButton={true}
+        action={handleConclude}
+        disabledAction={incidence.status === "succeeded"}
+        actionIcon={<BsClock />}
+        actionName="Concluir incidencia"
       />
       <Flex flexWrap="wrap">
         <VisualizeIncidence incidence={incidence} />

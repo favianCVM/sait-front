@@ -17,7 +17,7 @@ import {
 import { Paginator, ConfirmDialog, TableSkeleton } from "@components/common";
 import { FiEdit, FiDelete } from "react-icons/fi";
 import { BiPencil } from "react-icons/bi";
-import { BsEye } from "react-icons/bs";
+import { BsEye, BsCheck } from "react-icons/bs";
 import { tableStyles } from "@utils/commonStyles";
 import {
   priorities,
@@ -30,11 +30,13 @@ import formatDate from "@utils/formatDate";
 const IncidenceTable = ({
   data = [],
   handleManagement = () => {},
+  handleConclude = () => {},
   handleEdit = () => {},
   handleDelete = () => {},
   isFetching = false,
   isAdmin = false,
-  user_id = null,
+  isTechnician = false,
+  userId = null,
 }) => {
   const [displayData, setDisplayData] = React.useState(data);
   const [selectedUser, setSelectedUser] = React.useState(null);
@@ -57,6 +59,7 @@ const IncidenceTable = ({
               <Th>Prioridad</Th>
               <Th>Estatus</Th>
               <Th>Fecha de reporte</Th>
+              <Th>Fecha de finalización </Th>
               <Th></Th>
             </Tr>
           </Thead>
@@ -95,31 +98,35 @@ const IncidenceTable = ({
                       {status[row.status]}
                     </Badge>
                   </Td>
-                  <Td>{formatDate(row?.date)}</Td>
+                  <Td fontWeight="bold">{formatDate(row?.date)}</Td>
+                  <Td fontWeight="bold">{formatDate(row?.end_date)}</Td>
                   <Td>
                     <Stack direction="row" spacing="2">
-                      {(isAdmin || row.user_id === user_id) && (
+                      {(isAdmin || row.user_id === JSON.parse(userId)) && (
                         <Tooltip hasArrow label="Editar">
                           <IconButton
                             size="sm"
                             onClick={() => handleEdit(row)}
                             icon={<FiEdit />}
+                            disabled={row.status === "succeeded"}
                           />
                         </Tooltip>
                       )}
-                      {/* <Tooltip hasArrow label="Eliminar">
+                      <Tooltip hasArrow label="Gestionar">
                         <IconButton
                           size="sm"
-                          onClick={() => handleDeleteConfirmation(row.id)}
-                          icon={<FiDelete />}
+                          onClick={() => handleManagement(row)}
+                          icon={<BsEye />}
                         />
-                      </Tooltip> */}
-                      {isAdmin && (
-                        <Tooltip hasArrow label="Gestionar">
+                      </Tooltip>
+
+                      {isTechnician && (
+                        <Tooltip hasArrow label="Concluir">
                           <IconButton
                             size="sm"
-                            onClick={() => handleManagement(row)}
-                            icon={<BsEye />}
+                            onClick={() => handleConclude(row)}
+                            icon={<BsCheck />}
+                            // disabled={row.status === "succeeded"}
                           />
                         </Tooltip>
                       )}

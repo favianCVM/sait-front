@@ -8,7 +8,6 @@ export function createComponent(data){
       return {
         title: 'Componente creado exitosamente.',
         success: true,
-        description: '.....',
         status: 'success',
       }
     })

@@ -20,6 +20,7 @@ const SubmitFormButton = ({
   containerProps = {
     textAlign: "center",
   },
+  buttonProps = {},
   Icon = HiPaperAirplane
 }) => {
   return (
@@ -38,6 +39,7 @@ const SubmitFormButton = ({
             type="submit"
             isLoading={isSubmitting}
             leftIcon={<Icon />}
+            {...buttonProps}
           >
             {title}
           </Button>

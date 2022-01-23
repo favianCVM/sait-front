@@ -71,10 +71,56 @@ export function getAllIncidences() {
   };
 }
 
+export function getTechnicianIncidences(id) {
+  return async (dispatch) => {
+    return requests
+      .get_technician_incidences(id)
+      .then((r) => {
+        return {
+          success: true,
+          data: r.data,
+        };
+      })
+      .catch((e) => {
+        return {
+          title:
+            e.response?.data?.error?.message ||
+            "Hubo un problema en la obtención de las incidencias.",
+          success: false,
+          status: "error",
+          description: "Intente de nuevo",
+        };
+      });
+  };
+}
+
 export function getIncidence(id) {
   return async (dispatch) => {
     return requests
       .get_incidence(id)
+      .then((r) => {
+        return {
+          success: true,
+          data: r.data,
+        };
+      })
+      .catch((e) => {
+        return {
+          title:
+            e.response?.data?.error?.message ||
+            "Hubo un problema en la obtención de la incidencia.",
+          success: false,
+          status: "error",
+          description: "Intente de nuevo",
+        };
+      });
+  };
+}
+
+export function getUserIncidences(id) {
+  return async (dispatch) => {
+    return requests
+      .get_user_incidences(id)
       .then((r) => {
         return {
           success: true,
@@ -135,6 +181,30 @@ export function updateIncidence(data) {
           title:
             e.response?.data?.error?.message ||
             "Hubo un problema en la actualización de la incidencia.",
+          success: false,
+          status: "error",
+          description: "Intente de nuevo",
+        };
+      });
+  };
+}
+
+export function ConcludeIncidence(data) {
+  return async (dispatch) => {
+    return requests
+      .conclude_incidence(formatFormData(data))
+      .then((r) => {
+        return {
+          title: "Incidencia concluida exitosamente.",
+          success: true,
+          status: "success",
+        };
+      })
+      .catch((e) => {
+        return {
+          title:
+            e.response?.data?.error?.message ||
+            "Hubo un problema en la finalización finalización de la incidencia.",
           success: false,
           status: "error",
           description: "Intente de nuevo",
