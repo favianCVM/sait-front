@@ -57,7 +57,6 @@ const DisplayIncidences = ({ actions, isAdmin, isTechnician, userId }) => {
   };
 
   const handleManagement = (incidence) => {
-    console.log("la incidencia", incidence);
     history.push({
       pathname: isAdmin
         ? `/admin/incidence-management`
@@ -80,7 +79,6 @@ const DisplayIncidences = ({ actions, isAdmin, isTechnician, userId }) => {
   };
 
   const handleConclude = (incidence) => {
-    console.log(incidence);
     history.push({
       pathname: `/technician/conclude-incidence`,
       state: {

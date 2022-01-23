@@ -99,7 +99,9 @@ const IncidenceTable = ({
                     </Badge>
                   </Td>
                   <Td fontWeight="bold">{formatDate(row?.date)}</Td>
-                  <Td fontWeight="bold">{formatDate(row?.end_date)}</Td>
+                  <Td fontWeight="bold">
+                    {row.end_date ? formatDate(row?.end_date) : "-"}
+                  </Td>
                   <Td>
                     <Stack direction="row" spacing="2">
                       {(isAdmin || row.user_id === JSON.parse(userId)) && (
@@ -126,7 +128,7 @@ const IncidenceTable = ({
                             size="sm"
                             onClick={() => handleConclude(row)}
                             icon={<BsCheck />}
-                            // disabled={row.status === "succeeded"}
+                            disabled={row.status === "succeeded"}
                           />
                         </Tooltip>
                       )}

@@ -48,7 +48,6 @@ const ConcludeIncidence = ({ actions, technician_id }) => {
   };
 
   const handleConcludeIncidence = async (values) => {
-    console.log(values);
     togleIsFetching.on();
 
     values.technician_id = technician_id;

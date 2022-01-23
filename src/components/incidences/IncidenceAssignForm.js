@@ -35,7 +35,7 @@ const IncidenceAsignForm = ({
       }}
       w={{
         base: "80%",
-        lg: "40%",
+        lg: "50%",
       }}
     >
       <Heading mb="7" textAlign="center" as="h3">

@@ -11,7 +11,8 @@ import {
   UnorderedList,
   Box,
 } from "@chakra-ui/react";
-import{HiPaperAirplane} from 'react-icons/hi'
+import { HiPaperAirplane } from "react-icons/hi";
+import { BiPaperPlane } from "react-icons/bi";
 
 const SubmitFormButton = ({
   title = "",
@@ -21,7 +22,7 @@ const SubmitFormButton = ({
     textAlign: "center",
   },
   buttonProps = {},
-  Icon = HiPaperAirplane
+  Icon = BiPaperPlane,
 }) => {
   return (
     <Box {...containerProps}>

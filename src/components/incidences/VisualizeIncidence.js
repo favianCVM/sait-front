@@ -40,7 +40,7 @@ const VisualizeIncidence = ({ incidence }) => {
       mx="auto"
       w={{
         base: "80%",
-        lg: "60%",
+        lg: "50%",
       }}
       border="1px"
     >
@@ -48,7 +48,6 @@ const VisualizeIncidence = ({ incidence }) => {
         Datos de la incidencia
       </Heading>
 
-      {console.log(incidence)}
       <Flex flexDir="column">
         <Row title="Estatus">
           <Badge p="2" colorScheme={status_color_schemes[incidence.status]}>
@@ -75,7 +74,8 @@ const VisualizeIncidence = ({ incidence }) => {
         </Row>
         <Row title="Usuario quien reporta">
           <Box>
-            {incidence.user?.first_name} {incidence.user?.last_name}
+            #{incidence.user?.id} {incidence.user?.first_name}{" "}
+            {incidence.user?.last_name}
           </Box>
         </Row>
       </Flex>

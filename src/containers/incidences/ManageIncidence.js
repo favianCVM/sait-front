@@ -2,8 +2,8 @@ import React from "react";
 import { PageHeader, SpinnerScreen } from "@components/common";
 import { useBoolean, useToast, Flex, Button } from "@chakra-ui/react";
 import VisualizeIncidence from "@components/incidences/VisualizeIncidence";
+import VisualizeIncidenceConclution from "@components/incidences/VisualizeIncidenceConclution";
 import IncidenceAssignForm from "@components/incidences/IncidenceAssignForm";
-
 import history from "@utils/history";
 
 import { connect } from "react-redux";
@@ -84,7 +84,9 @@ const ManageIncidence = ({
     <>
       <SpinnerScreen open={isFetching} />
       <PageHeader
-        title={`Manejo de incidencia #${incidence.id}`}
+        title={`${
+          incidence.status === "succeeded" ? "" : "Manejo de "
+        } incidencia #${incidence.id}`}
         displayGoBackButton={true}
         action={handleConclude}
         disabledAction={incidence.status === "succeeded"}
@@ -93,15 +95,20 @@ const ManageIncidence = ({
       />
       <Flex flexWrap="wrap">
         <VisualizeIncidence incidence={incidence} />
-        {isAdmin && (
-          <IncidenceAssignForm
-            incidence={{
-              technicians: incidence?.technicians?.map((el) => el.id),
-            }}
-            handleAsign={handleAsign}
-            technicians={technicians}
-          />
+        {incidence.status === "succeeded" && (
+          <VisualizeIncidenceConclution incidence={incidence} />
         )}
+        {isAdmin &&
+          incidence.status ===
+            "pending"(
+              <IncidenceAssignForm
+                incidence={{
+                  technicians: incidence?.technicians?.map((el) => el.id),
+                }}
+                handleAsign={handleAsign}
+                technicians={technicians}
+              />
+            )}
       </Flex>
     </>
   );
