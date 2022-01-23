@@ -7,9 +7,12 @@ const GoBackButton = ({
   Icon = BsFillArrowLeftCircleFill,
   route = null,
   callBack = () => {},
+  isAbsolute = true,
+  ...props
 }) => {
   return (
     <Button
+      border="2px"
       onClick={() => {
         callBack();
         if (route) history.push(route);
@@ -17,10 +20,11 @@ const GoBackButton = ({
       }}
       bottom={0}
       left={0}
-      m="10"
-      position="absolute"
+      m={isAbsolute ? "10" : "0"}
+      position={isAbsolute ? "absolute" : "block"}
       padding="6"
       disabled={disabled}
+      {...props}
     >
       <Icon size={28} />
     </Button>

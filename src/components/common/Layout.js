@@ -40,7 +40,15 @@ const Sidebar = (props) => {
   const [showSidebar, setShowSidebar] = useBoolean(false);
 
   //props
-  const { children, isAdmin, isUser, actions, isLogged, username, profile_picture } = props;
+  const {
+    children,
+    isAdmin,
+    isUser,
+    actions,
+    isLogged,
+    username,
+    profile_picture,
+  } = props;
 
   React.useEffect(() => {
     if (location.pathname !== "/" && isLogged) setShowSidebar.on();
@@ -63,7 +71,7 @@ const Sidebar = (props) => {
           }}
           py={{
             base: 2,
-            md: 4,
+            md: 6,
           }}
           px={{
             base: 2,
@@ -116,11 +124,11 @@ const Sidebar = (props) => {
               alignItems="center"
               flexDirection="column"
             >
-              <Avatar
-                src={profile_picture}
-                size="lg"
-              />
-              <Heading>{username}</Heading>
+              <Avatar src={profile_picture} size="lg" />
+              <Heading fontSize={{
+                base: "2xl",
+                lg: "4xl"
+              }} textAlign="center">{username}</Heading>
               <LayoutFooter
                 isDark={isDark}
                 setShowLogOut={setShowLogOut}
@@ -158,11 +166,11 @@ const Sidebar = (props) => {
               }}
             >
               {/* routes */}
-              {
-                routes[props.role]?.map((route) => (
+              {routes[props.role]
+                ?.filter((route) => route.title && route.icon)
+                .map((route) => (
                   <LayoutItem key={route.to} {...route} clickLink={redirect} />
-                ))
-              }
+                ))}
             </Flex>
           </Flex>
 
@@ -188,7 +196,7 @@ const Sidebar = (props) => {
           history.push("/login");
         }}
         isOpen={showLogOut}
-        title="Desea cerrar sesion?"
+        title="¿Desea cerrar sesión?"
         onClose={() => setShowLogOut.off()}
         confirmMessage="Si"
       />

@@ -5,12 +5,23 @@ import {
   Incidences as AdminIncidences,
   Components as AdminComponents,
   Devices as AdminDevices,
+  HandleIncidence as AdminHandleIncidence,
+  TechnicianProfile as AdminTechnicianProfile,
+  UpdateIncidence as AdminUpdateIncidence,
 } from "@pages/admin/index";
 import {
   RegisterIncidence as TechnicianRegisterIncidence,
   Components as TechnicianComponents,
   Incidences as TechnicianIncidences,
+  HandleIncidence as TechnicianHandleIncidence,
 } from "@pages/technician/index";
+
+import {
+  UserProfile as UserUserProfile,
+  HandleIncidence as UserHandleIncidence,
+  Incidences as UserIncidences,
+  RegisterIncidence as UserRegisterIncidence,
+} from "@pages/user/index";
 import {
   IoPerson,
   IoAddCircleOutline,
@@ -62,6 +73,27 @@ const adminRoutes = [
     title: "Usuarios",
     component: AdminUsers,
   },
+  {
+    to: "/admin/incidence-management",
+    as: "/admin/gestion-incidencia",
+    icon: null,
+    title: null,
+    component: AdminHandleIncidence,
+  },
+  {
+    to: "/admin/technician-profile",
+    as: "/admin/perfil-tecnico",
+    icon: null,
+    title: null,
+    component: AdminTechnicianProfile,
+  },
+  {
+    to: "/admin/incidence-update",
+    as: "/admin/actualizacion-incidencia",
+    icon: null,
+    title: null,
+    component: AdminUpdateIncidence,
+  },
 ];
 
 const userRoutes = [
@@ -70,38 +102,59 @@ const userRoutes = [
     as: "/registrar-incidencia",
     icon: IoAddCircleOutline,
     title: "Registrar incidencia",
-    component: null,
+    component: UserRegisterIncidence,
   },
   {
     to: "/incidences",
     as: "/incidencias",
     icon: IoAlertCircle,
     title: "Incidencias",
-    component: null,
+    component: UserIncidences,
+  },
+  {
+    to: "/profile",
+    as: "/perfil",
+    icon: IoPerson,
+    title: "Perfil",
+    component: UserUserProfile,
+  },
+  {
+    to: "/handle-incidence/:incidence_id",
+    as: "/gestionar-incidencia/:incidence_id",
+    icon: null,
+    title: null,
+    component: UserHandleIncidence,
   },
 ];
 
 const technicianRoutes = [
   {
-    to: "/incidences",
-    as: "/incidencias",
+    to: "/technician/incidences",
+    as: "/tecnico/incidencias",
     icon: IoAlertCircle,
     title: "Incidencias",
     component: TechnicianIncidences,
   },
-  // {
-  //   to: "/register-incidence",
-  //   as: "/registrar-incidencia",
-  //   icon: IoAddCircleOutline,
-  //   title: "Registrar incidencia",
-  //   component: TechnicianRegisterIncidence,
-  // },
   {
-    to: "/components",
-    as: "/componentes",
+    to: "/register-incidence",
+    as: "/registrar-incidencia",
+    icon: IoAddCircleOutline,
+    title: "Registrar incidencia",
+    component: TechnicianRegisterIncidence,
+  },
+  {
+    to: "/technician/components",
+    as: "/tecnico/componentes",
     icon: BiChip,
     title: "Componentes",
     component: TechnicianComponents,
+  },
+  {
+    to: "/technician/incidence-management/:incidence_id",
+    as: "/tecnico/gestion-incidencia/:incidence_id",
+    icon: null,
+    title: null,
+    component: TechnicianHandleIncidence,
   },
 ];
 

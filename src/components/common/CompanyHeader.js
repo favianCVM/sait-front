@@ -6,12 +6,14 @@ import {
   Flex,
   Tooltip,
 } from "@chakra-ui/react";
-import history from "@utils/history";
 import { BiLogIn } from "react-icons/bi";
+import {useHistory} from "react-router-dom"
 //REDUX
 import { connect } from "react-redux";
 
 const CompanyHeader = ({ isHomePage = false, isLogged }) => {
+  const history = useHistory()
+  
   return (
     <Flex alignItems="center" justifyContent="space-between">
       <Stack spacing={3}>

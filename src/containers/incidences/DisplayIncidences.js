@@ -1,16 +1,14 @@
 import React from "react";
 import { Box, useDisclosure, useBoolean, useToast } from "@chakra-ui/react";
 import { PageHeader, SpinnerScreen } from "@components/common";
-import ManageIncidence from "@components/incidences/ManageIncidence";
-import { IoAddCircleOutline } from "react-icons/io5";
 import IncidenceTable from "@components/incidences/IncidenceTable";
+import history from "@utils/history";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as actions from "@actions/";
 
 const DisplayIncidences = ({ actions, isAdmin, isTechnician }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [incidences, setIncidences] = React.useState([]);
   const [isFetching, togleIsFetching] = useBoolean(false);
 
@@ -38,9 +36,31 @@ const DisplayIncidences = ({ actions, isAdmin, isTechnician }) => {
     togleIsFetching.off();
   };
 
-  // const handleSubmit = (values) => {
-  //   console.log(values);
-  // };
+  const handleManagement = (incidence) => {
+    if (isAdmin)
+      history.push({
+        pathname: `/admin/incidence-management`,
+        state: {
+          incidence,
+        },
+      });
+    else
+      history.push({
+        pathname: `/technician/incidence-management/`,
+        state: {
+          incidence,
+        },
+      });
+  };
+
+  const handleEdit = (incidence) => {
+    history.push({
+      pathname: "/admin/incidence-update",
+      state: {
+        incidence,
+      },
+    });
+  };
 
   return (
     <>
@@ -60,7 +80,12 @@ const DisplayIncidences = ({ actions, isAdmin, isTechnician }) => {
         onClose={onClose}
       /> */}
 
-      <IncidenceTable isAdmin={isAdmin} data={incidences} />
+      <IncidenceTable
+        isAdmin={isAdmin}
+        data={incidences}
+        handleManagement={handleManagement}
+        handleEdit={handleEdit}
+      />
     </>
   );
 };

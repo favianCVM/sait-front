@@ -1,4 +1,4 @@
-import RegisterIncidence from "@containers/incidences/registerIncidence";
+import RegisterIncidence from "@containers/incidences/RegisterIncidence";
 
 const RegisterIncident = () => {
   return (

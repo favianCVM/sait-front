@@ -8,6 +8,7 @@ import {
   Button,
   Divider,
 } from "@chakra-ui/react";
+import { GoBackButton } from "@components/common";
 
 const PageHeader = ({
   title,
@@ -16,6 +17,7 @@ const PageHeader = ({
   action,
   actionIcon,
   actionName,
+  displayGoBackButton = false,
 }) => {
   return (
     <Box
@@ -50,10 +52,16 @@ const PageHeader = ({
         >
           {title}
         </Heading>
+        {displayGoBackButton && <GoBackButton mx={{base: "auto", lg: "0"}} isAbsolute={false} />}
         {action && actionIcon && actionName && (
-          <Button shadow="sm" _hover={{
-            shadow: "lg"
-          }} rightIcon={actionIcon} onClick={action}>
+          <Button
+            shadow="sm"
+            _hover={{
+              shadow: "lg",
+            }}
+            rightIcon={actionIcon}
+            onClick={action}
+          >
             {actionName}
           </Button>
         )}

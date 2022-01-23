@@ -11,7 +11,7 @@ export const priorities = [
 
 export const roles = [
   { label: "Admin", value: "60" },
-  { label: "Tecnico", value: "55" },
+  { label: "Técnico", value: "55" },
   { label: "Usuario", value: "50" },
 ];
 

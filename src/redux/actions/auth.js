@@ -22,9 +22,8 @@ export function signIn(data) {
           },
         });
         return {
-          title: "Login exitoso.",
+          title: "Bienvenido",
           success: true,
-          description: "Bienvenido",
           status: "success",
           role: r.data.role,
         };
@@ -43,7 +42,7 @@ export function signIn(data) {
 export function passwordReset(data) {
   return async (dispatch) => {
     return requests
-      .password_reset(formatFormData(data))
+      .password_reset((data))
       .then(async (r) => {
         return {
           title: "Correo enviado exitosamente.",

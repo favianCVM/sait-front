@@ -13,8 +13,8 @@ const DisplayDevices = ({ actions }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [devices, setDevices] = React.useState([]);
-  const [users, setUsers] = React.useState([]);
   const [components, setComponents] = React.useState([]);
+  const [deviceTypes, setDeviceTypes] = React.useState([]);
 
   const [updateDevice, setUpdateDevice] = React.useState(null);
   const [isFetching, togleIsFetching] = useBoolean(true);
@@ -22,8 +22,8 @@ const DisplayDevices = ({ actions }) => {
 
   React.useEffect(() => {
     getDevices();
-    getUsers();
     getComponents();
+    getDeviceTypes();
   }, []);
 
   const getDevices = async () => {
@@ -62,12 +62,12 @@ const DisplayDevices = ({ actions }) => {
     togleIsFetching.off();
   };
 
-  const getUsers = async () => {
+  const getDeviceTypes = async () => {
     togleIsFetching.on();
 
-    let response = await actions.getAllUsers();
+    let response = await actions.getAllDeviceTypes();
 
-    if (response.success) setUsers(response.data);
+    if (response.success) setDeviceTypes(response.data);
     else
       toast({
         title: response.title || "",
@@ -84,7 +84,6 @@ const DisplayDevices = ({ actions }) => {
     togleIsFetching.on();
 
     let response;
-    console.log("VALUES", values);
 
     if (values.id) response = await actions.updateDevice(values);
     else response = await actions.createDevice(values);
@@ -99,7 +98,6 @@ const DisplayDevices = ({ actions }) => {
 
     if (response.success) {
       getDevices();
-      getUsers();
       onClose();
     }
 
@@ -108,9 +106,7 @@ const DisplayDevices = ({ actions }) => {
 
   const handleEditDevice = (device) => {
     setUpdateDevice({
-      id: device.id,
-      user_id: device.user_id,
-      serial: device.serial,
+      ...device,
       components: device.deviceComponents?.map((el) => el?.component?.id) || [],
     });
     onOpen();
@@ -130,7 +126,6 @@ const DisplayDevices = ({ actions }) => {
     });
 
     if (response.success) {
-      getUsers();
       getDevices();
     }
 
@@ -163,8 +158,8 @@ const DisplayDevices = ({ actions }) => {
           setUpdateDevice(null);
           onClose();
         }}
-        users={users}
         components={components}
+        deviceTypes={deviceTypes}
       />
     </Box>
   );
