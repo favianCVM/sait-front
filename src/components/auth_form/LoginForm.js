@@ -24,7 +24,7 @@ const LoginForm = ({ handleSubmit }) => {
               id="email"
               name="email"
               type="email"
-              helperText="introduzca su correo electrónico"
+              helperText="Introduzca su correo electrónico"
               disabled={props.isSubmitting}
             />
 
@@ -34,14 +34,14 @@ const LoginForm = ({ handleSubmit }) => {
               id="password"
               name="password"
               type="password"
-              helperText="introduzca su contraseña"
+              helperText="Introduzca su contraseña"
               disabled={props.isSubmitting}
             />
 
             <SubmitFormButton 
               errors={props.errors}
               isSubmitting={props.isSubmitting}
-              title="Iniciar sesion"
+              title="Iniciar sesión"
             />
           </Stack>
         </Form>

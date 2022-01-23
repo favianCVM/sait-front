@@ -79,6 +79,7 @@ const DateField = ({
             )}
             <InputGroup size={size}>
               <ReactDatePicker
+                dateFormat="yyyy/MM/dd"
                 renderCustomHeader={({
                   date,
                   changeYear,
@@ -90,9 +91,9 @@ const DateField = ({
                 }) => (
                   <div className="flex items-center justify-between w-full px-6">
                     <button
-                      onClick={(e)=>{
-                        e.preventDefault()
-                        decreaseMonth()
+                      onClick={(e) => {
+                        e.preventDefault();
+                        decreaseMonth();
                       }}
                       disabled={prevMonthButtonDisabled}
                       className={`hover:bg-gray-300 p-3 shadow-xl rounded-md`}
@@ -162,11 +163,10 @@ const DateField = ({
                       </MenuList>
                     </Menu>
 
-
                     <button
-                      onClick={(e)=>{
-                        e.preventDefault()
-                        increaseMonth()
+                      onClick={(e) => {
+                        e.preventDefault();
+                        increaseMonth();
                       }}
                       disabled={nextMonthButtonDisabled}
                       className={`hover:bg-gray-300 p-3 shadow-xl rounded-md`}

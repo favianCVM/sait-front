@@ -1,6 +1,6 @@
 import {UPDATE_PROFILE} from '../actionTypes'
 import requests from '@utils/requests'
-import formatFormData from "@utils/formatFormData"
+import formatFormData from '@utils/formatFormData'
 
 export function createUser(data) {
   return async dispatch => {
@@ -9,7 +9,6 @@ export function createUser(data) {
         return {
           title: 'perfil creado exitosamente.',
           success: true,
-          description: '.....',
           status: 'success',
         }
       })
@@ -36,15 +35,14 @@ export function updateUser(data) {
           }
         })
         return {
-          title: 'perfil actualizado exitosamente.',
+          title: 'Perfil actualizado exitosamente.',
           success: true,
-          description: '.....',
           status: 'success',
         }
       })
       .catch((e)=>{
         return {
-          title: e.response?.data?.error?.message || 'Hubo un problema en la actualizacion del usuario.',
+          title: e.response?.data?.error?.message || 'Hubo un problema en la actualizacíon del usuario.',
           success: false,
           status: 'error',
           description: 'Intente de nuevo'
@@ -58,9 +56,8 @@ export function deleteUser(id) {
     return requests.delete_user(id)
       .then(async (r)=>{
         return {
-          title: 'perfil eliminado exitosamente.',
+          title: 'Perfil eliminado exitosamente.',
           success: true,
-          description: '.....',
           status: 'success',
         }
       })
@@ -87,6 +84,26 @@ export function getAllUsers() {
       .catch((e)=>{
         return {
           title: e.response?.data?.error?.message || 'Hubo un problema al obtener los usuarios.',
+          success: false,
+          status: 'error',
+          description: 'Intente de nuevo'
+        }
+      })
+  }
+}
+
+export function getUserDevices(id) {
+  return async dispatch => {
+    return requests.get_all_users(id)
+      .then(async (r)=>{
+        return {
+          success: true,
+          data: r.data,
+        }
+      })
+      .catch((e)=>{
+        return {
+          title: e.response?.data?.error?.message || 'Hubo un problema al obtener los equipos del usuario.',
           success: false,
           status: 'error',
           description: 'Intente de nuevo'

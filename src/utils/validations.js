@@ -18,56 +18,78 @@ const loginValidations = (values, props) => {
   return errors;
 };
 
-const incidenceValidations = (values, props) => {
-  let {
-    type_id,
-    description,
-    errors: incidenceErrors,
-    type = {},
-    user_id,
-  } = values;
-  let { isAdmin } = props;
+const incidenceCreationValidations = (values, props) => {
+  let { description, device_id, priority, location } = values;
   const errors = {};
-  errors.type = {};
 
-  if (isAdmin && !user_id) {
-    errors.user_id =
-      "Debe seleccionar un usuario que percibio la incidencia";
-  } else delete errors.user_id;
+  if (!device_id) {
+    errors.device_id = "Debe seleccionar el equipo que presenta la incidencia";
+  } else delete errors.device_id;
 
-  if (type_id === "new" && !type.name) {
-    errors.type.name = "Debe introducir un nombre al nuevo tipo de incidencia";
-  } else delete errors.type.name;
+  if (!priority || priority === null) {
+    errors.priority = `Debe seleccionar una prioridad para la incidencia`;
+  } else delete errors.priority;
 
-  errors.errors = incidenceErrors.reduce((acc, item, index) => {
+  if (!description) {
+    errors.description = "Se requiere de una descripción válida";
+  } else delete errors.description;
+
+  if (!location) {
+    errors.location = "Se requiere de una localización";
+  } else delete errors.location;
+
+  // errors.errors = incidenceErrors.reduce((acc, item, index) => {
+  //   let elErrors = {};
+
+  //   if (!item.description) {
+  //     elErrors.description = `Debe introducir una descripcion en la falla #${index}`;
+  //   } else delete elErrors.description;
+
+  //   // if (!item.priority || item.priority === 0) {
+  //   //   elErrors.priority = `Debe seleccionar una prioridad para la falla #${index}`;
+  //   // } else delete elErrors.priority;
+
+  //   acc.push(elErrors);
+
+  //   return acc;
+  // }, []);
+
+  // if (errors.errors.every((el) => Object.keys(el).length <= 0))
+  //   delete errors.errors;
+  // if (Object.keys(errors.type).length <= 0) delete errors.type;
+
+  return errors;
+};
+
+const concludeIncidenceValidations = (values) => {
+  let { errors } = values;
+  const formErrors = {};
+
+  formErrors.errors = errors.reduce((acc, item, index) => {
     let elErrors = {};
 
     if (!item.description) {
       elErrors.description = `Debe introducir una descripcion en la falla #${index}`;
     } else delete elErrors.description;
 
-    if (!item.priority || item.priority === 0) {
-      elErrors.priority = `Debe seleccionar una prioridad para la falla #${index}`;
-    } else delete elErrors.priority;
+    // if (!item.priority || item.priority === 0) {
+    //   elErrors.priority = `Debe seleccionar una prioridad para la falla #${index}`;
+    // } else delete elErrors.priority;
 
     acc.push(elErrors);
 
     return acc;
   }, []);
 
-  if (errors.errors.every((el) => Object.keys(el).length <= 0))
-    delete errors.errors;
-  if (Object.keys(errors.type).length <= 0) delete errors.type;
+  if (!errors.length) {
+    formErrors.empty_errors =
+      "Debe introducir la o las fallas de la incidencia.";
+  } else delete formErrors.empty_errors;
 
-  if (!type_id || type_id === null) {
-    errors.type_id = "Seleccione un tipo de incidencia valido.";
-  } else delete errors.type_id;
+  if (formErrors.errors.every((el) => Object.keys(el).length <= 0))
+    delete formErrors.errors;
 
-  if (!description) {
-    errors.description = "Se requiere de una descripción válida";
-  } else delete errors.description;
-
-  return errors;
+  return formErrors;
 };
 
 const userCreationValidations = (values, props) => {
@@ -142,16 +164,35 @@ const userUpdateValidations = (values, props) => {
 };
 
 const deviceRegisterValidations = (values, props) => {
+  let { serial, device_type = {}, device_type_id } = values;
   const errors = {};
-  let { user_id, serial } = values;
+  errors.device_type = {};
+
+  if (!device_type_id) {
+    errors.device_type_id = "Debe seleccionar un tipo de equipo.";
+  } else delete errors.device_type_id;
+
+  if (device_type_id === "new" && !device_type.name) {
+    errors.device_type.name =
+      "Debe introducir un nombre para el tipo de equipo.";
+  } else delete errors.device_type.name;
+
+  if (!Object.keys(errors.device_type).length) delete errors.device_type;
 
   if (!allTypeValidation.test(serial)) {
     errors.serial = "Ingrese un serial valido";
   } else delete errors.serial;
 
-  if (!user_id || user_id === null) {
-    errors.user_id = "Seleccione un perfil propietario del equipo";
-  } else delete errors.user_id;
+  return errors;
+};
+
+const passwordResetValidations = (values, props) => {
+  const errors = {};
+  const { email } = values;
+
+  if (!emailValidation.test(email)) {
+    errors.email = "Debe introducir un email";
+  } else delete errors.email;
 
   return errors;
 };
@@ -161,9 +202,11 @@ const componentRegisterValidations = (values, props) => {};
 //EXPORTS
 export {
   loginValidations,
-  incidenceValidations,
+  incidenceCreationValidations,
   userCreationValidations,
   userUpdateValidations,
   deviceRegisterValidations,
   componentRegisterValidations,
+  passwordResetValidations,
+  concludeIncidenceValidations,
 };

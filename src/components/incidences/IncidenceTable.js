@@ -3,7 +3,6 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
@@ -12,14 +11,33 @@ import {
   Box,
   IconButton,
   Tooltip,
-  Skeleton,
   useDisclosure,
+  Badge,
 } from "@chakra-ui/react";
-import { Paginator, ConfirmDialog } from "@components/common";
+import { Paginator, ConfirmDialog, TableSkeleton } from "@components/common";
 import { FiEdit, FiDelete } from "react-icons/fi";
+import { BiPencil } from "react-icons/bi";
+import { BsEye, BsCheck } from "react-icons/bs";
 import { tableStyles } from "@utils/commonStyles";
+import {
+  priorities,
+  priorities_colors,
+  status,
+  status_color_schemes,
+} from "@utils/translater";
+import formatDate from "@utils/formatDate";
 
-const IncidenceTable = ({ data, handleEdit, handleDelete, isFetching }) => {
+const IncidenceTable = ({
+  data = [],
+  handleManagement = () => {},
+  handleConclude = () => {},
+  handleEdit = () => {},
+  handleDelete = () => {},
+  isFetching = false,
+  isAdmin = false,
+  isTechnician = false,
+  userId = null,
+}) => {
   const [displayData, setDisplayData] = React.useState(data);
   const [selectedUser, setSelectedUser] = React.useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -36,48 +54,91 @@ const IncidenceTable = ({ data, handleEdit, handleDelete, isFetching }) => {
           <Thead>
             <Tr>
               <Th>#</Th>
-              <Th>Nombre y apellido</Th>
-              <Th display={{ base: "none", md: "table-cell" }}>Email</Th>
+              <Th>Reportador</Th>
+              <Th>Tipo de incidencia</Th>
+              <Th>Prioridad</Th>
+              <Th>Estatus</Th>
+              <Th>Fecha de reporte</Th>
+              <Th>Fecha de finalización </Th>
               <Th></Th>
             </Tr>
           </Thead>
           <Tbody>
-            { !isFetching ? (
+            {!isFetching ? (
               displayData.map((row) => (
-                <Tr>
+                <Tr key={`incidence-${row.id}`}>
                   <Td>{row.id}</Td>
                   <Td>
-                    {row.first_name} {row.last_name}
+                    {row?.user?.first_name} {row?.user?.last_name}
                   </Td>
-                  <Td display={{ base: "none", md: "table-cell" }}>
-                    {row.email}
+                  <Td>{row.incidence_type}</Td>
+                  <Td>
+                    <Tooltip hasArrow label={priorities[row.priority]}>
+                      <Badge
+                        _hover={{
+                          cursor: "default",
+                        }}
+                        textColor="gray.900"
+                        bg={priorities_colors[row.priority]}
+                        borderColor="gray.300"
+                        border="2px"
+                        fontSize="lg"
+                        p="2"
+                      >
+                        {row.priority}
+                      </Badge>
+                    </Tooltip>
+                  </Td>
+                  <Td>
+                    <Badge
+                      p="2"
+                      fontSize="sm"
+                      colorScheme={status_color_schemes[row.status]}
+                    >
+                      {status[row.status]}
+                    </Badge>
+                  </Td>
+                  <Td fontWeight="bold">{formatDate(row?.date)}</Td>
+                  <Td fontWeight="bold">
+                    {row.end_date ? formatDate(row?.end_date) : "-"}
                   </Td>
                   <Td>
                     <Stack direction="row" spacing="2">
-                      <Tooltip hasArrow label="Editar">
+                      {(isAdmin || row.user_id === JSON.parse(userId)) && (
+                        <Tooltip hasArrow label="Editar">
+                          <IconButton
+                            size="sm"
+                            onClick={() => handleEdit(row)}
+                            icon={<FiEdit />}
+                            disabled={row.status === "succeeded"}
+                          />
+                        </Tooltip>
+                      )}
+                      <Tooltip hasArrow label="Gestionar">
                         <IconButton
                           size="sm"
-                          onClick={() => handleEdit(row)}
-                          icon={<FiEdit />}
+                          onClick={() => handleManagement(row)}
+                          icon={<BsEye />}
                         />
                       </Tooltip>
-                      <Tooltip hasArrow label="Eliminar">
-                        <IconButton
-                          size="sm"
-                          onClick={() => handleDeleteConfirmation(row.id)}
-                          icon={<FiDelete />}
-                        />
-                      </Tooltip>
+
+                      {isTechnician && (
+                        <Tooltip hasArrow label="Concluir">
+                          <IconButton
+                            size="sm"
+                            onClick={() => handleConclude(row)}
+                            icon={<BsCheck />}
+                            disabled={row.status === "succeeded"}
+                          />
+                        </Tooltip>
+                      )}
                     </Stack>
                   </Td>
                 </Tr>
               ))
             ) : (
               <>
-                <TableSkeleton />
-                <TableSkeleton />
-                <TableSkeleton />
-                <TableSkeleton />
+                <TableSkeleton cols={4} />
               </>
             )}
           </Tbody>
@@ -91,28 +152,9 @@ const IncidenceTable = ({ data, handleEdit, handleDelete, isFetching }) => {
         isOpen={isOpen}
         onClose={onClose}
         confirmMethod={() => handleDelete(selectedUser)}
-        title="Desea eliminar este usuario?"
+        title="Desea eliminar esta incidencia?"
       />
     </>
-  );
-};
-
-const TableSkeleton = () => {
-  return (
-    <Tr>
-      <Td>
-        <Skeleton height="18px" />
-      </Td>
-      <Td>
-        <Skeleton height="18px" />
-      </Td>
-      <Td>
-        <Skeleton height="18px" />
-      </Td>
-      <Td>
-        <Skeleton height="18px" />
-      </Td>
-    </Tr>
   );
 };
 

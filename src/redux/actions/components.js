@@ -1,14 +1,13 @@
 import requests from '@utils/requests'
-import formatFormData from "@utils/formatFormData"
+import formatFormData from '@utils/formatFormData'
 
 export function createComponent(data){
   return async dispatch => {
     return requests.create_component(formatFormData(data))
     .then(r => {
       return {
-        title: 'componente creado exitosamente.',
+        title: 'Componente creado exitosamente.',
         success: true,
-        description: '.....',
         status: 'success',
       }
     })
@@ -28,9 +27,8 @@ export function updateComponent(data){
     return requests.update_component(formatFormData(data))
     .then(r => {
       return {
-        title: 'componente actualizado exitosamente.',
+        title: 'Componente actualizado exitosamente.',
         success: true,
-        description: '.....',
         status: 'success',
       }
     })
@@ -50,18 +48,17 @@ export function deleteComponent(id){
     return requests.delete_component(id)
     .then(r => {
       return {
-        title: 'componente eliminado exitosamente.',
+        title: 'Componente eliminado exitosamente.',
         success: true,
-        description: '.....',
         status: 'success',
       }
     })
     .catch(e => {
       return {
         title: e.response?.data?.error?.message || 'Hubo un problema al eliminar del componente.',
+        description: 'Intente de nuevo',
         success: false,
         status: 'error',
-        description: 'Intente de nuevo'
       }
     })
   }

@@ -3,6 +3,7 @@ import { Formik, Form } from "formik";
 import { deviceRegisterValidations } from "@utils/validations";
 import {
   AutosuggestField,
+  SelectField,
   TextField,
   SubmitFormButton,
   MultiSelectField,
@@ -11,31 +12,45 @@ import device from "@models/device";
 
 const DeviceForm = ({
   handleSubmit,
-  users = [],
   updateDevice,
   components = [],
+  deviceTypes = [],
 }) => {
   return (
     <Formik
       initialValues={updateDevice ? updateDevice : device}
       onSubmit={handleSubmit}
-      validate={deviceRegisterValidations}
+      // validate={deviceRegisterValidations}
     >
       {(props) => (
         <Form>
           <Flex flexDirection="column" w="100%">
             <Stack>
-              <AutosuggestField
-                data={users.map((el) => ({
-                  label: `${el.first_name} #${el.id}`,
-                  value: el.id,
-                }))}
-                name="user_id"
-                placeholder="seleccione un usuario propietario"
+              <SelectField
+                options={[
+                  { label: "Nuevo", value: "new" },
+                  ...deviceTypes.map((el) => ({
+                    value: el.id,
+                    label: el.name,
+                  })),
+                ]}
+                name="deviceTypeId"
+                id="device_type_id"
+                placeholder="tipo de equipo"
+                label="Tipo de equipo"
                 disabled={props.isSubmitting}
-                label="Usuario propietario"
               />
 
+              {props.values?.deviceTypeId === "new" && (
+                <TextField
+                  name="deviceType.name"
+                  id="device_type.name"
+                  label="Nombre del tipo de equipo"
+                  disabled={props.isSubmitting}
+                  placeholder="introduzca el nombre del tipo de equipo"
+                />
+              )}
+              
               <MultiSelectField
                 options={components.map((el) => ({
                   value: el.id,
@@ -49,7 +64,7 @@ const DeviceForm = ({
               />
 
               <TextField
-                placeholder="serial del equipo"
+                placeholder="introduzca el serial del equipo"
                 size="md"
                 id="serial"
                 name="serial"
@@ -57,7 +72,7 @@ const DeviceForm = ({
                 label="Serial"
               />
             </Stack>
-            
+
             <SubmitFormButton
               errors={props.errors}
               title={updateDevice ? "Actualizar equipo" : "Registrar equipo"}

@@ -1,14 +1,10 @@
-import error from './error'
-
 export default {
-  type_id: "",
+  incidence_type: null,
   description: "",
-  //user
-  user_id: null,
-  //this is fow the new incidence type case
-  type: {
-    name: ""
-  },
-  //incidence errors
-  errors: [error]
-}
+  device_id: null,
+  priority: null,
+  location: "",
+  status: "pending",
+  date: new Date(),
+  // end_date: null,
+};

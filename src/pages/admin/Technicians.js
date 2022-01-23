@@ -1,4 +1,4 @@
-import DisplayTechnicians from "@containers/admin/technicians/DisplayTechnicians"
+import DisplayTechnicians from "@containers/technicians/DisplayTechnicians"
 
 const Technicians = () =>{
   return(

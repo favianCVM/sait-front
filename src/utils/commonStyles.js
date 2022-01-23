@@ -19,7 +19,7 @@ const tableStyles = {
     base: "scroll",
   },
   minH: {
-    base: 350,
+    base: 380,
   },
   maxH: {
     base: 400,

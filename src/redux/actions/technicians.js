@@ -1,5 +1,4 @@
 import requests from '@utils/requests'
-import formatFormData from "@utils/formatFormData"
 
 export function getAllTechnicians() {
   return async dispatch => {
@@ -12,7 +11,7 @@ export function getAllTechnicians() {
       })
       .catch((e)=>{
         return {
-          title: e.response?.data?.error?.message || 'Hubo un problema al obtener los tecnicos.',
+          title: e.response?.data?.error?.message || 'Hubo un problema al obtener los técnicos.',
           success: false,
           status: 'error',
           description: 'Intente de nuevo'

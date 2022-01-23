@@ -8,6 +8,7 @@ import {
   InputRightElement,
   InputLeftElement,
   Button,
+  InputRightAddon
 } from "@chakra-ui/react";
 import { Field, getIn } from "formik";
 import { FaEye } from "react-icons/fa";
@@ -62,21 +63,22 @@ export default function TextField({
             />
 
             {type === "password" && (
-              <InputRightElement width="4.5rem">
+              <InputRightAddon p="0">
                 <Button
                   borderRadius="md"
                   colorScheme="blue"
                   variant="solid"
                   size="sm"
+                  minH="full"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   <FaEye />
                 </Button>
-              </InputRightElement>
+              </InputRightAddon>
             )}
 
             {rightChildren && (
-              <InputRightElement>{rightChildren}</InputRightElement>
+              <InputRightAddon>{rightChildren}</InputRightAddon>
             )}
           </InputGroup>
           <FormHelperText>{helperText}</FormHelperText>

@@ -1,11 +1,18 @@
-import { Switch, Route, Redirect, Router } from "react-router-dom";
+import {
+  Switch,
+  Route,
+  Redirect,
+  Router,
+  BrowserRouter,
+} from "react-router-dom";
 import HomePage from "@pages/";
+import PasswordReset from "@pages/PasswordReset";
 import Error404 from "@containers/404";
 import LoginPage from "@pages/LoginPage";
 import Layout from "@components/common/Layout";
 import { connect } from "react-redux";
-import history from "@utils/history";
 import routes from "@utils/routes";
+import history from "@utils/history";
 
 const AppRouter = (props) => {
   const { isAdmin, isUser, isLogged } = props;
@@ -19,6 +26,24 @@ const AppRouter = (props) => {
           {!isLogged && (
             <>
               <Route exact path="/iniciar-sesion" component={LoginPage} />
+              <Route
+                exact
+                path="/reiniciar-contraseña"
+                component={PasswordReset}
+              />
+              <Route
+                exact
+                path="/cambio-contraseña/:token/:id"
+                component={PasswordReset}
+              />
+
+              <Route exact path="/password-reset">
+                <Redirect to="/reiniciar-contraseña" />
+              </Route>
+
+              <Route exact path="/password-change/:token/:id">
+                <Redirect to="/cambio-contraseña/:token/:id" />
+              </Route>
 
               <Route exact path="/login">
                 <Redirect to="/iniciar-sesion" />
@@ -32,15 +57,15 @@ const AppRouter = (props) => {
                 <Route
                   key={`route-${route.to}`}
                   exact
-                  path={route.as}
+                  path={route.to}
                   component={route.component}
                 />
               ))}
-              {routes[props.role]?.map((route) => (
+              {/* {routes[props.role]?.map((route) => (
                 <Route key={`redirect-${route.to}`} exact path={route.to}>
                   <Redirect to={route.as} />
                 </Route>
-              ))}
+              ))} */}
               <Route component={Error404} />
             </Switch>
           }

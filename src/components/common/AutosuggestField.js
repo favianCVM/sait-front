@@ -31,6 +31,7 @@ const AutosuggestField = ({
   helperText = "",
   textTransform = "capitalize",
   autoFocus = true,
+  handleChangeCallback = () => {},
 }) => {
   return (
     <Field name={name}>
@@ -47,10 +48,16 @@ const AutosuggestField = ({
               rollNavigation={rollNavigation}
               onSelectOption={(e) => {
                 let { optionValue } = e;
-                let val = data?.find((el) => el.label === optionValue)?.value;
-                form.setFieldValue(name, val);
+                let value = data?.find((el) => el.label === optionValue)?.value;
+                form.setFieldValue(name, value);
+                handleChangeCallback({
+                  name,
+                  value,
+                  form,
+                  isCleaning: false,
+                });
               }}
-              value={data.find(el => el.value === field.value)?.label || null}
+              value={data.find((el) => el.value === field.value)?.label || null}
             >
               <AutoCompleteInput
                 name={name}
@@ -59,13 +66,20 @@ const AutosuggestField = ({
                 autoFocus={autoFocus}
                 disabled={disabled}
                 // isInvalid={form.errors[name]}
-                isInvalid={getIn(form.errors, name) && getIn(form.touched, name)}
+                isInvalid={
+                  getIn(form.errors, name) && getIn(form.touched, name)
+                }
                 value={
                   data.find((el) => el.value === field.value)?.label || null
                 }
-
                 onChange={(e) => {
                   form.setFieldValue(name, null);
+                  handleChangeCallback({
+                    name,
+                    value: null,
+                    form,
+                    isCleaning: true,
+                  });
                 }}
               />
               <AutoCompleteList>

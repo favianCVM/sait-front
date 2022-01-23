@@ -43,8 +43,7 @@ const DeviceTable = ({
           <Thead>
             <Tr>
               <Th>#</Th>
-              <Th>Usuario</Th>
-              <Th>#Usuario</Th>
+              <Th>Tipo</Th>
               <Th>Serial</Th>
               <Th>Componentes</Th>
               <Th></Th>
@@ -55,10 +54,7 @@ const DeviceTable = ({
               displayData.map((row) => (
                 <Tr key={`device-${row.id}`}>
                   <Td>{row.id}</Td>
-                  <Td>
-                    {row?.user?.first_name} {row?.user?.last_name}
-                  </Td>
-                  <Td>{row?.user?.id}</Td>
+                  <Td>{row?.deviceType?.name}</Td>
                   <Td display={{ base: "none", md: "table-cell" }}>
                     {row.serial}
                   </Td>

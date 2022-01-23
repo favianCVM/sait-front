@@ -15,11 +15,9 @@ import {
 } from "@chakra-ui/react";
 import { Paginator, ConfirmDialog, TableSkeleton } from "@components/common";
 import { tableStyles } from "@utils/commonStyles";
+import { BsEye } from "react-icons/bs";
 
-const TechniciansTable = ({
-  data = [],
-  isFetching = false,
-}) => {
+const TechniciansTable = ({ data = [], isFetching = false }) => {
   const [displayData, setDisplayData] = React.useState(data);
 
   return (
@@ -30,7 +28,8 @@ const TechniciansTable = ({
             <Tr>
               <Th>#</Th>
               <Th>Nombre y apellido</Th>
-              <Th display={{ base: "none", md: "table-cell" }}>Email</Th>
+              <Th>Email</Th>
+              <Th></Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -38,8 +37,21 @@ const TechniciansTable = ({
               displayData.map((row) => (
                 <Tr key={row.id}>
                   <Td>{row.id}</Td>
-                  <Td>{row?.user?.first_name} {row?.user?.second_name}</Td>
+                  <Td>
+                    {row?.user?.first_name} {row?.user?.second_name}
+                  </Td>
                   <Td>{row?.user?.email}</Td>
+                  <Td>
+                    <Stack direction="row" spacing="2">
+                      <Tooltip hasArrow label="Gestionar">
+                        <IconButton
+                          size="sm"
+                          onClick={() => {}}
+                          icon={<BsEye />}
+                        />
+                      </Tooltip>
+                    </Stack>
+                  </Td>
                 </Tr>
               ))
             ) : (
@@ -51,7 +63,6 @@ const TechniciansTable = ({
       <Flex justify="end">
         <Paginator data={data} setDisplayData={setDisplayData} />
       </Flex>
-
     </>
   );
 };

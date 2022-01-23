@@ -8,42 +8,22 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as actions from "@actions/";
 
-const RegisterIncidence = ({ isAdmin, actions, userId }) => {
+const RegisterIncidence = ({ isAdmin, actions, userId, isTechnician }) => {
   const [isFetching, togleIsFetching] = useBoolean(false);
-  const [incidenceTypes, setIncidenceTypes] = React.useState([]);
-  const [users, setUsers] = React.useState([]);
+  const [devices, setDevices] = React.useState([]);
 
   const toast = useToast();
 
   React.useEffect(() => {
-    getIncidenceTypes();
-    getUsers();
+    getDevices();
   }, []);
 
-  const getUsers = async () => {
+  const getDevices = async () => {
     togleIsFetching.on();
 
-    let response = await actions.getAllUsers();
+    let response = await actions.getAllDevices();
 
-    if (response.success) setUsers(response.data);
-    else
-      toast({
-        title: response.title || "",
-        description: response.description || "",
-        status: response.status,
-        duration: 5000,
-        isClosable: true,
-      });
-
-    togleIsFetching.off();
-  };
-
-  const getIncidenceTypes = async () => {
-    togleIsFetching.on();
-
-    let response = await actions.getIncidenceTypes();
-
-    if (response.success) setIncidenceTypes(response.data);
+    if (response.success) setDevices(response.data);
     else
       await toast({
         title: response.title || "",
@@ -58,14 +38,14 @@ const RegisterIncidence = ({ isAdmin, actions, userId }) => {
 
   const handleSubmit = async (values, { resetForm }) => {
     togleIsFetching.on();
-
-    if(!isAdmin) values.user_id = userId
+    values.user_id = userId;
 
     let response = await actions.createIncidence(values);
 
     if (response.success) {
       resetForm();
       if (isAdmin) history.push("/admin/incidences");
+      else if (isTechnician) history.push("/technician/incidences");
       else history.push("/incidences");
     }
 
@@ -84,20 +64,18 @@ const RegisterIncidence = ({ isAdmin, actions, userId }) => {
     <>
       <SpinnerScreen open={isFetching} />
 
-      <PageHeader title="Registro de incidencias" />
+      <PageHeader title={"Registro de incidencias"} />
 
-      <IncidenceForm
-        incidenceTypes={incidenceTypes}
-        users={users}
-        handleSubmit={handleSubmit}
-        isAdmin={isAdmin}
-      />
+      <IncidenceForm devices={devices} handleSubmit={handleSubmit} />
     </>
   );
 };
 
 const mapStateToProps = (state) => ({
   isAdmin: state.auth.get("token") && parseInt(state.auth.get("role")) === 60,
+  isTechnician:
+    state.auth.get("token") && parseInt(state.auth.get("role")) === 55,
+  isUser: state.auth.get("token") && parseInt(state.auth.get("role")) === 50,
   userId: state.auth.get("id"),
 });
 
