@@ -17,7 +17,11 @@ import { Paginator, ConfirmDialog, TableSkeleton } from "@components/common";
 import { tableStyles } from "@utils/commonStyles";
 import { BsEye } from "react-icons/bs";
 
-const TechniciansTable = ({ data = [], isFetching = false }) => {
+const TechniciansTable = ({
+  data = [],
+  isFetching = false,
+  handleTechnicianProfile = () => {},
+}) => {
   const [displayData, setDisplayData] = React.useState(data);
 
   return (
@@ -46,7 +50,7 @@ const TechniciansTable = ({ data = [], isFetching = false }) => {
                       <Tooltip hasArrow label="Gestionar">
                         <IconButton
                           size="sm"
-                          onClick={() => {}}
+                          onClick={() => handleTechnicianProfile(row)}
                           icon={<BsEye />}
                         />
                       </Tooltip>

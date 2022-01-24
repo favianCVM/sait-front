@@ -38,8 +38,8 @@ const VisualizeIncidence = ({ incidence }) => {
         lg: "none",
       }}
       mx={{
-        base: "auto", 
-        lg: "initial"
+        base: "auto",
+        lg: "initial",
       }}
       w={{
         base: "80%",
@@ -53,15 +53,15 @@ const VisualizeIncidence = ({ incidence }) => {
 
       <Flex flexDir="column">
         <Row title="Estatus">
-          <Badge p="2" colorScheme={status_color_schemes[incidence.status]}>
+          <Badge p="2" w="fit-content" colorScheme={status_color_schemes[incidence.status]}>
             {status[incidence.status]}
           </Badge>
         </Row>
         <Row title="Localizacion">
-          <Box>{incidence.location}</Box>
+          <Text>{incidence.location}</Text>
         </Row>
         <Row title="Descripcion">
-          <Box>{incidence.description}</Box>
+          <Text>{incidence.description}</Text>
         </Row>
         <Row title="Equipo">
           <Box>
@@ -101,7 +101,7 @@ const Row = ({ children, title }) => {
           base: "row",
           md: "column",
         }}
-        templateColumns="repeat(2 1fr)"
+        templateColumns="repeat(2, 1fr)"
         w="100"
         justifyContent="space-between"
         my="4"
