@@ -14,7 +14,7 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import history from "@utils/history";
-import headerBg from "@assets/bg_header.jpg";
+import hidroven_logo from "@assets/hidroven_logo.jpeg";
 import { connect } from "react-redux";
 
 const HomePage = ({ isLogged, isAdmin, isTechnician }) => {
@@ -26,7 +26,7 @@ const HomePage = ({ isLogged, isAdmin, isTechnician }) => {
     <Box pt="16">
       <Center data-aos="fade-up" mb="10" flexDirection="column">
         <Box display="flex" alignItems="center">
-          <Heading
+          {/* <Heading
             as="h1"
             bgImage={headerBg}
             bgSize="cover"
@@ -42,7 +42,8 @@ const HomePage = ({ isLogged, isAdmin, isTechnician }) => {
             color="transparent"
           >
             S-A-I-T
-          </Heading>
+          </Heading> */}
+          <Image borderRadius="4" my="4" src={hidroven_logo} />
         </Box>
       </Center>
 

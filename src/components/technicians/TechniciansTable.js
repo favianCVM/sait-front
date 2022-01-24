@@ -12,10 +12,11 @@ import {
   IconButton,
   Tooltip,
   useDisclosure,
+  Badge,
 } from "@chakra-ui/react";
 import { Paginator, ConfirmDialog, TableSkeleton } from "@components/common";
 import { tableStyles } from "@utils/commonStyles";
-import { BsEye } from "react-icons/bs";
+import { BsPerson } from "react-icons/bs";
 
 const TechniciansTable = ({
   data = [],
@@ -33,6 +34,7 @@ const TechniciansTable = ({
               <Th>#</Th>
               <Th>Nombre y apellido</Th>
               <Th>Email</Th>
+              <Th>Incidencias asignadas</Th>
               <Th></Th>
             </Tr>
           </Thead>
@@ -46,12 +48,15 @@ const TechniciansTable = ({
                   </Td>
                   <Td>{row?.user?.email}</Td>
                   <Td>
+                    <Badge fontSize="md" p="2">{row?.incidences?.length}</Badge>
+                  </Td>
+                  <Td>
                     <Stack direction="row" spacing="2">
-                      <Tooltip hasArrow label="Gestionar">
+                      <Tooltip hasArrow label="Ir al perfil">
                         <IconButton
                           size="sm"
                           onClick={() => handleTechnicianProfile(row)}
-                          icon={<BsEye />}
+                          icon={<BsPerson />}
                         />
                       </Tooltip>
                     </Stack>
