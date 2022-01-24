@@ -59,7 +59,7 @@ const LoginContainer = (props) => {
           flexDir="column"
         >
           <Form handleSubmit={handleSubmit} />
-          <Button
+          {/* <Button
             onClick={handlePasswordReset}
             my="6"
             border="none"
@@ -67,7 +67,7 @@ const LoginContainer = (props) => {
             disabled={isFetching}
           >
             ¿Ha olvidado su contraseña?
-          </Button>
+          </Button> */}
         </Center>
       </Box>
       <GoBackButton disabled={isFetching} Icon={BsHouse} route="/" />
