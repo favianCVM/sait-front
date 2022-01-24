@@ -16,6 +16,7 @@ const TextareaField = ({
   placeholder = "",
   helperText = "",
   resize = "none",
+  inputHeight = "32",
   showError = true,
   disabled = false,
 }) => {
@@ -40,6 +41,7 @@ const TextareaField = ({
               placeholder={placeholder}
               className={addClass}
               resize={resize}
+              height={inputHeight}
               disabled={disabled}
               {...field}
             />

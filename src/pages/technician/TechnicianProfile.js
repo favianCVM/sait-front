@@ -1,7 +1,11 @@
+import UserProfile from "@containers/users/UserProfile";
+
 const TechnicianProfile = () => {
-  return(
-    <>hola</>
-  )
+  return (
+    <>
+      <UserProfile />
+    </>
+  );
 };
 
 export default TechnicianProfile;

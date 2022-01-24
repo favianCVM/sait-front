@@ -88,7 +88,7 @@ const ManageIncidence = ({
           incidence.status === "succeeded" ? "" : "Manejo de "
         } incidencia #${incidence.id}`}
         displayGoBackButton={true}
-        action={handleConclude}
+        action={isTechnician ? handleConclude : null}
         disabledAction={incidence.status === "succeeded"}
         actionIcon={<BsClock />}
         actionName="Concluir incidencia"
