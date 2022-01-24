@@ -44,11 +44,13 @@ const TechniciansTable = ({
                 <Tr key={row.id}>
                   <Td>{row.id}</Td>
                   <Td>
-                    {row?.user?.first_name} {row?.user?.second_name}
+                    {row?.user?.first_name} {row?.user?.last_name}
                   </Td>
                   <Td>{row?.user?.email}</Td>
                   <Td>
-                    <Badge fontSize="md" p="2">{row?.incidences?.length}</Badge>
+                    <Badge fontSize="md" p="2">
+                      {row?.incidences?.length}
+                    </Badge>
                   </Td>
                   <Td>
                     <Stack direction="row" spacing="2">
