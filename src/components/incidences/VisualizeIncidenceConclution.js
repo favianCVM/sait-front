@@ -55,7 +55,7 @@ const VisualizeIncidenceConclution = ({ incidence }) => {
       }}
     >
       <Heading textAlign="center" my="2">
-        Fallas precenciadas
+        Fallas detectadas
       </Heading>
 
       <Accordion allowToggle my="12">
