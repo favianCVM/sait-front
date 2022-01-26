@@ -30,12 +30,12 @@ import {
 } from "@pages/user/index";
 import {
   IoPerson,
-  IoAddCircleOutline,
   IoAlertCircle,
   IoBuild,
 } from "react-icons/io5";
 import { BiDevices, BiChip } from "react-icons/bi";
 import { BsList } from "react-icons/bs";
+import { BiAddToQueue } from "react-icons/bi";
 
 const adminRoutes = [
   {
@@ -48,7 +48,7 @@ const adminRoutes = [
   {
     to: "/admin/register-incidence",
     as: "/admin/registrar-incidencia",
-    icon: IoAddCircleOutline,
+    icon: BiAddToQueue,
     title: "Registrar incidencia",
     component: AdminRegisterIncidence,
   },
@@ -114,7 +114,7 @@ const userRoutes = [
   {
     to: "/register-incidence",
     as: "/registrar-incidencia",
-    icon: IoAddCircleOutline,
+    icon: BiAddToQueue,
     title: "Registrar incidencia",
     component: UserRegisterIncidence,
   },
@@ -160,7 +160,7 @@ const technicianRoutes = [
   {
     to: "/technician/register-incidence",
     as: "/tecnico/tecregistrar-incidencia",
-    icon: IoAddCircleOutline,
+    icon: BiAddToQueue,
     title: "Registrar incidencia",
     component: TechnicianRegisterIncidence,
   },

@@ -14,6 +14,7 @@ import {
 import { IoSunnyOutline, IoSunnySharp, IoLogOut } from "react-icons/io5";
 import LayoutItem from "./LayoutItem";
 import LayoutFooter from "./LayoutFooter";
+import { roles } from "@utils/translater";
 //REDUX
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -48,6 +49,8 @@ const Sidebar = (props) => {
     isLogged,
     username,
     profile_picture,
+    role,
+    first_name,
   } = props;
 
   React.useEffect(() => {
@@ -125,10 +128,16 @@ const Sidebar = (props) => {
               flexDirection="column"
             >
               <Avatar src={profile_picture} size="lg" />
-              <Heading fontSize={{
-                base: "2xl",
-                lg: "4xl"
-              }} textAlign="center">{username}</Heading>
+              <Heading
+                fontSize={{
+                  base: "2xl",
+                  lg: "4xl",
+                }}
+                my="2"
+                textAlign="center"
+              >
+                {first_name} ({roles[role]})
+              </Heading>
               <LayoutFooter
                 isDark={isDark}
                 setShowLogOut={setShowLogOut}
@@ -209,6 +218,7 @@ const mapStateToProps = (state) => ({
   isLogged: state.auth.get("logged"),
   username: state.auth.get("username"),
   role: state.auth.get("role"),
+  first_name: state.auth.get("first_name"),
   profile_picture: state.auth.get("profile_picture"),
   isAdmin: state.auth.get("token") && parseInt(state.auth.get("role")) === 60,
   isUser: state.auth.get("token") && parseInt(state.auth.get("role")) === 50,

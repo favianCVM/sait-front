@@ -19,3 +19,9 @@ export const genders = [
   { label: "Masculino", value: "M" },
   { label: "Femenino", value: "F" },
 ];
+
+export const incidence_types = [
+  { value: "hardware", label: "Hardware" },
+  { value: "software", label: "Software" },
+  { value: "other", label: "Otro" },
+]

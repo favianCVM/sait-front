@@ -17,6 +17,7 @@ import { Paginator, ConfirmDialog, TableSkeleton } from "@components/common";
 import { FiEdit, FiDelete } from "react-icons/fi";
 import { tableStyles } from "@utils/commonStyles";
 import {roles} from "@utils/translater"
+import { BsTrashFill } from "react-icons/bs";
 
 const UserTable = ({
   data = [],
@@ -71,7 +72,7 @@ const UserTable = ({
                         <IconButton
                           size="sm"
                           onClick={() => handleDeleteConfirmation(row.id)}
-                          icon={<FiDelete />}
+                          icon={<BsTrashFill />}
                         />
                       </Tooltip>
                     </Stack>

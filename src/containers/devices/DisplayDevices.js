@@ -2,7 +2,6 @@ import React from "react";
 import { PageHeader, SpinnerScreen } from "@components/common";
 import DeviceTable from "@components/devices/DeviceTable";
 import { Box, useDisclosure, useToast, useBoolean } from "@chakra-ui/react";
-import { AiFillFileAdd } from "react-icons/ai";
 import ManageDevice from "@components/devices/ManageDevice";
 
 import { connect } from "react-redux";
@@ -140,7 +139,6 @@ const DisplayDevices = ({ actions }) => {
         title="Equipos"
         actionName="Registrar equipo"
         action={onOpen}
-        actionIcon={<AiFillFileAdd />}
       />
 
       <DeviceTable

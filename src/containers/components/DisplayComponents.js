@@ -1,7 +1,6 @@
 import React from "react";
 import { useDisclosure, useBoolean, Grid, useToast } from "@chakra-ui/react";
 import PageHeader from "@components/common/PageHeader";
-import { IoAddCircleOutline } from "react-icons/io5";
 import ManageComponent from "@components/components/ManageComponent";
 import ComponentCardDisplayer from "@components/components/ComponentCardDisplayer";
 import { SpinnerScreen, ConfirmDialog } from "@components/common";
@@ -78,7 +77,11 @@ const data = [
 
 const DisplayComponents = ({ actions }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { isOpen: confirmIsOpen, onOpen: confirmOnOpen, onClose: confirmOnClose } = useDisclosure();
+  const {
+    isOpen: confirmIsOpen,
+    onOpen: confirmOnOpen,
+    onClose: confirmOnClose,
+  } = useDisclosure();
   const [isFetching, togleIsFetching] = useBoolean(false);
   const [components, setComponents] = React.useState([]);
   const [updateComponent, setUpdateComponent] = React.useState(null);
@@ -138,8 +141,8 @@ const DisplayComponents = ({ actions }) => {
   };
 
   const handleDeleteModal = (id) => {
-    setDeleteComponentId(id)
-    confirmOnOpen()
+    setDeleteComponentId(id);
+    confirmOnOpen();
   };
 
   const handleDeleteComponent = async () => {
@@ -157,7 +160,7 @@ const DisplayComponents = ({ actions }) => {
 
     await getComponents();
 
-    setDeleteComponentId(null)
+    setDeleteComponentId(null);
     togleIsFetching.off();
   };
 
@@ -168,7 +171,6 @@ const DisplayComponents = ({ actions }) => {
       <PageHeader
         title="Componentes"
         action={onOpen}
-        actionIcon={<IoAddCircleOutline />}
         actionName="Añadir componente"
       />
 
