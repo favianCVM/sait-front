@@ -8,7 +8,7 @@ import {
   SubmitFormButton,
 } from "@components/common";
 import incidence from "@models/incidence";
-import { priorities } from "@utils/options";
+import { priorities, incidence_types } from "@utils/options";
 
 const IncidenceForm = ({
   handleSubmit = () => {},
@@ -64,11 +64,7 @@ const IncidenceForm = ({
                 name="incidence_type"
                 placeholder="seleccione un tipo"
                 disabled={props.isSubmitting}
-                options={[
-                  { value: "hardware", label: "Hardware" },
-                  { value: "software", label: "Software" },
-                  { value: "other", label: "Otro" },
-                ]}
+                options={incidence_types}
               />
 
               <SelectField

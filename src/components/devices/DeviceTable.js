@@ -20,6 +20,7 @@ import {
 import { Paginator, ConfirmDialog, TableSkeleton } from "@components/common";
 import { tableStyles } from "@utils/commonStyles";
 import { FiEdit, FiDelete } from "react-icons/fi";
+import { BsTrashFill } from "react-icons/bs";
 
 const DeviceTable = ({
   data = [],
@@ -80,7 +81,7 @@ const DeviceTable = ({
                         <IconButton
                           size="sm"
                           onClick={() => handleDeleteConfirmation(row.id)}
-                          icon={<FiDelete />}
+                          icon={<BsTrashFill />}
                         />
                       </Tooltip>
                     </Stack>

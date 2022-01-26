@@ -28,7 +28,7 @@ const DeviceForm = ({
             <Stack>
               <SelectField
                 options={[
-                  { label: "Nuevo", value: "new" },
+                  { label: "Otro", value: "new" },
                   ...deviceTypes.map((el) => ({
                     value: el.id,
                     label: el.name,

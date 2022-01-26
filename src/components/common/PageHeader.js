@@ -9,13 +9,14 @@ import {
   Divider,
 } from "@chakra-ui/react";
 import { GoBackButton } from "@components/common";
+import { BiAddToQueue } from "react-icons/bi";
 
 const PageHeader = ({
   title,
   subTitle,
   message,
   action,
-  actionIcon,
+  actionIcon = <BiAddToQueue/>,
   actionName,
   displayGoBackButton = false,
   disabledAction = false,

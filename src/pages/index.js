@@ -14,7 +14,7 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import history from "@utils/history";
-import hidroven_logo from "@assets/hidroven_logo.jpeg";
+import hidroven_logo from "@assets/hidroven_logo.png";
 import { connect } from "react-redux";
 
 const HomePage = ({ isLogged, isAdmin, isTechnician }) => {
@@ -43,7 +43,14 @@ const HomePage = ({ isLogged, isAdmin, isTechnician }) => {
           >
             S-A-I-T
           </Heading> */}
-          <Image borderRadius="4" my="4" src={hidroven_logo} />
+          <Image
+            borderRadius="4"
+            my="4"
+            height={{
+              base: 175
+            }}
+            src={hidroven_logo}
+          />
         </Box>
       </Center>
 

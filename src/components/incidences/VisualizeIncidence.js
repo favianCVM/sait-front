@@ -53,9 +53,20 @@ const VisualizeIncidence = ({ incidence }) => {
 
       <Flex flexDir="column">
         <Row title="Estatus">
-          <Badge p="2" w="fit-content" colorScheme={status_color_schemes[incidence.status]}>
+          <Badge
+            p="2"
+            w="fit-content"
+            colorScheme={status_color_schemes[incidence.status]}
+          >
             {status[incidence.status]}
           </Badge>
+        </Row>
+        <Row title="Tipo de incidencia">
+          <Text>
+            {incidence.incidence_type === "other"
+              ? "-"
+              : incidence.incidence_type}
+          </Text>
         </Row>
         <Row title="Localizacion">
           <Text>{incidence.location}</Text>

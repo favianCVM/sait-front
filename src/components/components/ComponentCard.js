@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { FiEdit, FiDelete } from "react-icons/fi";
 import { AiFillTool } from "react-icons/ai";
+import { BsTrashFill } from "react-icons/bs";
 
 const ComponentCard = ({
   name = "",
@@ -90,7 +91,7 @@ const ComponentCard = ({
           colorScheme="blue"
           size="md"
           onClick={() => handleDelete(id)}
-          icon={<FiDelete />}
+          icon={<BsTrashFill />}
         />
       </Center>
     </Flex>

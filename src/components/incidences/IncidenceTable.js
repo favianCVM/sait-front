@@ -71,7 +71,9 @@ const IncidenceTable = ({
                   <Td>
                     {row?.user?.first_name} {row?.user?.last_name}
                   </Td>
-                  <Td>{row.incidence_type}</Td>
+                  <Td>
+                    {row.incidence_type === "other" ? "-" : row.incidence_type}
+                  </Td>
                   <Td>
                     <Tooltip hasArrow label={priorities[row.priority]}>
                       <Badge
