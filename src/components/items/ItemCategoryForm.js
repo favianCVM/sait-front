@@ -7,13 +7,13 @@ import {
   SubmitFormButton,
   FileField,
 } from "@components/common";
-import component from "@models/component";
 import { AiFillTool } from "react-icons/ai";
+import itemCategory from "@models/itemCategory";
 
 const ComponentForm = ({ handleSubmit, updateComponent }) => {
   return (
     <Formik
-      initialValues={updateComponent ? updateComponent : component}
+      initialValues={itemCategory}
       onSubmit={handleSubmit}
       // validate={componentRegisterValidations}
     >
@@ -44,7 +44,7 @@ const ComponentForm = ({ handleSubmit, updateComponent }) => {
               name="picture"
               containerClasses="mt-12 mb-8"
               imagePreviewSize="xl"
-              toolTipMessage="Foto del componente"
+              toolTipMessage="Foto de ejemplo"
               id="picture"
               labelIcon={<AiFillTool />}
               disabled={props.isSubmitting}
@@ -56,11 +56,7 @@ const ComponentForm = ({ handleSubmit, updateComponent }) => {
             <SubmitFormButton
               isSubmitting={props.isSubmitting}
               errors={props.errors}
-              title={
-                updateComponent
-                  ? "Actualizar componente"
-                  : "Registrar componente"
-              }
+              title={"Registrar categoria de elemento"}
             />
           </Flex>
         </Form>

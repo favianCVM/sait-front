@@ -1,14 +1,21 @@
 import React from "react";
-import { Grid, Flex, Box } from "@chakra-ui/react";
-import ComponentCard from "@components/components/ComponentCard";
+import { Grid, Flex, Box, useDisclosure } from "@chakra-ui/react";
+import ComponentCard from "@components/items/ComponentCard";
 import { Paginator } from "@components/common";
+import ManageItems from "@components/items/ManageItems";
 
-const ComponentCardDisplayer = ({
+const ItemCardDisplayer = ({
   data = [],
-  handleDelete = () => {},
-  handleEdit = () => {},
+  handleDisable = () => {},
+  handleRegister = () => {},
 }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const [displayData, setDisplayData] = React.useState(data);
+  const [items, setItems] = React.useState({});
+
+  const handleManageItemCategory = (item) => {
+  }
 
   return (
     <Box px={{
@@ -30,13 +37,14 @@ const ComponentCardDisplayer = ({
           <ComponentCard
             key={`${el.id}-${el.name}`}
             {...el}
-            handleDelete={handleDelete}
-            handleEdit={() => handleEdit(el)}
+            handleManage={handleManageItemCategory}
           />
         ))}
       </Grid>
+
+      <ManageItems  />
     </Box>
   );
 };
 
-export default ComponentCardDisplayer;
+export default ItemCardDisplayer;

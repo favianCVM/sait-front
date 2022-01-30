@@ -1,19 +1,19 @@
 import requests from '@utils/requests'
 import formatFormData from '@utils/formatFormData'
 
-export function createComponent(data){
+export function registerItem(data){
   return async dispatch => {
     return requests.create_component(formatFormData(data))
     .then(r => {
       return {
-        title: 'Componente creado exitosamente.',
+        title: 'Elemento registrado exitosamente.',
         success: true,
         status: 'success',
       }
     })
     .catch(e => {
       return {
-        title: e.response?.data?.error?.message || 'Hubo un problema en la creacion del componente.',
+        title: e.response?.data?.error?.message || 'Hubo un problema en registrar el elemento.',
         success: false,
         status: 'error',
         description: 'Intente de nuevo'
@@ -22,19 +22,40 @@ export function createComponent(data){
   }
 }
 
-export function updateComponent(data){
+export function createItemCategory(data){
   return async dispatch => {
-    return requests.update_component(formatFormData(data))
+    return requests.create_component(formatFormData(data))
     .then(r => {
       return {
-        title: 'Componente actualizado exitosamente.',
+        title: 'Categoria de elemento creada exitosamente.',
         success: true,
         status: 'success',
       }
     })
     .catch(e => {
       return {
-        title: e.response?.data?.error?.message || 'Hubo un problema al actualizar del componente.',
+        title: e.response?.data?.error?.message || 'Hubo un problema en la creacion de la categoria.',
+        success: false,
+        status: 'error',
+        description: 'Intente de nuevo'
+      }
+    })
+  }
+}
+
+export function disableItem(id){
+  return async dispatch => {
+    return requests.update_component(id)
+    .then(r => {
+      return {
+        title: 'Elemento desincorporado exitosamente.',
+        success: true,
+        status: 'success',
+      }
+    })
+    .catch(e => {
+      return {
+        title: e.response?.data?.error?.message || 'Hubo un problema en desincorporar el elemento.',
         success: false,
         status: 'error',
         description: 'Intente de nuevo'
@@ -76,7 +97,7 @@ export function getAllComponents(){
     })
     .catch(e => {
       return {
-        title: e.response?.data?.error?.message || 'Hubo un problema en la obtencion de los componentes.',
+        title: e.response?.data?.error?.message || 'Hubo un problema en la obtencion de los elementos.',
         success: false,
         status: 'error',
         description: 'Intente de nuevo'

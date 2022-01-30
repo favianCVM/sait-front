@@ -1,5 +1,5 @@
 export { default as RegisterIncidence } from "./RegisterIncidence";
-export { default as Components } from "./Components";
+export { default as Items } from "./Items";
 export { default as Incidences } from "./Incidences";
 export { default as TechnicianIncidences } from "./TechnicianIncidences";
 export { default as HandleIncidence } from "./HandleIncidence";
