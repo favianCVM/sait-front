@@ -1,27 +1,36 @@
 import React from "react";
 import { Grid, Flex, Box, useDisclosure } from "@chakra-ui/react";
-import ComponentCard from "@components/items/ComponentCard";
+import ItemCard from "@components/items/ItemCard";
 import { Paginator } from "@components/common";
 import ManageItems from "@components/items/ManageItems";
 
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as actions from "@actions/";
+
 const ItemCardDisplayer = ({
+  isAdmin,
   data = [],
-  handleDisable = () => {},
-  handleRegister = () => {},
+  handleDisableItemCategory = () => {},
+  getAllItems = () => {},
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [displayData, setDisplayData] = React.useState(data);
-  const [items, setItems] = React.useState({});
+  const [category, setCategory] = React.useState({});
 
   const handleManageItemCategory = (item) => {
-  }
+    setCategory(item);
+    onOpen();
+  };
 
   return (
-    <Box px={{
-      base: "8",
-      sm: "none"
-    }}>
+    <Box
+      px={{
+        base: "8",
+        sm: "none",
+      }}
+    >
       <Flex justify="end">
         <Paginator data={data} setDisplayData={setDisplayData} />
       </Flex>
@@ -34,17 +43,37 @@ const ItemCardDisplayer = ({
         columnGap="6"
       >
         {displayData.map((el) => (
-          <ComponentCard
+          <ItemCard
             key={`${el.id}-${el.name}`}
             {...el}
             handleManage={handleManageItemCategory}
+            handleDisable={handleDisableItemCategory}
+            isAdmin={isAdmin}
           />
         ))}
       </Grid>
 
-      <ManageItems  />
+      <ManageItems
+        isOpen={isOpen}
+        onClose={() => {
+          setCategory({});
+          onClose();
+        }}
+        getAllItems={getAllItems}
+        name={category.name}
+        items={category.items}
+        categoryId={category.id}
+      />
     </Box>
   );
 };
 
-export default ItemCardDisplayer;
+const mapStateToProps =(state) => ({
+  isAdmin: state.auth.get("token") && parseInt(state.auth.get("role")) === 60,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(actions, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ItemCardDisplayer);

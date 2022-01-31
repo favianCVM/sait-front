@@ -61,6 +61,10 @@ const VisualizeIncidence = ({ incidence }) => {
             {status[incidence.status]}
           </Badge>
         </Row>
+        <Row title="Fecha de reporte">{incidence.date}</Row>
+        {incidence.status === "succeeded" && (
+          <Row title="Fecha de reporte">{incidence.end_date}</Row>
+        )}
         <Row title="Tipo de incidencia">
           <Text>
             {incidence.incidence_type === "other"
@@ -68,21 +72,23 @@ const VisualizeIncidence = ({ incidence }) => {
               : incidence.incidence_type}
           </Text>
         </Row>
-        <Row title="Localizacion">
+        <Row title="Localización">
           <Text>{incidence.location}</Text>
         </Row>
-        <Row title="Descripcion">
+        <Row title="Descripción">
           <Text>{incidence.description}</Text>
         </Row>
         <Row title="Equipo">
           <Box>
-            <Text>{incidence.device?.serial}</Text>
+            <Text>#{incidence.device?.serial}</Text>
           </Box>
         </Row>
-        <Row title="Componentes del equipo">
+        <Row title="Elementos del equipo">
           <UnorderedList>
-            {incidence.device?.components?.map((el) => (
-              <ListItem key={`component-${el.id}`}>{el.name}</ListItem>
+            {incidence.device?.items?.map((el) => (
+              <ListItem key={`item-${el.id}`}>
+                {el?.itemCategory?.name} ({el.serial})
+              </ListItem>
             ))}
           </UnorderedList>
         </Row>

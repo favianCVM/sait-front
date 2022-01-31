@@ -16,7 +16,7 @@ const ManageDevice = ({
   isOpen = false,
   onClose = false,
   handleSubmit = () => {},
-  components = [],
+  items = [],
   deviceTypes = [],
   updateDevice = null,
 }) => {
@@ -41,7 +41,7 @@ const ManageDevice = ({
           <DeviceForm
             updateDevice={updateDevice}
             handleSubmit={handleSubmit}
-            components={components}
+            items={items}
             deviceTypes={deviceTypes}
           />
         </ModalBody>

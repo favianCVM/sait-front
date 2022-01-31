@@ -12,7 +12,7 @@ const DisplayDevices = ({ actions }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [devices, setDevices] = React.useState([]);
-  const [components, setComponents] = React.useState([]);
+  const [items, setItems] = React.useState([]);
   const [deviceTypes, setDeviceTypes] = React.useState([]);
 
   const [updateDevice, setUpdateDevice] = React.useState(null);
@@ -21,7 +21,7 @@ const DisplayDevices = ({ actions }) => {
 
   React.useEffect(() => {
     getDevices();
-    getComponents();
+    getItems();
     getDeviceTypes();
   }, []);
 
@@ -43,12 +43,12 @@ const DisplayDevices = ({ actions }) => {
     togleIsFetching.off();
   };
 
-  const getComponents = async () => {
+  const getItems = async () => {
     togleIsFetching.on();
 
-    let response = await actions.getAllComponents();
+    let response = await actions.getAvailableItems();
 
-    if (response.success) setComponents(response.data);
+    if (response.success) setItems(response.data.filter((el) => !el.disabled));
     else
       toast({
         title: response.title || "",
@@ -156,7 +156,7 @@ const DisplayDevices = ({ actions }) => {
           setUpdateDevice(null);
           onClose();
         }}
-        components={components}
+        items={items}
         deviceTypes={deviceTypes}
       />
     </Box>

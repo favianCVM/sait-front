@@ -20,32 +20,12 @@ const ConcludeIncidence = ({ actions, technician_id }) => {
     ...history.location.state?.incidence,
   });
   const [isFetching, togleIsFetching] = useBoolean(false);
-  const [components, setComponents] = React.useState([]);
 
   const toast = useToast();
 
   React.useEffect(() => {
     if (!history.location.state) history.goBack();
-    getComponents();
   }, []);
-
-  const getComponents = async () => {
-    togleIsFetching.on();
-
-    let response = await actions.getAllComponents();
-
-    if (response.success) setComponents(response.data);
-    else
-      toast({
-        title: response.title || "",
-        description: response.description || "",
-        status: response.status,
-        duration: 5000,
-        isClosable: true,
-      });
-
-    togleIsFetching.off();
-  };
 
   const handleConcludeIncidence = async (values) => {
     togleIsFetching.on();
@@ -80,7 +60,7 @@ const ConcludeIncidence = ({ actions, technician_id }) => {
         <VisualizeIncidence incidence={incidence} />
         <ConcludeIncidenceForm
           handleSubmit={handleConcludeIncidence}
-          components={components}
+          items={incidence?.device?.items}
         />
       </Flex>
     </>

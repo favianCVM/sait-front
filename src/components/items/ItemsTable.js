@@ -3,7 +3,6 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
@@ -12,27 +11,34 @@ import {
   Box,
   IconButton,
   Tooltip,
-  Skeleton,
   useDisclosure,
-  List,
-  ListItem,
+  Badge,
 } from "@chakra-ui/react";
 import { Paginator, ConfirmDialog, TableSkeleton } from "@components/common";
 import { tableStyles } from "@utils/commonStyles";
-import { FiEdit, FiDelete } from "react-icons/fi";
-import { BsTrashFill } from "react-icons/bs";
+import { BsTrashFill, BsArrowBarUp } from "react-icons/bs";
+import { item_status, item_status_color_schemes } from "@utils/translater";
 
 const ItemsTable = ({
   data = [],
   isFetching = false,
   handleDisable = () => {},
+  handleReincorporation = () => {},
 }) => {
   const [displayData, setDisplayData] = React.useState(data);
-  const [selectedDevice, setSelectedDevice] = React.useState(null);
+  const [selectedItem, setSelectedItem] = React.useState(null);
+  const [confirmType, setConfirmType] = React.useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleDisbaleConfirmation = (id) => {
-    setSelectedDevice(id);
+    setSelectedItem(id);
+    setConfirmType("disable");
+    onOpen();
+  };
+
+  const handleReincorporateConfirm = (id) => {
+    setSelectedItem(id);
+    setConfirmType("reincorporate");
     onOpen();
   };
 
@@ -44,6 +50,8 @@ const ItemsTable = ({
             <Tr>
               <Th>#</Th>
               <Th>Serial</Th>
+              <Th>Estatus</Th>
+              <Th>Asignado</Th>
               <Th></Th>
             </Tr>
           </Thead>
@@ -52,18 +60,40 @@ const ItemsTable = ({
               displayData.map((row) => (
                 <Tr key={`device-${row.id}`}>
                   <Td>{row.id}</Td>
+                  <Td>{row.serial}</Td>
                   <Td>
-                    {row.serial}
+                    <Badge
+                      p="2"
+                      fontSize="sm"
+                      colorScheme={item_status_color_schemes[row.disabled]}
+                    >
+                      {item_status[row.disabled]}
+                    </Badge>
+                  </Td>
+                  <Td>
+                    {row.assigned
+                      ? `${row?.device?.deviceType?.name} - ${row?.device?.serial}`
+                      : "-"}
                   </Td>
                   <Td>
                     <Stack direction="row" spacing="2">
-                      <Tooltip hasArrow label="desincorporar">
-                        <IconButton
-                          size="sm"
-                          onClick={() => handleDisbaleConfirmation(row.id)}
-                          icon={<BsTrashFill />}
-                        />
-                      </Tooltip>
+                      {row.disabled === 1 ? (
+                        <Tooltip hasArrow label="Reincorporar">
+                          <IconButton
+                            size="sm"
+                            onClick={() => handleReincorporateConfirm(row.id)}
+                            icon={<BsArrowBarUp />}
+                          />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip hasArrow label="Desincorporar">
+                          <IconButton
+                            size="sm"
+                            onClick={() => handleDisbaleConfirmation(row.id)}
+                            icon={<BsTrashFill />}
+                          />
+                        </Tooltip>
+                      )}
                     </Stack>
                   </Td>
                 </Tr>
@@ -83,8 +113,15 @@ const ItemsTable = ({
       <ConfirmDialog
         isOpen={isOpen}
         onClose={onClose}
-        confirmMethod={() => handleDisable(selectedDevice)}
-        title="Desea eliminar este equipo?"
+        confirmMethod={() => {
+          if (confirmType === "disable") handleDisable(selectedItem);
+          else handleReincorporation(selectedItem);
+        }}
+        title={
+          confirmType === "disable"
+            ? "Desea desincorporar este elemento?"
+            : "Desea reincorporar este elemento"
+        }
       />
     </>
   );

@@ -11,16 +11,20 @@ import {
 import device from "@models/device";
 
 const DeviceForm = ({
-  handleSubmit,
-  updateDevice,
-  components = [],
+  handleSubmit = () => {},
+  updateDevice = null,
+  items = [],
   deviceTypes = [],
 }) => {
   return (
     <Formik
-      initialValues={updateDevice ? updateDevice : device}
+      initialValues={
+        updateDevice
+          ? { ...updateDevice, items: updateDevice.items.map((el) => el.id) }
+          : device
+      }
       onSubmit={handleSubmit}
-      // validate={deviceRegisterValidations}
+      validate={deviceRegisterValidations}
     >
       {(props) => (
         <Form>
@@ -34,32 +38,35 @@ const DeviceForm = ({
                     label: el.name,
                   })),
                 ]}
-                name="deviceTypeId"
+                name="device_type_id"
                 id="device_type_id"
                 placeholder="tipo de equipo"
                 label="Tipo de equipo"
                 disabled={props.isSubmitting}
               />
 
-              {props.values?.deviceTypeId === "new" && (
+              {props.values?.device_type_id === "new" && (
                 <TextField
-                  name="deviceType.name"
+                  name="device_type.name"
                   id="device_type.name"
                   label="Nombre del tipo de equipo"
                   disabled={props.isSubmitting}
                   placeholder="introduzca el nombre del tipo de equipo"
                 />
               )}
-              
               <MultiSelectField
-                options={components.map((el) => ({
-                  value: el.id,
+                options={items.map((el) => ({
                   label: el.name,
+                  options: el.items.map((il) => ({
+                    label: `${il.serial} (${el.name})`,
+                    value: il.id,
+                  })),
                 }))}
-                name="components"
-                id="components"
-                placeholder="componentes"
-                label="Componentes"
+                isLabeled={true}
+                name="items"
+                id="items"
+                placeholder="elementos"
+                label="Elementos"
                 disabled={props.isSubmitting}
               />
 

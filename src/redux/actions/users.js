@@ -51,19 +51,19 @@ export function updateUser(data) {
   }
 }
 
-export function deleteUser(id) {
+export function disableUser(id) {
   return async dispatch => {
-    return requests.delete_user(id)
+    return requests.disable_user(id)
       .then(async (r)=>{
         return {
-          title: 'Perfil eliminado exitosamente.',
+          title: 'Perfil Deshabilitado exitosamente.',
           success: true,
           status: 'success',
         }
       })
       .catch((e)=>{
         return {
-          title: e.response?.data?.error?.message || 'Hubo un problema en eliminar el usuario.',
+          title: e.response?.data?.error?.message || 'Hubo un problema en deshabilitar el usuario.',
           success: false,
           status: 'error',
           description: 'Intente de nuevo'

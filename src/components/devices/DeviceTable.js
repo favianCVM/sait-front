@@ -56,14 +56,12 @@ const DeviceTable = ({
                 <Tr key={`device-${row.id}`}>
                   <Td>{row.id}</Td>
                   <Td>{row?.deviceType?.name}</Td>
-                  <Td display={{ base: "none", md: "table-cell" }}>
-                    {row.serial}
-                  </Td>
-                  <Td display={{ base: "none", md: "table-cell" }}>
+                  <Td>{row.serial}</Td>
+                  <Td>
                     <List>
-                      {row?.deviceComponents?.map((el) => (
+                      {row?.items?.map((el) => (
                         <ListItem key={`device-component-${el.id}-${row.id}`}>
-                          {el?.component?.name}
+                          {el.name} #{el.serial}
                         </ListItem>
                       ))}
                     </List>
@@ -77,7 +75,7 @@ const DeviceTable = ({
                           icon={<FiEdit />}
                         />
                       </Tooltip>
-                      <Tooltip hasArrow label="Eliminar">
+                      <Tooltip hasArrow label="Desincorporar">
                         <IconButton
                           size="sm"
                           onClick={() => handleDeleteConfirmation(row.id)}
@@ -104,7 +102,7 @@ const DeviceTable = ({
         isOpen={isOpen}
         onClose={onClose}
         confirmMethod={() => handleDelete(selectedDevice)}
-        title="Desea eliminar este equipo?"
+        title="Desea desincorporar este equipo?"
       />
     </>
   );

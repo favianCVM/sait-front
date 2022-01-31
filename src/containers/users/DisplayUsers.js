@@ -63,10 +63,10 @@ const DisplayUsers = ({ actions }) => {
     togleIsFetching.off();
   };
 
-  const handleDeleteUser = async (id) => {
+  const handleDisableUser = async (id) => {
     togleIsFetching.on();
 
-    let response = await actions.deleteUser(id);
+    let response = await actions.disableUser(id);
 
     await toast({
       title: response.title || "",
@@ -100,7 +100,7 @@ const DisplayUsers = ({ actions }) => {
       <UsersTable
         data={users}
         handleEdit={handleEditUser}
-        handleDelete={handleDeleteUser}
+        handleDisable={handleDisableUser}
         isFetching={isFetching}
       />
 

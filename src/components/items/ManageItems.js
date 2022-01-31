@@ -7,17 +7,88 @@ import {
   ModalFooter,
   Button,
   ModalBody,
-  useMediaQuery,
+  useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
+import { PageHeader } from "@components/common";
 import ItemsTable from "@components/items/ItemsTable";
+import ManageRegisterItem from "@components/items/ManageRegisterItem";
+
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as actions from "@actions/";
 
 const ManageItems = ({
   isOpen = false,
-  onClose = () => {},
-  category = "",
+  name = "",
   items = [],
+  categoryId = null,
+  actions,
+  onClose = () => {},
+  getAllItems = () => {},
 }) => {
-  const [isMobile] = useMediaQuery("(max-width: 680px)");
+  const {
+    isOpen: registerItemIsOpen,
+    onOpen: registerItemOnOpen,
+    onClose: registerItemOnClose,
+  } = useDisclosure();
+  const toast = useToast();
+
+  // items methods
+  const handleRegisterItem = async (values) => {
+    values.item_category_id = categoryId;
+
+    let response = await actions.registerItem(values);
+
+    await toast({
+      title: response.title || "",
+      description: response.description || "",
+      status: response.status,
+      duration: 5000,
+      isClosable: true,
+    });
+
+    if (response.success) {
+      registerItemOnClose();
+      onClose();
+      getAllItems();
+    }
+  };
+
+  const handleDisableItem = async (id) => {
+    let response = await actions.disableItem(id);
+
+    await toast({
+      title: response.title || "",
+      description: response.description || "",
+      status: response.status,
+      duration: 5000,
+      isClosable: true,
+    });
+
+    if (response.success) {
+      onClose();
+      getAllItems();
+    }
+  };
+
+  const handleReincorporateItem = async (id) => {
+    let response = await actions.reincorporateItem(id);
+
+    await toast({
+      title: response.title || "",
+      description: response.description || "",
+      status: response.status,
+      duration: 5000,
+      isClosable: true,
+    });
+
+    if (response.success) {
+      onClose();
+      getAllItems();
+    }
+  };
+
   return (
     <Modal
       closeOnOverlayClick={false}
@@ -25,17 +96,25 @@ const ManageItems = ({
       onClose={onClose}
       trapFocus={false}
       isCentered
-      size={`${isMobile ? "full" : "2xl"}`}
+      size={`full`}
     >
       <ModalOverlay />
 
-      <ModalContent paddingTop={isMobile ? 50 : 0}>
+      <ModalContent>
         <ModalHeader>
-          {category}
+          <PageHeader
+            title={name}
+            action={registerItemOnOpen}
+            actionName={`Registrar ${name}`}
+          />
         </ModalHeader>
 
         <ModalBody>
-          <ItemsTable data={items} />
+          <ItemsTable
+            handleReincorporation={handleReincorporateItem}
+            handleDisable={handleDisableItem}
+            data={items}
+          />
         </ModalBody>
 
         <ModalFooter>
@@ -44,8 +123,20 @@ const ManageItems = ({
           </Button>
         </ModalFooter>
       </ModalContent>
+
+      <ManageRegisterItem
+        handleRegisterItem={handleRegisterItem}
+        handleDisableItem={handleDisableItem}
+        isOpen={registerItemIsOpen}
+        onClose={registerItemOnClose}
+        name={name}
+      />
     </Modal>
   );
 };
 
-export default ManageItems;
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(actions, dispatch),
+});
+
+export default connect(null, mapDispatchToProps)(ManageItems);

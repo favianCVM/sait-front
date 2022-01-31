@@ -1,25 +1,15 @@
 import { Stack, Flex } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
-import { componentRegisterValidations } from "@utils/validations";
-import {
-  TextareaField,
-  TextField,
-  SubmitFormButton,
-  FileField,
-  SelectField,
-} from "@components/common";
-import component from "@models/component";
-import { AiFillTool } from "react-icons/ai";
+import { registerItemValidations } from "@utils/validations";
+import { TextField, SubmitFormButton } from "@components/common";
+import item from "@models/item";
 
-const RegisterItemForm = ({ handleSubmit, itemCategories = [] }) => {
+const RegisterItemForm = ({ handleSubmit = () => {}, name = "" }) => {
   return (
     <Formik
-      initialValues={{
-        serial: "",
-        item_category_id: null,
-      }}
+      initialValues={item}
       onSubmit={handleSubmit}
-      // validate={componentRegisterValidations}
+      validate={registerItemValidations}
     >
       {(props) => (
         <Form>
@@ -32,19 +22,12 @@ const RegisterItemForm = ({ handleSubmit, itemCategories = [] }) => {
                 disabled={props.isSubmitting}
                 id="serial"
               />
-
-              <SelectField
-                placeholder="Categoria"
-                disabled={props.isSubmitting}
-                label="Categoria"
-                options={itemCategories}
-              />
             </Stack>
 
             <SubmitFormButton
               isSubmitting={props.isSubmitting}
               errors={props.errors}
-              title={"Registrar elemento"}
+              title={`Register ${name}`}
             />
           </Flex>
         </Form>

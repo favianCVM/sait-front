@@ -10,7 +10,7 @@ import {
 import { AiFillTool } from "react-icons/ai";
 import itemCategory from "@models/itemCategory";
 
-const ComponentForm = ({ handleSubmit, updateComponent }) => {
+const ComponentForm = ({ handleSubmit }) => {
   return (
     <Formik
       initialValues={itemCategory}
@@ -50,7 +50,7 @@ const ComponentForm = ({ handleSubmit, updateComponent }) => {
               disabled={props.isSubmitting}
               helperText=""
               label=""
-              previewPicture={updateComponent ? updateComponent.picture : ""}
+              // previewPicture={updateComponent ? updateComponent.picture : ""}
             />
 
             <SubmitFormButton

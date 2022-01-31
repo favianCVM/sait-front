@@ -8,7 +8,7 @@ const create_user = (data) => Api().post("/users/create-user", data);
 const get_all_users = () => Api().get("/users/get-all-users");
 const update_user = (data) =>
   Api().put(`/users/update-user/${data.get("id")}`, data);
-const delete_user = (id) => Api().delete(`/users/delete-user/${id}`);
+const disable_user = (id) => Api().delete(`/users/disable-user/${id}`);
 const get_user = (id) => Api().get(`/users/get-user/${id}`);
 //DEVICES
 const create_device = (data) => Api().post(`/devices/create-device`, data);
@@ -17,14 +17,17 @@ const update_device = (data) =>
 const get_all_device_types = () => Api().get("/devices/get-all-device-types");
 const get_all_devices = () => Api().get("/devices/get-all-devices");
 const delete_device = (id) => Api().delete(`/devices/delete-device/${id}`);
-//COMPONENTS
-const get_all_components = () => Api().get(`/components/get-all-components`);
-const create_component = (data) =>
-  Api().post(`/components/create-component`, data);
-const update_component = (data) =>
-  Api().put(`/components/update-component/${data.get("id")}`, data);
-const delete_component = (id) =>
-  Api().delete(`/components/delete-component/${id}`);
+//ITEMS
+const get_all_items = () => Api().get(`/items/get-all-items`);
+const get_available_items = () => Api().get(`/items/get-available-items`);
+const register_item = (data) => Api().post(`/items/register-item`, data);
+const register_item_category = (data) =>
+  Api().post(`/items/register-item-category`, data);
+const disable_item = (id) => Api().delete(`/items/disable-item/${id}`);
+const reincoirporate_item = (id) => Api().post(`/items/reincorporate-item/${id}`);
+const reincoirporate_item_category = (id) => Api().post(`/items/reincorporate-item-category/${id}`);
+const disable_item_category = (id) =>
+  Api().delete(`/items/disable-item-category/${id}`);
 //TECHNICIANS
 const get_all_technicians = () => Api().get(`/technicians/get-all-technicians`);
 //INCIDENCES
@@ -42,7 +45,10 @@ const asign_technicians = (data) =>
 const update_incidence = (data) =>
   Api().put(`/incidences/update-incidence/${data.get("id")}`, data);
 const conclude_incidence = (data) =>
-  Api().post(`/incidences/conclude-incidence/${data.get("incidence_id")}`, data);
+  Api().post(
+    `/incidences/conclude-incidence/${data.get("incidence_id")}`,
+    data
+  );
 
 export default {
   // user auth
@@ -51,7 +57,7 @@ export default {
   create_user,
   get_all_users,
   update_user,
-  delete_user,
+  disable_user,
   password_reset,
   get_user,
   // devices
@@ -60,11 +66,15 @@ export default {
   get_all_devices,
   delete_device,
   get_all_device_types,
-  // components
-  get_all_components,
-  create_component,
-  update_component,
-  delete_component,
+  // items
+  get_all_items,
+  get_available_items,
+  register_item,
+  register_item_category,
+  disable_item,
+  disable_item_category,
+  reincoirporate_item,
+  reincoirporate_item_category,
   // technicians
   get_all_technicians,
   // incidences
@@ -76,5 +86,5 @@ export default {
   get_incidence,
   asign_technicians,
   get_user_incidences,
-  conclude_incidence
+  conclude_incidence,
 };

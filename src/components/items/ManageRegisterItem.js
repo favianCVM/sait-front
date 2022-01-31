@@ -14,10 +14,11 @@ import RegisterItemForm from "./RegisterItemForm";
 const ManageRegisterItem = ({
   isOpen = false,
   onClose = () => {},
-  handleSubmit = () => {},
-  itemCategories = [],
+  handleRegisterItem = () => {},
+  name = "",
 }) => {
   const [isMobile] = useMediaQuery("(max-width: 680px)");
+
   return (
     <Modal
       closeOnOverlayClick={false}
@@ -29,14 +30,11 @@ const ManageRegisterItem = ({
     >
       <ModalOverlay />
 
-      <ModalContent paddingTop={isMobile ? 50 : 0}>
-        <ModalHeader>Registro de elemento</ModalHeader>
+      <ModalContent>
+        <ModalHeader>Registrar {name}</ModalHeader>
 
         <ModalBody>
-          <RegisterItemForm
-            handleSubmit={handleSubmit}
-            itemCategories={itemCategories}
-          />
+          <RegisterItemForm handleSubmit={handleRegisterItem} name={name} />
         </ModalBody>
 
         <ModalFooter>

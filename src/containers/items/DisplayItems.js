@@ -3,11 +3,11 @@ import { useDisclosure, useBoolean, Grid, useToast } from "@chakra-ui/react";
 import PageHeader from "@components/common/PageHeader";
 import ItemCardDisplayer from "@components/items/ItemCardDisplayer";
 import { SpinnerScreen, ConfirmDialog } from "@components/common";
+import ManageItemCategory from "@components/items/ManageItemCategory";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as actions from "@actions/";
-import ManageItemCategory from "@components/items/ManageItemCategory";
 
 const DisplayItems = ({ actions }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -17,27 +17,73 @@ const DisplayItems = ({ actions }) => {
     onClose: confirmOnClose,
   } = useDisclosure();
   const [isFetching, togleIsFetching] = useBoolean(false);
-  const [components, setComponents] = React.useState([]);
-  const [updateComponent, setUpdateComponent] = React.useState(null);
-  const [deleteComponentId, setDeleteComponentId] = React.useState(null);
+  const [items, setItems] = React.useState([]);
 
   const toast = useToast();
 
   React.useEffect(() => {
-    getItemCategories();
+    getAllItems();
   }, []);
 
   // item category methods
+  const getAllItems = async () => {
+    togleIsFetching.on();
 
-  const getItemCategories = () => {};
+    let response = await actions.getAllItems();
 
-  const handleRegisterItemCategory = (values) => {};
-  const handleDisableItemCategory = (id) => {};
+    if (response.success) setItems(response.data);
+    else
+      toast({
+        title: response.title || "",
+        description: response.description || "",
+        status: response.status,
+        duration: 5000,
+        isClosable: true,
+      });
 
-  // items methods
+    togleIsFetching.off();
+  };
 
-  const handleRegisterItem = (values) => {};
-  const handleDisableItem = (id) => {};
+  const handleRegisterItemCategory = async (values) => {
+    togleIsFetching.on();
+
+    let response = await actions.registerItemCategory(values);
+
+    await toast({
+      title: response.title || "",
+      description: response.description || "",
+      status: response.status,
+      duration: 5000,
+      isClosable: true,
+    });
+
+    if (response.success) {
+      onClose();
+      getAllItems();
+    }
+
+    togleIsFetching.off();
+  };
+
+  const handleDisableItemCategory = async (id) => {
+    togleIsFetching.on();
+
+    let response = await actions.disableItemCategory(id);
+
+    await toast({
+      title: response.title || "",
+      description: response.description || "",
+      status: response.status,
+      duration: 5000,
+      isClosable: true,
+    });
+
+    if (response.success) {
+      getAllItems();
+    }
+
+    togleIsFetching.off();
+  };
 
   return (
     <>
@@ -53,18 +99,14 @@ const DisplayItems = ({ actions }) => {
         handleSubmit={handleRegisterItemCategory}
         isOpen={isOpen}
         onClose={() => {
-          setUpdateComponent(null);
           onClose();
         }}
-        updateComponent={updateComponent}
       />
 
       <ItemCardDisplayer
-        handleDisableItem={handleDisableItem}
-        handleRegisterItem={handleRegisterItem}
+        getAllItems={getAllItems}
         handleDisableItemCategory={handleDisableItemCategory}
-        handleRegister={handleRegisterItem}
-        data={components}
+        data={items}
       />
     </>
   );
