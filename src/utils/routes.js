@@ -3,7 +3,7 @@ import {
   Technicians as AdminTechnicians,
   Users as AdminUsers,
   Incidences as AdminIncidences,
-  Components as AdminComponents,
+  Items as AdminItems,
   Devices as AdminDevices,
   HandleIncidence as AdminHandleIncidence,
   TechnicianProfile as AdminTechnicianProfile,
@@ -11,7 +11,7 @@ import {
 } from "@pages/admin/index";
 import {
   RegisterIncidence as TechnicianRegisterIncidence,
-  Components as TechnicianComponents,
+  Items as TechnicianItems,
   Incidences as TechnicianIncidences,
   HandleIncidence as TechnicianHandleIncidence,
   TechnicianProfile,
@@ -60,11 +60,11 @@ const adminRoutes = [
     component: AdminTechnicians,
   },
   {
-    to: "/admin/components",
-    as: "/admin/componentes",
+    to: "/admin/inventory",
+    as: "/admin/inventario",
     icon: BiChip,
-    title: "Componentes",
-    component: AdminComponents,
+    title: "Inventario",
+    component: AdminItems,
   },
   {
     to: "/admin/devices",
@@ -173,11 +173,11 @@ const technicianRoutes = [
   },
 
   {
-    to: "/technician/components",
-    as: "/tecnico/componentes",
+    to: "/technician/inventory",
+    as: "/tecnico/inventario",
     icon: BiChip,
-    title: "Componentes",
-    component: TechnicianComponents,
+    title: "Inventario",
+    component: TechnicianItems,
   },
   {
     to: "/technician/incidence-management",

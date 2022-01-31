@@ -1,4 +1,5 @@
 export default {
   description: "",
-  items: [],
-};
+  name: "",
+  picture: null,
+}

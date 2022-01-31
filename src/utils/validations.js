@@ -197,7 +197,16 @@ const passwordResetValidations = (values, props) => {
   return errors;
 };
 
-const componentRegisterValidations = (values, props) => {};
+const registerItemValidations = (values, props) => {
+  const errors = {};
+  const { serial } = values;
+
+  if (!allTypeValidation.test(serial)) {
+    errors.serial = "Debe introducir un serial";
+  } else delete errors.serial;
+
+  return errors;
+};
 
 //EXPORTS
 export {
@@ -206,7 +215,7 @@ export {
   userCreationValidations,
   userUpdateValidations,
   deviceRegisterValidations,
-  componentRegisterValidations,
+  registerItemValidations,
   passwordResetValidations,
   concludeIncidenceValidations,
 };

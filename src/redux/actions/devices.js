@@ -15,8 +15,8 @@ export function createDevice(data) {
       .catch((e) => {
         return {
           title:
-            e.response?.data?.error?.message ||
-            "Hubo un problema en la creacion del equipo.",
+            e.response?.data?.message ||
+            "Hubo un problema con el registro del equipo.",
           success: false,
           status: "error",
           description: "Intente de nuevo",
@@ -39,7 +39,7 @@ export function updateDevice(data) {
       .catch((e) => {
         return {
           title:
-            e.response?.data?.error?.message ||
+            e.response?.data?.message ||
             "Hubo un problema al actualizar del equipo.",
           success: false,
           status: "error",
@@ -63,7 +63,7 @@ export function deleteDevice(id) {
       .catch((e) => {
         return {
           title:
-            e.response?.data?.error?.message ||
+            e.response?.data?.message ||
             "Hubo un problema al eliminar del equipo.",
           success: false,
           status: "error",
@@ -86,7 +86,7 @@ export function getAllDevices() {
       .catch((e) => {
         return {
           title:
-            e.response?.data?.error?.message ||
+            e.response?.data?.message ||
             "Hubo un problema en la obtencion de los equipos.",
           success: false,
           status: "error",
@@ -109,7 +109,7 @@ export function getAllDeviceTypes() {
       .catch((e) => {
         return {
           title:
-            e.response?.data?.error?.message ||
+            e.response?.data?.message ||
             "Hubo un problema en la obtencion de los equipos.",
           success: false,
           status: "error",

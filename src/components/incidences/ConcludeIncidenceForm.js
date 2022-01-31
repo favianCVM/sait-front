@@ -24,7 +24,7 @@ import error from "@models/error";
 import { priorities } from "@utils/options";
 import { FaPlus, FaTimes } from "react-icons/fa";
 
-const ConcludeIncidenceForm = ({ components = [], handleSubmit }) => {
+const ConcludeIncidenceForm = ({ items = [], handleSubmit }) => {
   return (
     <Box
       border="1px"
@@ -48,7 +48,7 @@ const ConcludeIncidenceForm = ({ components = [], handleSubmit }) => {
       py="12"
       mx={{
         base: "auto",
-        lg: "initial"
+        lg: "initial",
       }}
       w={{
         base: "80%",
@@ -136,14 +136,14 @@ const ConcludeIncidenceForm = ({ components = [], handleSubmit }) => {
                           showError={false}
                         />
                         <MultiSelectField
-                          options={components.map((el) => ({
+                          options={items.map((el) => ({
+                            label: `${el?.itemCategory?.name} (${el.serial})`,
                             value: el.id,
-                            label: el.name,
                           }))}
-                          name={`errors[${index}].components`}
-                          id={`errors[${index}].components`}
-                          placeholder="componentes"
-                          label="Componentes"
+                          name={`errors[${index}].items`}
+                          id={`errors[${index}].items`}
+                          placeholder="elementos"
+                          label="Elementos"
                           disabled={props.isSubmitting}
                         />
                       </Stack>

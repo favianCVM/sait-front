@@ -1,8 +1,8 @@
 export default {
-  deviceTypeId: null,
-  deviceType: {
+  device_type_id: null,
+  device_type: {
     name: null
   },
   serial: null,
-  components: [],
+  items: [],
 };

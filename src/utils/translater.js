@@ -29,3 +29,13 @@ export const status_color_schemes = {
   succeeded: "green",
   pending: "red",
 };
+
+export const item_status = {
+  1: "Desincorporado",
+  null: "Activo",
+};
+
+export const item_status_color_schemes = {
+  1: "red",
+  null: "green",
+};

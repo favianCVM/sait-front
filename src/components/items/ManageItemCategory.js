@@ -9,16 +9,12 @@ import {
   ModalBody,
   useMediaQuery,
 } from "@chakra-ui/react";
+import ItemCategoryForm from "@components/items/ItemCategoryForm";
 
-import DeviceForm from "@components/devices/DeviceForm";
-
-const ManageDevice = ({
-  isOpen = false,
-  onClose = false,
-  handleSubmit = () => {},
-  items = [],
-  deviceTypes = [],
-  updateDevice = null,
+const ManageItemCategory = ({
+  isOpen,
+  onClose,
+  handleSubmit,
 }) => {
   const [isMobile] = useMediaQuery("(max-width: 680px)");
   return (
@@ -34,15 +30,12 @@ const ManageDevice = ({
 
       <ModalContent paddingTop={isMobile ? 50 : 0}>
         <ModalHeader>
-          {updateDevice ? "Actualización de equipo" : "Registro de equipo"}
+          Creacion de categoria de elemento
         </ModalHeader>
 
         <ModalBody>
-          <DeviceForm
-            updateDevice={updateDevice}
+          <ItemCategoryForm
             handleSubmit={handleSubmit}
-            items={items}
-            deviceTypes={deviceTypes}
           />
         </ModalBody>
 
@@ -56,4 +49,4 @@ const ManageDevice = ({
   );
 };
 
-export default ManageDevice;
+export default ManageItemCategory;

@@ -16,20 +16,21 @@ import {
 import { Paginator, ConfirmDialog, TableSkeleton } from "@components/common";
 import { FiEdit, FiDelete } from "react-icons/fi";
 import { tableStyles } from "@utils/commonStyles";
-import {roles} from "@utils/translater"
-import { BsTrashFill } from "react-icons/bs";
+import { roles } from "@utils/translater";
+import { BsTrashFill, BsArrowUp } from "react-icons/bs";
 
 const UserTable = ({
   data = [],
   handleEdit = () => {},
-  handleDelete = () => {},
+  handleDisable = () => {},
+  handleReincorporation = () => {},
   isFetching = false,
 }) => {
   const [displayData, setDisplayData] = React.useState(data);
   const [selectedUser, setSelectedUser] = React.useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const handleDeleteConfirmation = (id) => {
+  const handleDisableConfirmation = (id) => {
     setSelectedUser(id);
     onOpen();
   };
@@ -43,7 +44,9 @@ const UserTable = ({
               <Th>#</Th>
               <Th>Rol</Th>
               <Th>Nombre y apellido</Th>
-              <Th display={{ base: "none", md: "table-cell" }}>Email</Th>
+              <Th>Cedula</Th>
+              <Th>Estatus</Th>
+              <Th>Email</Th>
               <Th></Th>
             </Tr>
           </Thead>
@@ -56,26 +59,38 @@ const UserTable = ({
                   <Td>
                     {row.first_name} {row.last_name}
                   </Td>
-                  <Td display={{ base: "none", md: "table-cell" }}>
-                    {row.email}
-                  </Td>
+                  <Td>{row.dni}</Td>
+                  <Td>{row.disabled === 1 ? "Deshabilitado" : "Activo"}</Td>
+                  <Td>{row.email}</Td>
                   <Td>
-                    <Stack direction="row" spacing="2">
-                      <Tooltip hasArrow label="Editar">
-                        <IconButton
-                          size="sm"
-                          onClick={() => handleEdit(row)}
-                          icon={<FiEdit />}
-                        />
-                      </Tooltip>
-                      <Tooltip hasArrow label="Eliminar">
-                        <IconButton
-                          size="sm"
-                          onClick={() => handleDeleteConfirmation(row.id)}
-                          icon={<BsTrashFill />}
-                        />
-                      </Tooltip>
-                    </Stack>
+                    {!row.disabled ? (
+                      <Stack direction="row" spacing="2">
+                        <Tooltip hasArrow label="Editar">
+                          <IconButton
+                            size="sm"
+                            onClick={() => handleEdit(row)}
+                            icon={<FiEdit />}
+                          />
+                        </Tooltip>
+                        <Tooltip hasArrow label="Deshabilitar usuario">
+                          <IconButton
+                            size="sm"
+                            onClick={() => handleDisableConfirmation(row.id)}
+                            icon={<BsTrashFill />}
+                          />
+                        </Tooltip>
+                      </Stack>
+                    ) : (
+                      <Stack direction="row" spacing="2">
+                        <Tooltip hasArrow label="Reincorporar">
+                          <IconButton
+                            size="sm"
+                            onClick={() => handleReincorporation(row)}
+                            icon={<BsArrowUp />}
+                          />
+                        </Tooltip>
+                      </Stack>
+                    )}
                   </Td>
                 </Tr>
               ))
@@ -92,8 +107,8 @@ const UserTable = ({
       <ConfirmDialog
         isOpen={isOpen}
         onClose={onClose}
-        confirmMethod={() => handleDelete(selectedUser)}
-        title="Desea eliminar este usuario?"
+        confirmMethod={() => handleDisable(selectedUser)}
+        title="Desea deshabilitar este usuario?"
       />
     </>
   );

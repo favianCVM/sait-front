@@ -12,8 +12,22 @@ const MultiSelectField = ({
   disabled = false,
   helperText = "",
   size = "md",
+  isLabeled = false,
   ...props
 }) => {
+
+  const getValues = (field) => {
+    if (isLabeled)
+      return options.reduce((acc, item) => {
+        acc = [
+          ...acc,
+          ...item?.options?.filter((el) => field.value.includes(el.value)),
+        ];
+        return acc;
+      }, []);
+    else return options.filter((el) => field.value.includes(el.value));
+  };
+
   return (
     <Field name={name}>
       {({ field, form }) => (
@@ -42,7 +56,7 @@ const MultiSelectField = ({
                 values.map((el) => el.value)
               );
             }}
-            value={options.filter((el) => field.value.includes(el.value))}
+            value={getValues(field)}
             {...props}
           />
           <FormHelperText>{helperText}</FormHelperText>

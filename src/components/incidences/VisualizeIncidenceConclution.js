@@ -107,21 +107,21 @@ const VisualizeIncidenceConclution = ({ incidence }) => {
                     </Text>
                   </Box>
 
-                  {el.components.length ? (
+                  {el.items.length ? (
                     <Box>
                       <Heading
                         color={useColorModeValue("gray.800", "gray.400")}
                         as="h4"
                         my="5"
                       >
-                        Componentes involucrados
+                        Elementos involucrados
                       </Heading>
                       <UnorderedList>
-                        {el.components.map((il) => (
+                        {el.items.map((il) => (
                           <ListItem>
                             <ListIcon as={FaPuzzlePiece} color="green.500" />
                             <Text display="inline" fontWeight="bold">
-                              {il.name}
+                              {il?.itemCategory?.name} ({il.serial})
                             </Text>
                           </ListItem>
                         ))}

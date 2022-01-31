@@ -9,15 +9,16 @@ import {
   ModalBody,
   useMediaQuery,
 } from "@chakra-ui/react";
-import ComponentForm from "@components/components/ComponentForm";
+import RegisterItemForm from "./RegisterItemForm";
 
-const ManageComponent = ({
-  isOpen,
-  onClose,
-  handleSubmit,
-  updateComponent,
+const ManageRegisterItem = ({
+  isOpen = false,
+  onClose = () => {},
+  handleRegisterItem = () => {},
+  name = "",
 }) => {
   const [isMobile] = useMediaQuery("(max-width: 680px)");
+
   return (
     <Modal
       closeOnOverlayClick={false}
@@ -29,18 +30,11 @@ const ManageComponent = ({
     >
       <ModalOverlay />
 
-      <ModalContent paddingTop={isMobile ? 50 : 0}>
-        <ModalHeader>
-          {updateComponent
-            ? "Actualización de componente"
-            : "Registro de componente"}
-        </ModalHeader>
+      <ModalContent>
+        <ModalHeader>Registrar {name}</ModalHeader>
 
         <ModalBody>
-          <ComponentForm
-            handleSubmit={handleSubmit}
-            updateComponent={updateComponent}
-          />
+          <RegisterItemForm handleSubmit={handleRegisterItem} name={name} />
         </ModalBody>
 
         <ModalFooter>
@@ -53,4 +47,4 @@ const ManageComponent = ({
   );
 };
 
-export default ManageComponent;
+export default ManageRegisterItem;
